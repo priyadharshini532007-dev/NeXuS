@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXUS Menu</title>
+<style>
+:root{--bg:#fafaf8;--fg:#1c1c1a;--mut:#6b6b66;--card:#fff;--bd:#e2e2dc;--ac:#0f6b5c;--hot:#b3541e}
+@media(prefers-color-scheme:dark){:root{--bg:#161614;--fg:#ecece6;--mut:#9a9a92;--card:#1f1f1c;--bd:#33332f;--ac:#4cc3ad;--hot:#e08a50}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif}
+header{padding:20px 16px 8px;max-width:1000px;margin:auto}h1{margin:0;font-size:22px}
+.sub{color:var(--mut);font-size:13px}
+.bar{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--bd);padding:10px 16px;z-index:5}
+.bar .in{max-width:1000px;margin:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input,select,button{font:inherit;padding:6px 10px;border:1px solid var(--bd);border-radius:6px;background:var(--card);color:var(--fg)}
+button{cursor:pointer}button.p{background:var(--ac);color:#fff;border-color:var(--ac)}
+main{max-width:1000px;margin:auto;padding:12px 16px 80px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{padding:2px 9px;border:1px solid var(--bd);border-radius:99px;cursor:pointer;font-size:12px;background:var(--card)}
+.chip.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+details{background:var(--card);border:1px solid var(--bd);border-radius:8px;margin:8px 0}
+details.sel{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac)}
+summary{padding:10px 12px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.nm{font-weight:600;flex:1}.b{font-size:11px;padding:1px 7px;border-radius:99px;border:1px solid var(--bd);color:var(--mut);white-space:nowrap}
+.hot{color:var(--hot);border-color:var(--hot)}
+.body{padding:0 14px 12px;border-top:1px solid var(--bd)}
+.f{margin:8px 0}.f b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut)}
+.news a{color:var(--ac)}.news li{margin:3px 0}.t{font-size:11px;color:var(--mut)}
+h2{font-size:16px;margin:22px 0 6px}
+.sig{display:grid;gap:4px;font-size:13px}
+pre.bp{display:none;white-space:pre-wrap;font-size:12px;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:10px;max-height:520px;overflow:auto}
+</style></head><body>
+<header><h1>NEXUS menu</h1><div class="sub" id="meta"></div>
+<div class="sub">News items are <b>leads</b> from public feeds, labelled by evidence type (primary / research / report / lead). Novelty claims in plans are hypotheses to verify, not findings.</div></header>
+<div class="bar"><div class="in">
+<input id="q" placeholder="Search plans..." size="22">
+<select id="lv"><option value="">Any level</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+<select id="fit"><option value="">Any time</option><option>24h</option><option>48h</option><option>weeks</option><option>months</option></select>
+<label><input type="checkbox" id="fresh"> only with fresh news</label>
+<select id="sort"><option value="heat">Sort: news heat</option><option value="level">Sort: level</option><option value="name">Sort: name</option></select>
+<span style="flex:1"></span><span id="cnt" class="sub"></span><button class="p" id="exp">Export chosen</button>
+</div></div>
+<main><div class="chips" id="chips"></div><div id="list"></div>
+<h2>Top signals right now</h2><div class="sig" id="sig"></div>
+<h2>Source health</h2><div class="sub" id="health"></div></main>
+<script>
+const D=__DATA__;
+const $=s=>document.querySelector(s);
+function el(t,a,...k){const e=document.createElement(t);for(const[x,v]of Object.entries(a||{})){if(x==='class')e.className=v;else if(x==='on')for(const[ev,fn]of Object.entries(v))e.addEventListener(ev,fn);else e.setAttribute(x,v)}for(const c of k.flat())if(c!=null)e.append(c);return e}
+let chosen=new Set();try{chosen=new Set(JSON.parse(localStorage.getItem('nexus_chosen')||'[]'))}catch(e){}
+function save(){try{localStorage.setItem('nexus_chosen',JSON.stringify([...chosen]))}catch(e){}$('#cnt').textContent=chosen.size+' chosen'}
+let tagSel=new Set();
+const tags=[...new Set(D.plans.flatMap(p=>p.tags))].sort();
+$('#meta').textContent=`Generated ${D.generated} - ${D.plans.length} plans - ${D.n_items} recent items`;
+for(const t of tags)$('#chips').append(el('span',{class:'chip',on:{click(e){tagSel.has(t)?tagSel.delete(t):tagSel.add(t);e.target.classList.toggle('on');render()}}},t));
+function safeUrl(u){return /^https?:\/\//.test(u)?u:'#'}
+function field(l,v){return el('div',{class:'f'},el('b',{},l),v)}
+function card(p){
+ const d=el('details',{class:chosen.has(p.id)?'sel':''});
+ const cb=el('input',{type:'checkbox',on:{click(e){e.stopPropagation()},change(e){e.target.checked?chosen.add(p.id):chosen.delete(p.id);d.classList.toggle('sel',e.target.checked);save()}}});cb.checked=chosen.has(p.id);
+ d.append(el('summary',{},cb,el('span',{class:'nm'},p.name),p.news.length?el('span',{class:'b hot'},p.news.length+' news'):null,el('span',{class:'b'},'L'+p.level),el('span',{class:'b'},p.fit)));
+ const b=el('div',{class:'body'});
+ b.append(field('Problem',p.problem),field('Verify the problem first',p.verify),field('Existing approaches',p.existing),field('Idea',p.idea),field('Novelty hypothesis (unverified)',p.novelty),field('Stack',p.stack),field('Stages',p.stages),field('Hardware / cost',p.hw+' - '+p.cost),field('Risks',p.risks),field('Metrics',p.metrics),
+  field('Prior-art searches to run',el('ul',{},p.prior_art.map(q=>el('li',{},q)))),
+  field('Relevant news (leads)',p.news.length?el('ul',{class:'news'},p.news.map(n=>el('li',{},el('a',{href:safeUrl(n.url),target:'_blank',rel:'noopener noreferrer'},n.title.slice(0,120)),' ',el('span',{class:'t'},`matched: ${(n.why||[]).join(', ')} | ${n.source} - ${n.type}${n.published?' - '+n.published.slice(0,10):''}${n.extra&&n.extra.quality?' - repo quality '+n.extra.quality+'/100':''}`)))):'No fresh matching news. This is an evergreen plan.'));
+ const pre=el('pre',{class:'bp'});pre.textContent=p.blueprint||'';
+ const label='Explore: implementation blueprint';
+ const bx=el('button',{class:'p',on:{click(e){e.preventDefault();const o=pre.style.display!=='block';pre.style.display=o?'block':'none';bx.textContent=o?'Hide blueprint':label}}},label);
+ const cp=el('button',{on:{click(){try{navigator.clipboard.writeText(p.blueprint||'');cp.textContent='Copied'}catch(e){}}}},'Copy blueprint');
+ b.append(el('div',{class:'f'},bx,' ',cp,el('div',{class:'t'},'Core blueprint built from the plan. For the full AI-written version, tap Explore in Telegram or run: python nexus.py explore '+p.id),pre));
+ d.append(b);return d}
+function render(){
+ const q=$('#q').value.toLowerCase(),lv=$('#lv').value,fit=$('#fit').value,fr=$('#fresh').checked,s=$('#sort').value;
+ let ps=D.plans.filter(p=>(!q||JSON.stringify(p).toLowerCase().includes(q))&&(!lv||p.level==lv)&&(!fit||p.fit==fit)&&(!fr||p.news.length)&&[...tagSel].every(t=>p.tags.includes(t)));
+ ps.sort((a,b)=>s==='heat'?b.heat-a.heat:s==='level'?b.level-a.level:a.name.localeCompare(b.name));
+ const L=$('#list');L.replaceChildren(...ps.map(card));save()}
+for(const i of['#q','#lv','#fit','#fresh','#sort'])$(i).addEventListener('input',render);
+$('#exp').onclick=()=>{const j=JSON.stringify({chosen:[...chosen]},null,1);const a=el('a',{href:URL.createObjectURL(new Blob([j],{type:'application/json'})),download:'chosen.json'});a.click();alert('Saved chosen.json. Then run:\npython nexus.py scaffold --from chosen.json')};
+$('#sig').replaceChildren(...D.signals.map(n=>el('div',{},el('a',{href:safeUrl(n.url),target:'_blank',rel:'noopener noreferrer'},n.title.slice(0,130)),' ',el('span',{class:'t'},`${n.source} - ${n.type}`))));
+$('#health').textContent=D.health.filter(h=>h.ok).length+' sources OK, failing: '+(D.health.filter(h=>!h.ok).map(h=>h.source).join(', ')||'none');
+render();
+</script></body></html>

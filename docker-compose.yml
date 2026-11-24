@@ -1,0 +1,9 @@
+services:
+  nexus:
+    build: .
+    restart: unless-stopped
+    env_file: .env          # TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, optional ANTHROPIC_API_KEY, GITHUB_TOKEN
+    volumes:
+      - nexus-data:/data
+volumes:
+  nexus-data:

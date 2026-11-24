@@ -1,0 +1,69 @@
+name: nexus
+
+# Each run listens to Telegram for ~13 minutes, answers commands, then saves its (encrypted) state to the
+# "state" branch. Runs are chained every 15 minutes; `concurrency` keeps exactly one active at a time.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: nexus
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GITHUB_TOKEN_FOR_STATE: ${{ secrets.GITHUB_TOKEN }}
+      STATE_KEY: ${{ secrets.STATE_KEY }}
+      NEXUS_DATA: ${{ github.workspace }}/state
+      NEXUS_RUN_MINUTES: "13"
+      NEXUS_DRAIN_MINUTES: "8"
+      TZ: Asia/Kolkata
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch saved state branch (absent on first run)
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: state
+          path: statebranch
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Decrypt state
+        run: |
+          mkdir -p state
+          if [ -f statebranch/state.enc ]; then
+            openssl enc -d -aes-256-cbc -pbkdf2 -pass env:STATE_KEY -in statebranch/state.enc | tar xz -C state
+            echo "state restored"
+          else
+            echo "no saved state yet"
+          fi
+
+      - name: Run NEXUS (listen, answer, work)
+        run: python cloud_bot.py
+
+      - name: Save encrypted state
+        if: always()
+        run: |
+          tar czf - -C state . | openssl enc -aes-256-cbc -pbkdf2 -salt -pass env:STATE_KEY -out /tmp/state.enc
+          rm -rf /tmp/out && mkdir /tmp/out && cp /tmp/state.enc /tmp/out/state.enc && cd /tmp/out
+          git init -q && git checkout -q -b state
+          git config user.name "nexus-bot" && git config user.email "nexus-bot@users.noreply.github.com"
+          git add state.enc && git commit -q -m "state $(date -u +%FT%TZ)"
+          git push -q -f "https://x-access-token:${GITHUB_TOKEN_FOR_STATE}@github.com/${GITHUB_REPOSITORY}.git" state

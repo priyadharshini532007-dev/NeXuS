@@ -1,0 +1,8 @@
+.env
+*.db
+out/
+projects/
+state/
+statebranch/
+bot.log
+__pycache__/

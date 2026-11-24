@@ -1,0 +1,1555 @@
+[
+ {
+  "id": "acoustic-fault-mcu",
+  "name": "AcousticGuard: sub-$15 machine-fault listener on a microcontroller",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "edge",
+   "embedded",
+   "ai",
+   "infra"
+  ],
+  "kw": [
+   "predictive maintenance",
+   "bearing",
+   "vibration",
+   "anomaly detection",
+   "tinyml",
+   "industrial"
+  ],
+  "problem": "Small factories, pump houses and agri-processing units cannot afford condition monitoring, so motors and bearings fail without warning.",
+  "verify": "Find MSME downtime/maintenance-cost surveys; interview 3 workshop owners; check what vendors charge per sensor node.",
+  "existing": "Commercial vibration nodes (hundreds of USD, cloud-tied); academic CWRU/MIMII dataset papers that rarely test on cheap MEMS mics.",
+  "idea": "Unsupervised on-device anomaly model on a MEMS microphone/accelerometer; learns each machine's own 'normal' in-situ, no labelled faults needed.",
+  "novelty": "Hypothesis: per-machine self-calibrating autoencoder on <512KB RAM that is evaluated across mic placement shift, which most papers skip. Must verify vs. TinyML anomaly-detection literature.",
+  "stack": "ESP32-S3 or RP2040, I2S MEMS mic, ADXL345, TFLite Micro / Edge Impulse, Python for training, MQTT optional",
+  "stages": "Collect baseline audio from a fan/pump rig -> train autoencoder -> quantize to int8 -> run on MCU -> inject faults (loosen mount, add imbalance) -> measure detection latency/false alarms",
+  "hw": "ESP32-S3, MEMS mic, accelerometer, a fan or small pump",
+  "cost": "INR 2-4k",
+  "risks": "Domain shift between rigs; noisy environments; false alarms erode trust.",
+  "metrics": "AUROC on injected faults, false alarms/day, RAM/flash, mW, detection delay",
+  "prior_art": [
+   "tinyml acoustic anomaly detection microcontroller",
+   "MIMII dataset autoencoder embedded",
+   "Edge Impulse predictive maintenance"
+  ]
+ },
+ {
+  "id": "pqc-inventory",
+  "name": "Q-Ready: cryptographic bill of materials scanner for post-quantum migration",
+  "level": 4,
+  "fit": "weeks",
+  "tags": [
+   "pqc",
+   "crypto",
+   "security",
+   "web"
+  ],
+  "kw": [
+   "post-quantum",
+   "ml-kem",
+   "kyber",
+   "dilithium",
+   "cbom",
+   "harvest now",
+   "nist"
+  ],
+  "problem": "Organisations do not know where RSA/ECC is used in code, certificates and protocols, so they cannot plan migration to NIST PQC standards.",
+  "verify": "Read NIST IR 8547 timeline and CISA/NSA PQC guidance; survey public statements on 'crypto inventory' as the first migration blocker.",
+  "existing": "IBM CBOM/Sonar crypto plugins, commercial discovery tools; most focus on source scanning, fewer correlate live TLS endpoints + binaries + config.",
+  "idea": "One tool that scans repos, container images and live TLS endpoints, emits a CycloneDX CBOM, and ranks assets by 'harvest-now-decrypt-later' exposure (data lifetime x algorithm).",
+  "novelty": "Hypothesis: exposure-ranking by data shelf-life across the three scan surfaces. Check CycloneDX CBOM tooling and commercial scanners first.",
+  "stack": "Python, tree-sitter, sslyze/OpenSSL, CycloneDX schema, SQLite, small web UI",
+  "stages": "Static crypto-API detectors -> TLS handshake prober -> CBOM export -> exposure scoring -> evaluate on 20 open-source repos",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "False positives from wrapper libraries; legal limits on scanning third-party hosts (scan only your own/permitted).",
+  "metrics": "Precision/recall vs hand-labelled repos, scan time, CBOM schema validity",
+  "prior_art": [
+   "CycloneDX CBOM tools",
+   "crypto agility scanner open source",
+   "pqc readiness assessment tool github"
+  ]
+ },
+ {
+  "id": "print-fingerprint-auth",
+  "name": "MicroTexture: phone-camera authentication of paper/packaging without special ink",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "supply",
+   "vision",
+   "crypto",
+   "india"
+  ],
+  "kw": [
+   "counterfeit",
+   "authentication",
+   "physical unclonable",
+   "packaging",
+   "anti-counterfeit",
+   "traceability"
+  ],
+  "problem": "Counterfeit medicines and branded goods are costly and dangerous; QR codes and holograms are trivially copied.",
+  "verify": "Find OECD/EUIPO counterfeit trade estimates and WHO falsified-medicine reports; compare cost per unit of existing tags.",
+  "existing": "Holograms, serialised QR, NFC tags, PUF research (needs lab imaging), startups using AI on printed dot patterns.",
+  "idea": "Treat the natural random fibre/ink texture of each package as a fingerprint; enrol with a macro photo, verify with a phone, bind to a signed record.",
+  "novelty": "Hypothesis: robust matching across phone models and lighting using learned descriptors + signature binding. Large prior art on 'paper fingerprinting' - must differentiate on phone robustness evidence.",
+  "stack": "Python/OpenCV, PyTorch (metric learning), Ed25519 signatures, FastAPI, Flutter/PWA",
+  "stages": "Build image set (100 samples x 5 phones x 3 lights) -> baseline SIFT/ORB -> learned descriptor -> FAR/FRR curve -> signed enrolment service",
+  "hw": "2-3 phones, clip-on macro lens",
+  "cost": "INR 1-3k",
+  "risks": "Print variance, wear, adversarial reprints; needs rigorous FAR/FRR.",
+  "metrics": "EER, FAR at fixed FRR, robustness across devices",
+  "prior_art": [
+   "paper fingerprint authentication smartphone",
+   "physical unclonable function packaging camera",
+   "microscopic print texture authentication"
+  ]
+ },
+ {
+  "id": "lora-triage-mesh",
+  "name": "FloodNet: store-and-forward LoRa mesh with triage messages for disaster zones",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "embedded",
+   "infra",
+   "water",
+   "india"
+  ],
+  "kw": [
+   "lora",
+   "meshtastic",
+   "disaster",
+   "emergency communication",
+   "off-grid"
+  ],
+  "problem": "Cell networks fail in floods/cyclones exactly when people need to report needs and rescuers need a picture.",
+  "verify": "Read NDMA/post-disaster telecom outage reports; check Meshtastic limits for structured messages.",
+  "existing": "Meshtastic (chat-oriented), satellite messengers, ham radio.",
+  "idea": "Structured, priority-aware messages (medical, water, rescue) with deduplication and geo-aggregation on a LoRa mesh, plus a responder map at any connected node.",
+  "novelty": "Hypothesis: priority + CRDT-style aggregation so a congested low-bandwidth mesh stays useful. Check Meshtastic plugins and DisasterRadio-style projects.",
+  "stack": "ESP32 + SX1262, Meshtastic firmware or RadioLib, Python simulator, Leaflet map",
+  "stages": "Simulate congestion in Python -> prototype 3-5 nodes -> implement priority/dedup -> range and delivery tests outdoors -> responder UI",
+  "hw": "4x LoRa boards (ESP32+SX1262), antennas",
+  "cost": "INR 8-12k",
+  "risks": "RF regulations (use ISM 865-867 MHz in India), range variance.",
+  "metrics": "Delivery ratio vs node count, latency, airtime utilisation",
+  "prior_art": [
+   "meshtastic emergency messaging",
+   "LoRa disaster communication mesh paper",
+   "delay tolerant network triage"
+  ]
+ },
+ {
+  "id": "offline-crop-doctor",
+  "name": "CropDoctor Offline: calibrated plant-disease triage that says 'I don't know'",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "agri",
+   "vision",
+   "edge",
+   "ai",
+   "india"
+  ],
+  "kw": [
+   "plant disease",
+   "crop",
+   "pest",
+   "leaf",
+   "precision agriculture",
+   "smallholder"
+  ],
+  "problem": "Farmers with poor connectivity misdiagnose crop disease; apps trained on clean lab images (PlantVillage) fail in field conditions and are overconfident.",
+  "verify": "Find yield-loss-from-pests estimates (FAO/ICAR); read papers documenting PlantVillage-to-field performance drops.",
+  "existing": "Plantix, Kisan apps, many PlantVillage CNN demos.",
+  "idea": "On-phone model with out-of-distribution rejection and conformal prediction sets; outputs 'uncertain - take a second photo/see extension officer' instead of a wrong label.",
+  "novelty": "Hypothesis: honest uncertainty + field-image benchmark you collect. Value is the evaluation (lab vs field), not another CNN.",
+  "stack": "PyTorch, MobileNet/EfficientNet-Lite, TFLite, conformal prediction (MAPIE), PWA/Android",
+  "stages": "Reproduce baseline -> collect 300+ field photos -> measure drop -> add OOD + conformal -> int8 on-phone -> field test with a farmer/extension worker",
+  "hw": "Phone",
+  "cost": "Free",
+  "risks": "Field data collection effort; label noise; liability (advisory only).",
+  "metrics": "Accuracy on field set, coverage vs set size, OOD AUROC, latency on mid-range phone",
+  "prior_art": [
+   "plant disease detection field images domain shift",
+   "conformal prediction plant disease",
+   "PlantDoc dataset"
+  ]
+ },
+ {
+  "id": "agent-taint-guard",
+  "name": "TaintGuard: information-flow control for LLM agents against prompt injection",
+  "level": 4,
+  "fit": "weeks",
+  "tags": [
+   "ai",
+   "security"
+  ],
+  "kw": [
+   "prompt injection",
+   "tool use",
+   "mcp",
+   "jailbreak",
+   "indirect injection",
+   "llm security"
+  ],
+  "problem": "Agents that read web pages/emails and call tools can be hijacked by instructions hidden in untrusted data.",
+  "verify": "Review OWASP LLM Top 10, AgentDojo and recent incident reports; measure baseline attack success rate yourself.",
+  "existing": "Heuristic filters, guard models, CaMeL-style capability/dual-LLM designs, AgentDojo benchmark.",
+  "idea": "Tag every value with provenance (trusted/untrusted); a deterministic policy engine blocks tool calls whose arguments derive from untrusted data unless user-approved.",
+  "novelty": "Hypothesis: lightweight taint layer pluggable into MCP servers with measurable utility/security trade-off. Strong prior art (CaMeL, FIDES) - contribution would be implementation + benchmark.",
+  "stack": "Python, MCP SDK, AgentDojo, pydantic policies",
+  "stages": "Run AgentDojo baseline -> implement taint propagation -> policy DSL -> measure attack success vs task success -> publish results",
+  "hw": "Laptop + LLM API",
+  "cost": "USD 10-50 API",
+  "risks": "Utility loss from over-blocking; taint through LLM summarisation is hard to define.",
+  "metrics": "Attack success rate, benign task completion, user-approval prompts per task",
+  "prior_art": [
+   "CaMeL prompt injection defense",
+   "AgentDojo benchmark",
+   "FIDES information flow agents"
+  ]
+ },
+ {
+  "id": "pkg-behavior-diff",
+  "name": "PkgDiff: behavioural diffing of npm/PyPI releases to catch supply-chain malware",
+  "level": 4,
+  "fit": "weeks",
+  "tags": [
+   "security",
+   "web",
+   "data"
+  ],
+  "kw": [
+   "supply chain attack",
+   "npm",
+   "pypi",
+   "malicious package",
+   "typosquat",
+   "maintainer takeover",
+   "backdoor"
+  ],
+  "problem": "Malicious package updates (hijacked maintainers, install-script payloads) reach developers before registries remove them.",
+  "verify": "Pull public incident lists (e.g. Socket, Phylum, OpenSSF malicious-packages) and compute time-to-removal.",
+  "existing": "Socket, Phylum, OSV malicious-packages, Scorecard, GuardDog.",
+  "idea": "Diff version N vs N-1 for new capabilities (network, exec, env access, obfuscation, new install hooks) and score the change, sandbox-run the delta.",
+  "novelty": "Hypothesis: capability-delta scoring plus sandbox trace of only the changed code. Check GuardDog/Socket for the same approach.",
+  "stack": "Python, tree-sitter/AST, Docker/gVisor sandbox, OSV malicious-packages dataset",
+  "stages": "Build labelled set from OpenSSF dataset -> static capability extractor -> delta scoring -> sandbox traces -> measure precision at fixed alert budget",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Ethics: detonate only in isolated sandbox, never publish live malware; evasion by attackers.",
+  "metrics": "Precision@k, recall on known-malicious set, scan time per package",
+  "prior_art": [
+   "GuardDog datadog",
+   "OpenSSF malicious-packages",
+   "Socket supply chain detection"
+  ]
+ },
+ {
+  "id": "traceable-forensics",
+  "name": "EvidenceTrail: provenance-linked LLM assistant for digital forensic timelines",
+  "level": 4,
+  "fit": "weeks",
+  "tags": [
+   "forensics",
+   "ai",
+   "security",
+   "data"
+  ],
+  "kw": [
+   "digital forensics",
+   "dfir",
+   "incident response",
+   "log analysis"
+  ],
+  "problem": "Investigators drown in log/artifact volume, and LLM summaries are unusable as evidence because claims cannot be traced to raw artifacts.",
+  "verify": "Read DFIR practitioner posts and SANS surveys on workload; check admissibility guidance on AI-derived output.",
+  "existing": "Plaso/log2timeline, Timesketch, Velociraptor; LLM add-ons without citations.",
+  "idea": "Every sentence the assistant produces must cite artifact IDs; an automatic verifier rejects uncited or contradicted claims.",
+  "novelty": "Hypothesis: enforced citation + verifier loop on top of Timesketch data. Check Timesketch LLM features.",
+  "stack": "Python, Plaso, Timesketch/OpenSearch, LLM API, claim-verifier module",
+  "stages": "Ingest public DFIR challenge images -> timeline -> retrieval -> cited answers -> verifier -> score against ground-truth findings",
+  "hw": "Laptop",
+  "cost": "Free-USD 20",
+  "risks": "Hallucinated citations; sensitive data handling; verifier false rejects.",
+  "metrics": "Claim-support rate, findings recall vs challenge answer key, time saved",
+  "prior_art": [
+   "Timesketch LLM",
+   "DFIR LLM assistant citations",
+   "Plaso Velociraptor AI"
+  ]
+ },
+ {
+  "id": "pressure-transient-leaks",
+  "name": "HydroPing: low-cost pressure-transient sensors to localise pipe leaks",
+  "level": 3,
+  "fit": "months",
+  "tags": [
+   "water",
+   "embedded",
+   "infra",
+   "india"
+  ],
+  "kw": [
+   "water leak",
+   "non-revenue water",
+   "pipeline",
+   "pressure transient",
+   "smart water",
+   "distribution network"
+  ],
+  "problem": "Large fractions of treated water are lost to leaks (non-revenue water); finding where is slow and manual.",
+  "verify": "Find CPHEEO/World Bank NRW figures for Indian cities; confirm cost of acoustic correlators.",
+  "existing": "Acoustic correlators, satellite leak detection, expensive SCADA.",
+  "idea": "Time-synchronised cheap pressure sensors capture transient waves; arrival-time differences localise the leak or burst.",
+  "novelty": "Hypothesis: GPS/PPS-synced MCU nodes at <INR 3k each reach usable localisation error. Needs bench validation with a pipe loop.",
+  "stack": "RP2040/ESP32, 0-10 bar pressure transducer, GPS PPS or NTP-disciplined clock, Python localisation",
+  "stages": "Simulate wave propagation -> bench test on a pipe loop with a controllable valve leak -> measure localisation error -> field trial in a building",
+  "hw": "2-3 nodes, transducers, PVC pipe rig",
+  "cost": "INR 6-10k",
+  "risks": "Clock sync accuracy, wave speed uncertainty, safety around water pressure.",
+  "metrics": "Localisation error (m), detection threshold (L/min), false triggers",
+  "prior_art": [
+   "pressure transient leak localisation low cost",
+   "negative pressure wave pipeline leak",
+   "IoT water leak detection time difference of arrival"
+  ]
+ },
+ {
+  "id": "biogas-monitor",
+  "name": "DigesterWatch: sensing and early-warning for community biogas digesters",
+  "level": 2,
+  "fit": "weeks",
+  "tags": [
+   "energy",
+   "climate",
+   "embedded",
+   "agri",
+   "india"
+  ],
+  "kw": [
+   "biogas",
+   "anaerobic digestion",
+   "waste to energy",
+   "methane",
+   "biomass",
+   "compressed biogas"
+  ],
+  "problem": "Small digesters fail silently (acidification, temperature drop), losing gas output and farmer trust.",
+  "verify": "Search biogas plant failure/abandonment rates in India (e.g. NBMMP reviews); interview a plant operator.",
+  "existing": "Industrial SCADA, manual pH/temperature checks.",
+  "idea": "Low-cost pH/temperature/gas-pressure/CH4 sensing with a simple rule+trend model that warns days before failure.",
+  "novelty": "Hypothesis: practical early-warning features from cheap sensors; mostly an applied engineering project, state this honestly.",
+  "stack": "ESP32, DS18B20, pH probe, MQ-4/NDIR CH4, Grafana/Telegram alerts",
+  "stages": "Sensor characterisation -> logger -> 4-week digester run (even a lab-scale one) -> alert rules -> evaluate lead time",
+  "hw": "ESP32, sensors, lab-scale digester",
+  "cost": "INR 5-8k",
+  "risks": "Sensor drift in corrosive gas; slow biological timescales.",
+  "metrics": "Alert lead time, false alerts, sensor drift/week",
+  "prior_art": [
+   "biogas digester monitoring IoT",
+   "anaerobic digestion early warning acidification",
+   "low-cost methane sensor biogas"
+  ]
+ },
+ {
+  "id": "paper-repro-harness",
+  "name": "ReproBench: automatic reproducibility harness for ML papers",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "ai",
+   "data",
+   "science"
+  ],
+  "kw": [
+   "reproducibility",
+   "papers with code"
+  ],
+  "problem": "Many papers cannot be re-run: missing seeds, pinned versions or data, so claimed gains cannot be checked.",
+  "verify": "Cite ML Reproducibility Challenge reports; sample 20 recent repos and record how many run unmodified.",
+  "existing": "Papers with Code, ReproZip, Docker templates, MLRC.",
+  "idea": "Tool that builds an environment from a repo, runs the declared command, compares reported vs reproduced metrics, and publishes a reproducibility card.",
+  "novelty": "Hypothesis: automated environment inference + metric diff. Evidence needed on success rate.",
+  "stack": "Python, Docker, uv/pip-compile, GitHub API, small LLM for README parsing (optional)",
+  "stages": "Sample 30 repos -> manual baseline run rate -> automate env build -> automate metric compare -> publish report",
+  "hw": "Laptop/GPU optional",
+  "cost": "Free",
+  "risks": "GPU/data availability; running untrusted repos needs sandboxing.",
+  "metrics": "% repos reproduced automatically, time per repo",
+  "prior_art": [
+   "ReproZip",
+   "MLRC reproducibility challenge",
+   "paperswithcode reproducibility"
+  ]
+ },
+ {
+  "id": "gaze-cursor",
+  "name": "GazeCursor: webcam eye-control for people with motor impairment",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "hci",
+   "vision",
+   "web",
+   "edge"
+  ],
+  "kw": [
+   "eye tracking",
+   "accessibility",
+   "assistive technology",
+   "gaze",
+   "mediapipe",
+   "motor impairment"
+  ],
+  "problem": "Eye trackers cost USD 150-2000; many people with ALS/spinal injury cannot afford them.",
+  "verify": "Find assistive-tech cost surveys; talk to an occupational therapist or disability NGO.",
+  "existing": "Tobii, Camera Mouse, WebGazer.js, Google Project Gameface.",
+  "idea": "Per-user calibrated gaze+head-pose model with dwell/blink click and error-correcting on-screen targets, running fully in the browser.",
+  "novelty": "Hypothesis: accuracy gain from continual self-calibration using click feedback. Prior art strong (Gameface, WebGazer) - focus on measured accuracy.",
+  "stack": "MediaPipe FaceMesh, TF.js/ONNX Web, WebGL, Kalman smoothing",
+  "stages": "Baseline WebGazer accuracy -> collect calibration data from 5 volunteers -> online recalibration -> accessibility usability test",
+  "hw": "Webcam",
+  "cost": "Free",
+  "risks": "Lighting, glasses, fatigue; must test with real target users.",
+  "metrics": "Angular error (deg), target hit rate, words/min on virtual keyboard",
+  "prior_art": [
+   "WebGazer.js",
+   "Project Gameface",
+   "webcam eye tracking calibration deep learning"
+  ]
+ },
+ {
+  "id": "structural-vibration-twin",
+  "name": "BridgeEar: vibration-based health monitoring for old buildings and small bridges",
+  "level": 3,
+  "fit": "months",
+  "tags": [
+   "infra",
+   "embedded",
+   "data",
+   "india"
+  ],
+  "kw": [
+   "structural health monitoring",
+   "bridge collapse",
+   "vibration",
+   "modal analysis",
+   "digital twin",
+   "accelerometer"
+  ],
+  "problem": "Ageing bridges and buildings are inspected visually and rarely; collapses give little warning.",
+  "verify": "Gather bridge-collapse statistics and inspection-frequency policy; read SHM review papers.",
+  "existing": "Fibre/strain gauge systems costing lakhs, periodic visual inspection.",
+  "idea": "Cheap accelerometer nodes estimate natural frequencies (operational modal analysis) and flag frequency drift beyond environmental/temperature effects.",
+  "novelty": "Hypothesis: temperature-compensated frequency tracking with MEMS accelerometers. Validate on a lab beam first.",
+  "stack": "ESP32 + ADXL355/MPU, Python (scipy, FDD/SSI), temperature compensation regression",
+  "stages": "Cantilever beam rig -> add mass/crack to shift frequency -> compensate temperature -> detect shift -> try on a footbridge",
+  "hw": "Low-noise accelerometers, beam, ESP32",
+  "cost": "INR 6-10k",
+  "risks": "MEMS noise floor, environmental confounders, never claim safety certification.",
+  "metrics": "Frequency resolution (Hz), detection of known stiffness change, false alarm rate",
+  "prior_art": [
+   "operational modal analysis MEMS low cost",
+   "structural health monitoring IoT accelerometer",
+   "vibration damage detection temperature compensation"
+  ]
+ },
+ {
+  "id": "sca-lab",
+  "name": "SideChannel Lab: power-analysis attacks on your own microcontroller",
+  "level": 5,
+  "fit": "months",
+  "tags": [
+   "security",
+   "crypto",
+   "embedded"
+  ],
+  "kw": [
+   "side-channel",
+   "power analysis",
+   "fault injection",
+   "chipwhisperer",
+   "hardware security",
+   "aes"
+  ],
+  "problem": "Embedded crypto implementations leak keys through power; most developers never test for it.",
+  "verify": "Review published SCA attacks on commodity MCUs; confirm cost of commercial testing.",
+  "existing": "ChipWhisperer, commercial labs.",
+  "idea": "Build a cheap capture rig and reproduce CPA on AES in your own board, then evaluate masking countermeasures with a TVLA leakage test.",
+  "novelty": "Level-3/5 research-replication: value is the measured comparison, not a new attack. Attack only hardware you own.",
+  "stack": "ChipWhisperer-Lite/Nano or oscilloscope + shunt, Python (numpy), STM32/AVR targets",
+  "stages": "Capture traces -> CPA recover key from unprotected AES -> add masking -> TVLA t-test -> write results",
+  "hw": "ChipWhisperer Nano/Lite, STM32 board",
+  "cost": "INR 15-25k",
+  "risks": "Equipment cost; time sink; keep to own devices.",
+  "metrics": "Traces needed for key recovery, TVLA t-values pre/post masking",
+  "prior_art": [
+   "ChipWhisperer tutorials",
+   "TVLA leakage assessment",
+   "masked AES implementation Cortex-M"
+  ]
+ },
+ {
+  "id": "firmware-sbom",
+  "name": "FirmLens: SBOM and CVE matching from router/IoT firmware images",
+  "level": 4,
+  "fit": "weeks",
+  "tags": [
+   "security",
+   "embedded",
+   "data"
+  ],
+  "kw": [
+   "firmware",
+   "iot vulnerability",
+   "sbom",
+   "router",
+   "binwalk",
+   "cve",
+   "embedded linux"
+  ],
+  "problem": "Consumers and small vendors cannot tell which outdated components (BusyBox, OpenSSL) sit inside their devices.",
+  "verify": "Use CISA KEV and vendor advisories to show component-based vulnerabilities in IoT.",
+  "existing": "EMBA, FACT, Binwalk, commercial SCA.",
+  "idea": "Extract firmware, fingerprint library versions from binaries, map to CVEs with exploitability context and produce a readable report for non-experts.",
+  "novelty": "Hypothesis: better version fingerprinting and plain-language prioritisation. Existing open tools (EMBA/FACT) are strong - compare accuracy directly.",
+  "stack": "Python, binwalk/unblob, YARA, NVD/OSV API, CycloneDX",
+  "stages": "Collect 20 open firmware images -> extractor -> version fingerprints -> CVE mapping -> compare vs EMBA ground truth",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Legal use of firmware images; NVD data noise.",
+  "metrics": "Component identification precision/recall vs known SBOM",
+  "prior_art": [
+   "EMBA firmware analyzer",
+   "FACT firmware analysis",
+   "SBOM from binary"
+  ]
+ },
+ {
+  "id": "cough-screen-eval",
+  "name": "CoughCheck: rigorous domain-shift evaluation of audio respiratory screening",
+  "level": 3,
+  "fit": "months",
+  "tags": [
+   "health",
+   "ai",
+   "edge"
+  ],
+  "kw": [
+   "cough",
+   "respiratory",
+   "audio",
+   "screening",
+   "tuberculosis",
+   "covid",
+   "stethoscope"
+  ],
+  "problem": "Cough-based screening papers report high accuracy that collapses on new devices/hospitals.",
+  "verify": "Read systematic reviews on cough-AI bias; list datasets (Coswara, COUGHVID) and their collection protocols.",
+  "existing": "Papers and startups claiming TB/COVID cough detection.",
+  "idea": "A negative-result-friendly study: train on one dataset, test across devices/sites, and publish honest performance plus a mitigation (domain adaptation).",
+  "novelty": "Hypothesis: a careful cross-dataset benchmark is itself useful. No clinical claims.",
+  "stack": "Python, torchaudio, public datasets, scikit-learn",
+  "stages": "Reproduce paper -> cross-dataset test -> domain adaptation -> report with confidence intervals",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Data licences; must not be framed as diagnostic.",
+  "metrics": "AUROC in-domain vs cross-domain, calibration error",
+  "prior_art": [
+   "COUGHVID Coswara cross dataset",
+   "cough audio covid detection bias review"
+  ]
+ },
+ {
+  "id": "vernacular-dispatch",
+  "name": "VaaniDispatch: low-bandwidth voice triage for emergency calls in Indian languages",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "india",
+   "health",
+   "ai",
+   "edge"
+  ],
+  "kw": [
+   "emergency response",
+   "112",
+   "speech recognition",
+   "indic",
+   "asr",
+   "triage",
+   "dispatch"
+  ],
+  "problem": "Call-takers handle mixed-language, noisy calls; transcription and structured intake are slow.",
+  "verify": "Study 112/ERSS public documents and response-time reports; talk to a dispatcher if possible.",
+  "existing": "Commercial CAD systems, Whisper/Indic ASR models, AI4Bharat IndicConformer.",
+  "idea": "Streaming Indic ASR + slot extraction (location, condition) with human-in-the-loop confirmation, evaluated on noisy code-mixed audio.",
+  "novelty": "Hypothesis: evaluation on noisy code-mixed emergency-style speech with entity-level accuracy. Use only synthetic/consented data.",
+  "stack": "AI4Bharat models, faster-whisper, spaCy/LLM slot filling, WebSocket UI",
+  "stages": "Create scripted test calls in 3 languages -> ASR WER baseline -> entity extraction -> UI -> measure intake time",
+  "hw": "Laptop/GPU",
+  "cost": "Free",
+  "risks": "Privacy; safety-critical so assistive only; dataset creation effort.",
+  "metrics": "WER, entity F1 (address, injury), intake time saved",
+  "prior_art": [
+   "IndicConformer",
+   "emergency call transcription triage",
+   "code-mixed ASR benchmark"
+  ]
+ },
+ {
+  "id": "dashcam-road-assets",
+  "name": "RoadSense: dashcam edge mapping of potholes and missing signs",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "vision",
+   "infra",
+   "edge",
+   "india"
+  ],
+  "kw": [
+   "pothole",
+   "road safety",
+   "dashcam",
+   "road damage",
+   "smart city",
+   "yolo"
+  ],
+  "problem": "Road defects are reported manually; municipalities lack current condition maps.",
+  "verify": "Road-accident statistics linked to road condition (MoRTH); compare to complaint-system latency.",
+  "existing": "RDD2022 dataset models, Mapillary, commercial road-survey vans.",
+  "idea": "On-device detector + GPS tagging with temporal clustering of repeat detections to cut false positives, output GeoJSON for authorities.",
+  "novelty": "Hypothesis: multi-pass clustering and Indian-road evaluation. Prior art is large; evaluation on local data is the contribution.",
+  "stack": "YOLO-nano/RT-DETR, Jetson/RPi or phone, OpenStreetMap, DBSCAN",
+  "stages": "Train on RDD2022 -> drive-collect local clips -> measure drop -> clustering -> map output",
+  "hw": "Phone or RPi5 + camera + GPS",
+  "cost": "INR 0-8k",
+  "risks": "Mounting/safety; motion blur; privacy blur for faces/plates.",
+  "metrics": "mAP local vs RDD, precision after clustering, FPS on device",
+  "prior_art": [
+   "RDD2022",
+   "pothole detection YOLO edge",
+   "Mapillary road damage"
+  ]
+ },
+ {
+  "id": "cold-chain-signed-log",
+  "name": "ColdProof: tamper-evident temperature logger with signed readings",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "supply",
+   "crypto",
+   "embedded",
+   "health"
+  ],
+  "kw": [
+   "cold chain",
+   "vaccine",
+   "temperature excursion",
+   "data logger",
+   "traceability",
+   "food safety"
+  ],
+  "problem": "Spoiled vaccines/food are hard to dispute because paper or CSV logs can be edited.",
+  "verify": "WHO/Gavi cold-chain failure estimates; food-loss figures (FAO).",
+  "existing": "Commercial loggers with cloud portals, blockchain pilots.",
+  "idea": "MCU hashes-chain and signs every reading with a hardware-held key (ATECC608/secure element); verifier detects gaps, edits and replays offline.",
+  "novelty": "Hypothesis: offline-verifiable signed chain without blockchain. Simpler than blockchain approaches.",
+  "stack": "ESP32/nRF, ATECC608A, DS18B20/SHT4x, Ed25519/ECDSA, Python verifier",
+  "stages": "Logger firmware -> hash chain -> signing -> tamper test (edit/replay/delete) -> verifier CLI -> power-fail tests",
+  "hw": "MCU, secure element, sensor",
+  "cost": "INR 2-4k",
+  "risks": "Key provisioning/rotation; physical sensor spoofing remains.",
+  "metrics": "Tamper detection rate, power-loss data integrity, battery life",
+  "prior_art": [
+   "tamper evident logging hash chain embedded",
+   "ATECC608 signed sensor data",
+   "cold chain monitoring blockchain critique"
+  ]
+ },
+ {
+  "id": "secure-codegen-bench",
+  "name": "SecureGen: measuring vulnerabilities in LLM-written code with executable exploit tests",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "ai",
+   "security",
+   "data"
+  ],
+  "kw": [
+   "code generation",
+   "vulnerability",
+   "llm security",
+   "cwe",
+   "secure coding"
+  ],
+  "problem": "LLM code assistants emit insecure patterns, but many benchmarks use static scanners with high false positives.",
+  "verify": "Read CyberSecEval, SecurityEval and recent studies; measure your own baseline.",
+  "existing": "CyberSecEval, SecurityEval, CodeLMSec, static analyzers.",
+  "idea": "Benchmark tasks that include runnable exploit tests (not just pattern matching) for ~40 CWEs, compare models with and without security prompts.",
+  "novelty": "Hypothesis: executable exploit oracles reduce false positives. Prior art exists - compare methodology.",
+  "stack": "Python, Docker, pytest, Semgrep/CodeQL for comparison, model APIs",
+  "stages": "Pick 20 CWEs -> write tasks + exploit tests -> run models -> compare to Semgrep verdicts -> report agreement",
+  "hw": "Laptop",
+  "cost": "USD 20-80 API",
+  "risks": "Task leakage into training data; exploit tests need sandboxing.",
+  "metrics": "Vulnerable-rate per model, agreement with static tools",
+  "prior_art": [
+   "CyberSecEval",
+   "SecurityEval dataset",
+   "LLM generated code security empirical study"
+  ]
+ },
+ {
+  "id": "scam-call-voice-guard",
+  "name": "VoiceShield: on-device detection of AI-cloned voices in scam calls",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "security",
+   "ai",
+   "edge",
+   "india"
+  ],
+  "kw": [
+   "deepfake",
+   "voice cloning",
+   "vishing",
+   "scam call",
+   "fraud",
+   "audio deepfake",
+   "asvspoof"
+  ],
+  "problem": "Voice-clone scams impersonate relatives/officials; victims have seconds to decide.",
+  "verify": "Use NCRB/I4C cyber-fraud statistics and press cases; check ASVspoof generalisation results.",
+  "existing": "ASVspoof countermeasure papers, commercial call-screening services.",
+  "idea": "Lightweight spoof detector plus out-of-distribution scoring, evaluated honestly on unseen TTS systems and compressed telephony audio.",
+  "novelty": "Hypothesis: telephony codec (8 kHz, AMR) robustness. Detection of unseen generators is an open problem - expect limited results and report them.",
+  "stack": "PyTorch, torchaudio, AASIST/RawNet baselines, ONNX Runtime Mobile",
+  "stages": "Reproduce AASIST -> add codec augmentation -> test on unseen generators -> quantize -> on-phone demo",
+  "hw": "Laptop/GPU",
+  "cost": "Free",
+  "risks": "Arms race; high false positives; privacy of call audio (on-device only).",
+  "metrics": "EER on unseen generators, EER after codec, latency",
+  "prior_art": [
+   "ASVspoof 5",
+   "AASIST",
+   "audio deepfake detection telephony codec"
+  ]
+ },
+ {
+  "id": "microgrid-twin",
+  "name": "SunTwin: digital twin and fault detector for a small solar microgrid",
+  "level": 3,
+  "fit": "months",
+  "tags": [
+   "energy",
+   "data",
+   "embedded",
+   "climate",
+   "india"
+  ],
+  "kw": [
+   "solar",
+   "microgrid",
+   "digital twin",
+   "inverter",
+   "soiling",
+   "battery management",
+   "pv fault"
+  ],
+  "problem": "Rural/campus solar plants lose output from soiling, shading and failing strings that go unnoticed.",
+  "verify": "Find PV underperformance statistics (NREL/NISE reports); check monitoring costs.",
+  "existing": "Inverter portals, pvlib models, commercial O&M analytics.",
+  "idea": "pvlib-based expected-output twin; residual analysis flags soiling vs shading vs string faults using irradiance and string-level currents.",
+  "novelty": "Hypothesis: fault classification from residual signatures using only commodity sensors. Validate on real system data or public PV datasets.",
+  "stack": "pvlib, Python, ESP32 + INA219/INA226 string sensors, InfluxDB/Grafana",
+  "stages": "Model baseline on public data -> residual detector -> hardware string monitor -> inject shading faults -> classify",
+  "hw": "Small PV panel + MPPT + current sensors",
+  "cost": "INR 6-12k",
+  "risks": "Weather model error; limited fault diversity.",
+  "metrics": "Fault classification accuracy, energy-loss estimate error",
+  "prior_art": [
+   "pvlib fault detection residual",
+   "PV soiling detection machine learning",
+   "photovoltaic digital twin"
+  ]
+ },
+ {
+  "id": "satnogs-anomaly",
+  "name": "OrbitWatch: anomaly detection on open amateur satellite telemetry",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "space",
+   "data",
+   "ai"
+  ],
+  "kw": [
+   "cubesat",
+   "satellite telemetry",
+   "satnogs",
+   "anomaly detection",
+   "ground station",
+   "space weather"
+  ],
+  "problem": "Small satellites lose missions to undetected subsystem degradation; open telemetry is underused.",
+  "verify": "Review CubeSat failure-rate studies (e.g. Langer & Bouwmeester, Swartwout).",
+  "existing": "NASA SMAP/MSL anomaly benchmarks, ESA OPS-SAT data.",
+  "idea": "Decode public SatNOGS telemetry, build per-satellite baselines, and detect drift/battery degradation; compare against NASA SMAP-style methods.",
+  "novelty": "Hypothesis: open, real-world, multi-satellite benchmark rather than the controversial SMAP labels. Mostly an evaluation contribution.",
+  "stack": "Python, SatNOGS DB API, gr-satellites decoders, scikit-learn/PyOD",
+  "stages": "Pull telemetry for 5 satellites -> decode -> feature engineering -> detectors -> compare w/ known anomaly events",
+  "hw": "Optional RTL-SDR + antenna",
+  "cost": "Free-INR 3k",
+  "risks": "Sparse sampling, no ground truth labels, decoder variety.",
+  "metrics": "Event detection rate vs known outages, false alarms per orbit-day",
+  "prior_art": [
+   "SatNOGS telemetry analysis",
+   "OPS-SAT anomaly detection",
+   "SMAP MSL benchmark critique"
+  ]
+ },
+ {
+  "id": "pinn-vs-fem-honest",
+  "name": "HonestPINN: fair benchmark of physics-informed networks against classical solvers",
+  "level": 3,
+  "fit": "months",
+  "tags": [
+   "science",
+   "ai",
+   "data"
+  ],
+  "kw": [
+   "physics-informed",
+   "pinn",
+   "neural operator",
+   "surrogate model",
+   "pde",
+   "fenics",
+   "simulation"
+  ],
+  "problem": "Papers claim PINNs/neural operators beat classical solvers but compare against weak baselines.",
+  "verify": "Read 'Challenges in training PINNs' and recent baseline-critique papers (e.g. Grossmann et al.).",
+  "existing": "PDEBench, NVIDIA Modulus, DeepXDE.",
+  "idea": "Equal-compute, equal-accuracy comparison on heat/Burgers/Navier-Stokes problems against tuned FEM/FVM, reporting cost to target error.",
+  "novelty": "Hypothesis: rigorous cost-to-accuracy curves for a few problems. Contribution is evidence, not a new model.",
+  "stack": "JAX/PyTorch, DeepXDE/Modulus, FEniCSx, matplotlib",
+  "stages": "Implement 3 PDEs -> tuned classical baseline -> PINN/FNO -> compute-matched plots -> write-up",
+  "hw": "GPU helpful",
+  "cost": "Free",
+  "risks": "Tuning bias on both sides.",
+  "metrics": "Error vs wall-clock, training+inference cost, parameter sensitivity",
+  "prior_art": [
+   "PDEBench",
+   "PINN failure modes",
+   "neural operator vs classical solver comparison"
+  ]
+ },
+ {
+  "id": "cve-lag-graph",
+  "name": "PatchLag: knowledge graph of CVE -> exploit -> patch -> advisory delays",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "security",
+   "data"
+  ],
+  "kw": [
+   "cve",
+   "kev",
+   "epss",
+   "vulnerability disclosure",
+   "nvd"
+  ],
+  "problem": "Defenders prioritise poorly; time between disclosure, exploit availability and patch varies widely per vendor and is rarely visible.",
+  "verify": "Use CISA KEV, EPSS and Exploit-DB; compute your own lag distributions.",
+  "existing": "EPSS, VulnCheck KEV, Vulners.",
+  "idea": "Open graph linking CVEs, exploits, patches, vendor advisories and KEV listings with per-vendor lag statistics and a simple prioritiser.",
+  "novelty": "Hypothesis: transparent vendor-lag stats; compare to EPSS predictive value on held-out months.",
+  "stack": "Python, PostgreSQL/Neo4j, NVD/OSV/KEV/Exploit-DB feeds, Streamlit",
+  "stages": "Ingest feeds -> entity resolution -> lag metrics -> prioritiser -> backtest vs EPSS",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Data inconsistencies; API rate limits.",
+  "metrics": "Backtest AUC for 'exploited within 30 days', graph coverage",
+  "prior_art": [
+   "EPSS",
+   "VulnCheck KEV",
+   "vulnerability lifecycle timeline study"
+  ]
+ },
+ {
+  "id": "fl-dp-hospital",
+  "name": "PrivFed: federated learning with measured privacy-attack leakage",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "health",
+   "ai",
+   "security"
+  ],
+  "kw": [
+   "federated learning",
+   "differential privacy",
+   "membership inference",
+   "gradient leakage",
+   "medical imaging",
+   "privacy"
+  ],
+  "problem": "Hospitals cannot share patient data; federated learning is promoted as safe but gradients can leak records.",
+  "verify": "Read gradient inversion and membership-inference literature; check regulation context (DPDP Act).",
+  "existing": "Flower, NVIDIA FLARE, OpenFL.",
+  "idea": "Simulate multi-site federated training on chest X-ray/ECG data, attack it, and plot utility vs privacy budget under DP-SGD and secure aggregation.",
+  "novelty": "Hypothesis: empirical privacy/utility frontier on realistic non-IID splits. Evaluation-driven.",
+  "stack": "Flower, Opacus, PyTorch, public datasets (CheXpert/PhysioNet access rules)",
+  "stages": "Centralised baseline -> federated -> membership/gradient attacks -> DP -> frontier plot",
+  "hw": "GPU",
+  "cost": "Free-USD 30",
+  "risks": "Dataset access terms; compute.",
+  "metrics": "Attack AUC, accuracy vs epsilon",
+  "prior_art": [
+   "Flower federated",
+   "gradient inversion attacks",
+   "DP-SGD medical imaging federated"
+  ]
+ },
+ {
+  "id": "ros2-lowcost-slam",
+  "name": "RoverInspect: low-cost ROS 2 inspection rover with SLAM accuracy benchmark",
+  "level": 3,
+  "fit": "months",
+  "tags": [
+   "robotics",
+   "vision",
+   "embedded",
+   "infra"
+  ],
+  "kw": [
+   "ros 2",
+   "slam",
+   "lidar",
+   "autonomous rover",
+   "inspection robot",
+   "nav2",
+   "sensor fusion"
+  ],
+  "problem": "Inspecting ducts, basements and farm sheds is hazardous; commercial inspection robots are expensive.",
+  "verify": "Price research for commercial inspection robots; interview a maintenance team about inspection tasks.",
+  "existing": "Boston Dynamics Spot, Clearpath, hobby ROS rovers.",
+  "idea": "A documented sub-INR 40k rover whose SLAM/odometry error is measured against a ground-truth tape-measure/AprilTag setup, with fault-tolerant autonomy.",
+  "novelty": "Hypothesis: reproducible low-cost benchmark protocol. Not novel hardware - rigour is the contribution.",
+  "stack": "ROS 2, Nav2, slam_toolbox, RPLidar/LD19, ESP32 motor controller, IMU",
+  "stages": "Teleop -> odometry + IMU fusion -> SLAM -> Nav2 -> accuracy trials with AprilTags -> fault tests",
+  "hw": "RPi5, LD19/RPLidar, motors, IMU",
+  "cost": "INR 25-40k",
+  "risks": "Mechanical debugging time; ROS tuning.",
+  "metrics": "ATE (m), loop-closure error, mission success rate",
+  "prior_art": [
+   "slam_toolbox benchmark low cost lidar",
+   "ROS 2 low cost rover",
+   "AprilTag ground truth SLAM evaluation"
+  ]
+ },
+ {
+  "id": "device-attestation",
+  "name": "AttestMini: lightweight remote attestation for ESP32 fleets",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "security",
+   "embedded",
+   "crypto"
+  ],
+  "kw": [
+   "remote attestation",
+   "secure boot",
+   "tpm",
+   "device identity",
+   "zero trust",
+   "iot security",
+   "firmware update"
+  ],
+  "problem": "IoT fleets cannot prove that a device runs unmodified firmware, enabling silent compromise.",
+  "verify": "Review IoT botnet incidents and the ETSI EN 303 645 / EU CRA requirements.",
+  "existing": "TPM/DICE attestation, AWS IoT Device Defender, ESP32 secure boot+flash encryption.",
+  "idea": "Challenge-response attestation of firmware hash with eFuse-bound keys, plus a verifier that gates network access.",
+  "novelty": "Hypothesis: practical ESP32-class implementation with measured overhead; prior art in DICE/SEDA must be cited.",
+  "stack": "ESP-IDF, secure boot v2, mbedTLS, Python verifier/FastAPI",
+  "stages": "Enable secure boot -> measured boot hash -> signed challenge response -> attack demos (modified firmware) -> overhead measurement",
+  "hw": "2-3 ESP32 boards (eFuses are irreversible - use sacrificial boards)",
+  "cost": "INR 1.5-3k",
+  "risks": "Bricking boards; limited protection against physical attackers.",
+  "metrics": "Attack detection, attestation time, memory overhead",
+  "prior_art": [
+   "DICE attestation microcontroller",
+   "SEDA swarm attestation",
+   "ESP32 secure boot attestation"
+  ]
+ },
+ {
+  "id": "wildlife-raid-alert",
+  "name": "ElephantEye: acoustic + camera early warning for crop-raiding wildlife",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "agri",
+   "vision",
+   "edge",
+   "india",
+   "embedded"
+  ],
+  "kw": [
+   "human-wildlife conflict",
+   "elephant",
+   "camera trap",
+   "crop raiding",
+   "bioacoustics",
+   "early warning"
+  ],
+  "problem": "Elephant/boar crop-raiding causes crop loss and fatalities in India; fences and watchmen are costly and unreliable.",
+  "verify": "Find MoEFCC human-elephant conflict fatality/crop-damage data; read pilot studies of camera/seismic alerts.",
+  "existing": "Camera-trap AI, Zooniverse, thermal-camera fences, SMS alert pilots.",
+  "idea": "Solar edge node that fuses infrared camera detections with infrasonic/acoustic cues and sends LoRa alerts to farmers with false-alarm rate reported.",
+  "novelty": "Hypothesis: multi-sensor fusion at low power. Several pilots exist - differentiator is measured false-alarm/latency.",
+  "stack": "Jetson Nano/RPi + PIR/thermal, YOLO-nano, LoRa, solar + LiFePO4",
+  "stages": "Public camera-trap datasets -> detector -> power budget -> field node -> alert latency tests with livestock/people proxy",
+  "hw": "RPi/Jetson, thermal or IR cam, LoRa, solar",
+  "cost": "INR 15-25k",
+  "risks": "Field deployment access, permissions from forest dept, weatherproofing.",
+  "metrics": "Detection range, false alarms/night, alert latency, battery autonomy",
+  "prior_art": [
+   "elephant detection camera trap deep learning",
+   "human wildlife conflict early warning India",
+   "LoRa wildlife alert system"
+  ]
+ },
+ {
+  "id": "edge-llm-energy",
+  "name": "EdgeLLM-Joules: energy/latency/accuracy frontier of small LLMs on phones and Pi",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "ai",
+   "edge",
+   "embedded"
+  ],
+  "kw": [
+   "quantization",
+   "on-device llm",
+   "llama.cpp",
+   "small language model",
+   "npu",
+   "gguf",
+   "energy efficiency"
+  ],
+  "problem": "Claims about on-device LLMs rarely report energy per token or accuracy loss under quantisation on real hardware.",
+  "verify": "Survey existing mobile LLM benchmark papers; list what they omit.",
+  "existing": "llama.cpp benchmarks, MLC-LLM, MLPerf Tiny/Mobile.",
+  "idea": "Measure tokens/s, J/token and task accuracy across quantisation levels on RPi5, a phone and a laptop with an inline power meter, publish reproducible scripts.",
+  "novelty": "Hypothesis: complete energy-accuracy-latency Pareto data on cheap hardware. Evaluation-driven.",
+  "stack": "llama.cpp, lm-eval-harness, USB power meter, Python",
+  "stages": "Pick 4 models x 4 quants -> instrument power -> run tasks -> Pareto plots -> publish",
+  "hw": "RPi5, phone, USB power meter",
+  "cost": "INR 1-2k",
+  "risks": "Thermal throttling variance.",
+  "metrics": "J/token, tokens/s, accuracy delta",
+  "prior_art": [
+   "MLPerf Mobile",
+   "llama.cpp benchmark energy",
+   "quantization accuracy small language models edge"
+  ]
+ },
+ {
+  "id": "claim-provenance",
+  "name": "OriginTrace: find the original source behind syndicated news claims",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "data",
+   "web",
+   "ai"
+  ],
+  "kw": [
+   "misinformation",
+   "provenance",
+   "syndication",
+   "claim detection"
+  ],
+  "problem": "The same unverified claim is reprinted by dozens of outlets, creating false 'multiple confirmations'.",
+  "verify": "Read studies on syndication/circular reporting; sample 50 viral stories and count independent origins.",
+  "existing": "Fact-check databases, plagiarism detectors, Google Fact Check API.",
+  "idea": "Near-duplicate clustering with embeddings and temporal ordering to estimate the earliest source and count truly independent sources.",
+  "novelty": "Hypothesis: independent-source counting metric. Also a core module for the NEXUS agent itself.",
+  "stack": "Python, sentence-transformers, MinHash/LSH, SQLite/pgvector",
+  "stages": "Collect feeds -> dedup -> cluster -> origin estimation -> manual label 100 clusters -> evaluate",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Paywalls, rewrite-heavy copies.",
+  "metrics": "Origin accuracy vs manual labels, cluster purity",
+  "prior_art": [
+   "news provenance tracing",
+   "circular reporting detection",
+   "claim propagation graph"
+  ]
+ },
+ {
+  "id": "ecg-edge-shift",
+  "name": "BeatGuard: explainable edge arrhythmia screening with dataset-shift tests",
+  "level": 3,
+  "fit": "months",
+  "tags": [
+   "health",
+   "embedded",
+   "ai",
+   "edge"
+  ],
+  "kw": [
+   "ecg",
+   "arrhythmia",
+   "wearable",
+   "atrial fibrillation",
+   "physionet",
+   "holter"
+  ],
+  "problem": "Atrial fibrillation is under-detected; ECG models often fail on different devices/populations.",
+  "verify": "AF prevalence/stroke-risk statistics; PhysioNet Challenge 2017/2021 findings.",
+  "existing": "Apple Watch/KardiaMobile, PhysioNet challenge models.",
+  "idea": "Tiny 1D-CNN/classical feature model on MCU with signal-quality gating and cross-database evaluation, with human-readable rhythm features.",
+  "novelty": "Hypothesis: signal-quality gating reduces false positives on low-cost AD8232 hardware. Not a medical device.",
+  "stack": "AD8232/ADS1292, ESP32, TFLite Micro, wfdb",
+  "stages": "Reproduce PhysioNet baseline -> cross-DB test -> MCU deployment -> collect own ECG (self, with care) -> compare",
+  "hw": "AD8232/ADS1292 board, ESP32",
+  "cost": "INR 2-4k",
+  "risks": "Safety (battery-powered, isolated only), no clinical claims.",
+  "metrics": "F1 AF vs normal across DBs, FP rate after gating, flash/RAM",
+  "prior_art": [
+   "PhysioNet challenge AF",
+   "TinyML ECG arrhythmia",
+   "AD8232 ECG classification MCU"
+  ]
+ },
+ {
+  "id": "wasm-redaction",
+  "name": "RedactLocal: in-browser PII redaction for documents, nothing uploaded",
+  "level": 2,
+  "fit": "48h",
+  "tags": [
+   "web",
+   "security",
+   "ai",
+   "india"
+  ],
+  "kw": [
+   "pii",
+   "redaction",
+   "webassembly",
+   "privacy",
+   "aadhaar",
+   "document",
+   "ocr"
+  ],
+  "problem": "People upload ID documents to random online tools to redact them, leaking the very data they want to protect.",
+  "verify": "Look for privacy incidents involving online document tools; measure how many redaction sites upload files (network tab).",
+  "existing": "Cloud redactors, Acrobat, some local desktop tools.",
+  "idea": "Entirely client-side OCR + regex/NER redaction (Aadhaar, PAN, phone, address) with irreversible rasterised output, verified by an offline test that no network requests occur.",
+  "novelty": "Hypothesis: verifiable no-upload guarantee (CSP + test). Product-level not research-level, valid as a 48h hackathon build.",
+  "stack": "Tesseract.js/ONNX OCR, pdf.js, WASM, Service Worker, strict CSP",
+  "stages": "OCR in browser -> PII detectors with Verhoeff check for Aadhaar -> redaction canvas -> CSP + network test -> accuracy eval on synthetic IDs",
+  "hw": "Browser",
+  "cost": "Free",
+  "risks": "OCR errors miss PII; must flag residual risk to the user.",
+  "metrics": "PII recall/precision on synthetic set, zero network requests, time per page",
+  "prior_art": [
+   "client side PDF redaction tool",
+   "local OCR redaction wasm",
+   "Aadhaar masking tools"
+  ]
+ },
+ {
+  "id": "signal-rl-sumo",
+  "name": "GreenWave: adaptive traffic signals evaluated in SUMO against fixed-time baselines",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "infra",
+   "ai",
+   "climate",
+   "india"
+  ],
+  "kw": [
+   "traffic signal",
+   "reinforcement learning",
+   "smart city",
+   "congestion",
+   "sumo",
+   "adaptive signal"
+  ],
+  "problem": "Fixed-time signals waste time and fuel; heterogeneous Indian traffic breaks many Western-trained models.",
+  "verify": "Congestion cost studies; check SCATS/SCOOT existing deployment evidence.",
+  "existing": "SCATS, SCOOT, RL papers (PressLight, CoLight).",
+  "idea": "Pressure-based controller (non-RL) vs RL, with mixed two-wheeler traffic calibrated to real counts, reporting honest wins/losses.",
+  "novelty": "Hypothesis: simple max-pressure may match RL on heterogeneous traffic. Useful negative result is acceptable.",
+  "stack": "SUMO, TraCI, PyTorch/SB3, OSM networks",
+  "stages": "Network from OSM -> calibrate demand -> baselines -> max-pressure -> RL -> compare delay/emissions",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Simulation-to-reality gap.",
+  "metrics": "Mean delay, throughput, CO2 estimate",
+  "prior_art": [
+   "PressLight",
+   "CoLight",
+   "max pressure vs reinforcement learning traffic signals"
+  ]
+ },
+ {
+  "id": "carbon-aware-sched",
+  "name": "GridAware: carbon-intensity-aware scheduler for batch compute",
+  "level": 2,
+  "fit": "weeks",
+  "tags": [
+   "climate",
+   "energy",
+   "data"
+  ],
+  "kw": [
+   "carbon intensity",
+   "green computing",
+   "data center energy",
+   "scheduler",
+   "emissions",
+   "ai energy"
+  ],
+  "problem": "AI/batch jobs run when grid electricity is most carbon-intensive although many are deferrable.",
+  "verify": "Use Electricity Maps/WattTime data to quantify day-to-day variation in India vs EU; read carbon-aware computing papers.",
+  "existing": "Google carbon-aware computing, Carbon Aware SDK, Kubernetes KEDA operators.",
+  "idea": "Scheduler plugin that delays/shifts jobs by deadline and forecast intensity, reports avoided emissions with uncertainty.",
+  "novelty": "Hypothesis: low-effort implementation for small labs/cron. Mostly applied engineering; Indian-grid evaluation may be sparse in literature.",
+  "stack": "Python, Carbon Aware SDK/ElectricityMaps API, Slurm/cron/K8s, Prometheus",
+  "stages": "Collect intensity data -> simulate on job traces -> implement scheduler -> measure savings vs deadline misses",
+  "hw": "Laptop",
+  "cost": "Free tier APIs",
+  "risks": "Small savings on low-variance grids.",
+  "metrics": "gCO2 avoided, deadline miss rate",
+  "prior_art": [
+   "Carbon Aware SDK",
+   "carbon-aware scheduling Google",
+   "WattTime scheduling"
+  ]
+ },
+ {
+  "id": "agent-memory-eval",
+  "name": "MemBench: do LLM agents actually remember? long-horizon memory evaluation",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "ai",
+   "data"
+  ],
+  "kw": [
+   "agent memory",
+   "long context"
+  ],
+  "problem": "Agent 'memory' products are marketed without comparable evidence on recall, staleness and contradiction handling.",
+  "verify": "Read LongMemEval/LoCoMo and compare to vendor claims.",
+  "existing": "LongMemEval, LoCoMo, mem0, Zep, MemGPT.",
+  "idea": "Open harness testing retrieval-based, summary-based and graph memories on updates, contradictions and temporal queries over simulated months.",
+  "novelty": "Hypothesis: a contradiction/temporal-update suite exposes failures averages hide. Check LongMemEval's coverage first.",
+  "stack": "Python, pgvector/SQLite, LLM APIs, pytest",
+  "stages": "Replicate LongMemEval subset -> add update/contradiction cases -> compare 3 memory designs -> report",
+  "hw": "Laptop",
+  "cost": "USD 20-60 API",
+  "risks": "LLM-judge bias; cost.",
+  "metrics": "Accuracy by query type, staleness error, tokens used",
+  "prior_art": [
+   "LongMemEval",
+   "LoCoMo benchmark",
+   "mem0 Zep MemGPT comparison"
+  ]
+ },
+ {
+  "id": "phishing-kit-cluster",
+  "name": "KitTrace: cluster phishing sites into kits and campaigns by visual and DOM fingerprint",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "security",
+   "vision",
+   "data"
+  ],
+  "kw": [
+   "phishing",
+   "phishing kit",
+   "credential harvesting",
+   "typosquat",
+   "certificate transparency",
+   "brand impersonation"
+  ],
+  "problem": "Takedowns are whack-a-mole: each phishing URL is reported separately even though many share one kit.",
+  "verify": "Pull OpenPhish/PhishTank public feeds and measure how many URLs share near-identical DOM/screenshot hashes.",
+  "existing": "URLScan, PhishTank, commercial brand-protection services, academic phishing classifiers.",
+  "idea": "Fingerprint pages (DOM structure hash + perceptual image hash + form field order), cluster them, and surface campaigns plus shared infrastructure.",
+  "novelty": "Hypothesis: cheap clustering that cuts analyst workload per campaign. Compare with URLScan similarity features first.",
+  "stack": "Python, Playwright (isolated VM), imagehash, HDBSCAN, CT-log stream",
+  "stages": "Collect 5k feed URLs -> render safely -> fingerprints -> cluster -> measure cluster purity against hand labels",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Visit phishing pages only inside an isolated VM/container; respect feed terms of use.",
+  "metrics": "Cluster purity, URLs per campaign, time to first cluster after a new kit appears",
+  "prior_art": [
+   "phishing kit clustering DOM similarity",
+   "urlscan similarity search",
+   "phishing campaign attribution visual hash"
+  ]
+ },
+ {
+  "id": "secrets-leak-radar",
+  "name": "LeakRadar: find and rank leaked secrets in your own repositories and git history",
+  "level": 2,
+  "fit": "48h",
+  "tags": [
+   "security",
+   "web",
+   "data"
+  ],
+  "kw": [
+   "secret leak",
+   "api key",
+   "credential leak",
+   "gitleaks",
+   "trufflehog",
+   "hardcoded secret",
+   "token exposure"
+  ],
+  "problem": "Developers commit API keys; scanners flood teams with false positives so real leaks get ignored.",
+  "verify": "Read GitGuardian's State of Secrets Sprawl; run gitleaks on 20 repos you own or that are open and count false positives.",
+  "existing": "gitleaks, trufflehog, GitHub secret scanning.",
+  "idea": "Combine entropy, context and format checks to rank real leaks, with offline validity checks only (never call third-party APIs with found keys).",
+  "novelty": "Hypothesis: context-aware ranking lowers false positives versus plain regex. Evaluate against gitleaks on a labelled set.",
+  "stack": "Python, git, regex + small classifier, pre-commit hook",
+  "stages": "Build labelled set (SecretBench) -> baseline gitleaks -> context features -> pre-commit integration",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Treat findings as sensitive; never use discovered keys.",
+  "metrics": "Precision/recall vs gitleaks, alerts per 1000 commits",
+  "prior_art": [
+   "SecretBench dataset",
+   "gitleaks trufflehog comparison",
+   "secret detection machine learning false positives"
+  ]
+ },
+ {
+  "id": "ble-tracker-guard",
+  "name": "TrackerGuard: detect hidden BLE trackers (AirTag-style stalking) from a phone or ESP32",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "security",
+   "embedded",
+   "hci",
+   "india"
+  ],
+  "kw": [
+   "airtag",
+   "bluetooth tracker",
+   "stalking",
+   "find my network",
+   "bluetooth low energy"
+  ],
+  "problem": "Cheap trackers are used for stalking and theft; detection support differs across phones and tag brands.",
+  "verify": "Read Apple/Google detection specs, the IETF DULT draft and published tracker-stalking studies.",
+  "existing": "Apple Tracker Detect, Google unknown-tracker alerts, AirGuard.",
+  "idea": "A scanner that flags BLE identifiers persisting across your locations despite address rotation, covering non-Apple tags too.",
+  "novelty": "Hypothesis: open, tag-agnostic detection with measured false positives in crowds. AirGuard is strong prior art; compare against it.",
+  "stack": "ESP32 or Android BLE scanner, Python analysis, GPS, SQLite",
+  "stages": "Collect scan logs with your own tags -> persistence heuristic -> walking/bus route tests -> tune false positives",
+  "hw": "ESP32 or phone, trackers you own",
+  "cost": "INR 0-3k",
+  "risks": "Address rotation; privacy of logged third-party devices (store hashes only).",
+  "metrics": "Detection time for a followed tag, false alarms per hour in crowds",
+  "prior_art": [
+   "AirGuard tracker detection",
+   "DULT unwanted tracker IETF",
+   "BLE tracker stalking detection study"
+  ]
+ },
+ {
+  "id": "ransomware-canary",
+  "name": "CanaryFS: early ransomware detection with decoy files and entropy tripwires",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "security",
+   "data"
+  ],
+  "kw": [
+   "ransomware",
+   "decoy files",
+   "canary",
+   "file entropy",
+   "wiper"
+  ],
+  "problem": "Ransomware encrypts thousands of files before anyone notices; detection often comes too late.",
+  "verify": "Read ransomware dwell-time reports (Sophos, Mandiant) and how fast encryptors hit network shares.",
+  "existing": "EDR products, Windows Controlled Folder Access, canary-token services.",
+  "idea": "Decoy files plus per-process write-entropy monitoring; on trigger, suspend the process and snapshot.",
+  "novelty": "Hypothesis: low-overhead user-space tripwire with measured files-lost-before-stop. Test only with a harmless simulator you write, never live malware.",
+  "stack": "Python or Rust, watchdog, psutil, a benign encryptor simulator",
+  "stages": "Write simulator -> baseline monitoring -> decoys + entropy rule -> measure files lost and false positives (zip, backups)",
+  "hw": "Laptop or VM",
+  "cost": "Free",
+  "risks": "False positives on compression/backups; slow-encryption bypass.",
+  "metrics": "Files lost before stop, CPU overhead, false positives per day",
+  "prior_art": [
+   "ransomware early detection entropy",
+   "canary files ransomware",
+   "Windows controlled folder access evaluation"
+  ]
+ },
+ {
+  "id": "dns-tunnel-detect",
+  "name": "TunnelWatch: lightweight DNS tunneling and exfiltration detector for small networks",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "security",
+   "data",
+   "edge"
+  ],
+  "kw": [
+   "dns tunneling",
+   "data exfiltration",
+   "dns over https",
+   "c2 beacon",
+   "command and control"
+  ],
+  "problem": "Malware hides command-and-control and data theft inside DNS, which small networks rarely inspect.",
+  "verify": "Read MITRE ATT&CK T1071.004 and published DNS-tunnel datasets.",
+  "existing": "Zeek/Suricata rules, commercial DNS security, academic ML detectors.",
+  "idea": "Per-domain features (query entropy, label length, rate, TXT usage) on a Raspberry Pi DNS sinkhole with explainable alerts.",
+  "novelty": "Hypothesis: a tiny explainable model beats static thresholds at low false positives on a real home network.",
+  "stack": "Raspberry Pi, Pi-hole/dnsmasq logs, Python, scikit-learn; dnscat2/iodine inside a lab VM for positives",
+  "stages": "Collect 2 weeks benign logs -> generate tunnel traffic in a lab -> features -> detector -> review false positives",
+  "hw": "Raspberry Pi",
+  "cost": "INR 4-6k",
+  "risks": "DoH hides queries from your resolver; CDN false positives.",
+  "metrics": "True-positive rate at 1 false positive/day, detection delay",
+  "prior_art": [
+   "DNS tunneling detection machine learning",
+   "Zeek dns exfiltration",
+   "dnscat2 iodine detection dataset"
+  ]
+ },
+ {
+  "id": "honeypot-intel",
+  "name": "PotWatch: low-interaction honeypot that turns attack logs into weekly threat intelligence",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "security",
+   "data",
+   "india"
+  ],
+  "kw": [
+   "honeypot",
+   "brute force",
+   "botnet",
+   "ssh attack",
+   "mirai",
+   "threat intelligence"
+  ],
+  "problem": "Defenders rarely see what attackers try against small Indian infrastructure; global feeds miss local patterns.",
+  "verify": "Review Cowrie/T-Pot research and CERT-In advisories; run one honeypot for a week and examine volume.",
+  "existing": "T-Pot, Cowrie, GreyNoise, Shadowserver.",
+  "idea": "Run sandboxed honeypots on a cloud free-tier VM, cluster attacker behaviour, and publish aggregated weekly stats (no victim data).",
+  "novelty": "Hypothesis: region-specific insights and campaign clustering. Honeypots are common; novelty is in the analysis.",
+  "stack": "Cowrie, Docker, SQLite/Elasticsearch, Python, GeoIP, MITRE ATT&CK mapping",
+  "stages": "Deploy 1 honeypot -> collect 2 weeks -> session clustering -> weekly report -> add a second service",
+  "hw": "Cloud free-tier VM",
+  "cost": "Free to INR 500/month",
+  "risks": "Isolate strictly; never run on your home LAN; follow provider terms.",
+  "metrics": "Unique attackers, campaigns identified, malware families captured",
+  "prior_art": [
+   "Cowrie honeypot analysis",
+   "T-Pot threat intelligence",
+   "honeypot session clustering"
+  ]
+ },
+ {
+  "id": "rogue-ap-guard",
+  "name": "AirWatch: ESP32 sensor that detects evil-twin access points and deauth floods on your own network",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "security",
+   "embedded"
+  ],
+  "kw": [
+   "evil twin",
+   "rogue access point",
+   "deauth",
+   "wifi attack",
+   "wireless intrusion"
+  ],
+  "problem": "Fake Wi-Fi hotspots and deauthentication attacks steal credentials in cafes, hostels and offices.",
+  "verify": "Read WIDS literature and 802.11w (PMF) adoption figures; test with your own access point.",
+  "existing": "Enterprise WIDS (expensive), Kismet, WiFi-pineapple detection scripts.",
+  "idea": "A passive monitor that learns your network's legitimate BSSID/channel/beacon fingerprint and alerts on clones and deauth bursts.",
+  "novelty": "Hypothesis: beacon-timing and vendor-IE fingerprinting distinguishes clones cheaply. Test only against equipment you own.",
+  "stack": "ESP32 promiscuous mode, Python collector, Telegram alerts, a spare router for the test",
+  "stages": "Capture beacons -> baseline fingerprint -> simulate a clone with the spare AP -> lab deauth tests on your own AP -> thresholds",
+  "hw": "ESP32, spare router",
+  "cost": "INR 1-3k",
+  "risks": "Transmit attacks only on your own equipment; stay monitor-only otherwise.",
+  "metrics": "Detection latency, false alarms per day",
+  "prior_art": [
+   "evil twin detection beacon fingerprint",
+   "ESP32 deauth detector",
+   "Kismet rogue AP detection"
+  ]
+ },
+ {
+  "id": "quishing-unwrapper",
+  "name": "QRSafe: unwrap QR codes safely and score them before you open the link (UPI and payment scams)",
+  "level": 2,
+  "fit": "48h",
+  "tags": [
+   "security",
+   "vision",
+   "india",
+   "web"
+  ],
+  "kw": [
+   "qr code",
+   "quishing",
+   "upi fraud",
+   "payment scam",
+   "phishing"
+  ],
+  "problem": "Scam QR codes (fake parking tickets, UPI collect requests, stickers pasted over real codes) lead to credential theft and payment fraud.",
+  "verify": "Use I4C/RBI fraud statistics and recent quishing campaign reports; check what the phone camera shows before opening.",
+  "existing": "Built-in camera link previews, antivirus QR scanners.",
+  "idea": "On-device decoder that expands redirect chains in a sandboxed fetcher without cookies, parses UPI intents (payee, amount, pay vs collect) and warns on lookalike domains.",
+  "novelty": "Hypothesis: UPI-intent-aware plain-language explanation is the differentiator. Product-level, well suited to a 48h build.",
+  "stack": "PWA or Flutter, ML Kit/zxing, UPI URI parser, offline domain heuristics",
+  "stages": "Decoder -> UPI parser -> redirect unwrapper -> heuristics -> test on 100 benign and malicious sample QRs -> UX with plain warnings",
+  "hw": "Phone",
+  "cost": "Free",
+  "risks": "Heuristic false positives; never fetch unknown URLs outside a sandbox.",
+  "metrics": "Detection rate on the sample set, false warnings, time to verdict",
+  "prior_art": [
+   "QR code phishing detection",
+   "UPI intent scam analysis",
+   "quishing detection research"
+  ]
+ }
+]

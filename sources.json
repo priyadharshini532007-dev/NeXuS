@@ -1,0 +1,413 @@
+{
+ "_note": "rel = prior reliability 0-1 (my judgement; tune it). type = evidence class shown on every item: primary | research | report | lead. Dead feeds are reported by 'nexus.py health', not hidden.",
+ "sources": [
+  {
+   "name": "IEEE Spectrum",
+   "kind": "rss",
+   "url": "https://spectrum.ieee.org/feeds/feed.rss",
+   "cat": "engineering",
+   "rel": 0.85,
+   "type": "report"
+  },
+  {
+   "name": "MIT Technology Review",
+   "kind": "rss",
+   "url": "https://www.technologyreview.com/feed/",
+   "cat": "engineering",
+   "rel": 0.8,
+   "type": "report"
+  },
+  {
+   "name": "Ars Technica",
+   "kind": "rss",
+   "url": "https://feeds.arstechnica.com/arstechnica/index",
+   "cat": "engineering",
+   "rel": 0.75,
+   "type": "report"
+  },
+  {
+   "name": "Hackaday",
+   "kind": "rss",
+   "url": "https://hackaday.com/blog/feed/",
+   "cat": "hardware",
+   "rel": 0.7,
+   "type": "report"
+  },
+  {
+   "name": "Interesting Engineering",
+   "kind": "rss",
+   "url": "https://interestingengineering.com/feed",
+   "cat": "engineering",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "New Atlas",
+   "kind": "rss",
+   "url": "https://newatlas.com/index.rss",
+   "cat": "engineering",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "CNX Software",
+   "kind": "rss",
+   "url": "https://www.cnx-software.com/feed/",
+   "cat": "hardware",
+   "rel": 0.7,
+   "type": "report"
+  },
+  {
+   "name": "Raspberry Pi News",
+   "kind": "rss",
+   "url": "https://www.raspberrypi.com/news/feed/",
+   "cat": "hardware",
+   "rel": 0.8,
+   "type": "primary"
+  },
+  {
+   "name": "Google DeepMind",
+   "kind": "rss",
+   "url": "https://deepmind.google/blog/rss.xml",
+   "cat": "ai",
+   "rel": 0.85,
+   "type": "primary"
+  },
+  {
+   "name": "Hugging Face Blog",
+   "kind": "rss",
+   "url": "https://huggingface.co/blog/feed.xml",
+   "cat": "ai",
+   "rel": 0.8,
+   "type": "primary"
+  },
+  {
+   "name": "OpenAI News",
+   "kind": "rss",
+   "url": "https://openai.com/news/rss.xml",
+   "cat": "ai",
+   "rel": 0.75,
+   "type": "primary"
+  },
+  {
+   "name": "NVIDIA Developer Blog",
+   "kind": "rss",
+   "url": "https://developer.nvidia.com/blog/feed",
+   "cat": "ai",
+   "rel": 0.75,
+   "type": "primary"
+  },
+  {
+   "name": "BAIR Blog",
+   "kind": "rss",
+   "url": "https://bair.berkeley.edu/blog/feed.xml",
+   "cat": "ai",
+   "rel": 0.9,
+   "type": "research"
+  },
+  {
+   "name": "arXiv cs.CR",
+   "kind": "arxiv",
+   "url": "cat:cs.CR",
+   "cat": "security",
+   "rel": 0.8,
+   "type": "research"
+  },
+  {
+   "name": "arXiv cs.RO",
+   "kind": "arxiv",
+   "url": "cat:cs.RO",
+   "cat": "robotics",
+   "rel": 0.8,
+   "type": "research"
+  },
+  {
+   "name": "arXiv cs.LG",
+   "kind": "arxiv",
+   "url": "cat:cs.LG",
+   "cat": "ai",
+   "rel": 0.8,
+   "type": "research"
+  },
+  {
+   "name": "arXiv eess.SP",
+   "kind": "arxiv",
+   "url": "cat:eess.SP",
+   "cat": "embedded",
+   "rel": 0.8,
+   "type": "research"
+  },
+  {
+   "name": "arXiv cs.AR",
+   "kind": "arxiv",
+   "url": "cat:cs.AR",
+   "cat": "hardware",
+   "rel": 0.8,
+   "type": "research"
+  },
+  {
+   "name": "The Hacker News",
+   "kind": "rss",
+   "url": "https://feeds.feedburner.com/TheHackersNews",
+   "cat": "security",
+   "rel": 0.7,
+   "type": "report"
+  },
+  {
+   "name": "BleepingComputer",
+   "kind": "rss",
+   "url": "https://www.bleepingcomputer.com/feed/",
+   "cat": "security",
+   "rel": 0.75,
+   "type": "report"
+  },
+  {
+   "name": "Krebs on Security",
+   "kind": "rss",
+   "url": "https://krebsonsecurity.com/feed/",
+   "cat": "security",
+   "rel": 0.9,
+   "type": "report"
+  },
+  {
+   "name": "CISA Advisories",
+   "kind": "rss",
+   "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
+   "cat": "security",
+   "rel": 0.95,
+   "type": "primary"
+  },
+  {
+   "name": "Cisco Talos",
+   "kind": "rss",
+   "url": "https://blog.talosintelligence.com/rss/",
+   "cat": "security",
+   "rel": 0.9,
+   "type": "primary"
+  },
+  {
+   "name": "Unit 42",
+   "kind": "rss",
+   "url": "https://unit42.paloaltonetworks.com/feed/",
+   "cat": "security",
+   "rel": 0.88,
+   "type": "primary"
+  },
+  {
+   "name": "Quanta Magazine",
+   "kind": "rss",
+   "url": "https://api.quantamagazine.org/feed/",
+   "cat": "science",
+   "rel": 0.9,
+   "type": "report"
+  },
+  {
+   "name": "Nature",
+   "kind": "rss",
+   "url": "https://www.nature.com/nature.rss",
+   "cat": "science",
+   "rel": 0.95,
+   "type": "research"
+  },
+  {
+   "name": "Phys.org",
+   "kind": "rss",
+   "url": "https://phys.org/rss-feed/",
+   "cat": "science",
+   "rel": 0.6,
+   "type": "report"
+  },
+  {
+   "name": "ScienceDaily Tech",
+   "kind": "rss",
+   "url": "https://www.sciencedaily.com/rss/top/technology.xml",
+   "cat": "science",
+   "rel": 0.6,
+   "type": "report"
+  },
+  {
+   "name": "NASA",
+   "kind": "rss",
+   "url": "https://www.nasa.gov/feed/",
+   "cat": "space",
+   "rel": 0.95,
+   "type": "primary"
+  },
+  {
+   "name": "SpaceNews",
+   "kind": "rss",
+   "url": "https://spacenews.com/feed/",
+   "cat": "space",
+   "rel": 0.8,
+   "type": "report"
+  },
+  {
+   "name": "The Robot Report",
+   "kind": "rss",
+   "url": "https://www.therobotreport.com/feed/",
+   "cat": "robotics",
+   "rel": 0.75,
+   "type": "report"
+  },
+  {
+   "name": "STAT News",
+   "kind": "rss",
+   "url": "https://www.statnews.com/feed/",
+   "cat": "health",
+   "rel": 0.85,
+   "type": "report"
+  },
+  {
+   "name": "Medgadget",
+   "kind": "rss",
+   "url": "https://www.medgadget.com/feed",
+   "cat": "health",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Carbon Brief",
+   "kind": "rss",
+   "url": "https://www.carbonbrief.org/feed/",
+   "cat": "climate",
+   "rel": 0.9,
+   "type": "report"
+  },
+  {
+   "name": "Canary Media",
+   "kind": "rss",
+   "url": "https://www.canarymedia.com/rss.xml",
+   "cat": "climate",
+   "rel": 0.8,
+   "type": "report"
+  },
+  {
+   "name": "AgFunderNews",
+   "kind": "rss",
+   "url": "https://agfundernews.com/feed",
+   "cat": "agri",
+   "rel": 0.7,
+   "type": "report"
+  },
+  {
+   "name": "Supply Chain Dive",
+   "kind": "rss",
+   "url": "https://www.supplychaindive.com/feeds/news/",
+   "cat": "supply",
+   "rel": 0.7,
+   "type": "report"
+  },
+  {
+   "name": "TechCrunch",
+   "kind": "rss",
+   "url": "https://techcrunch.com/feed/",
+   "cat": "startups",
+   "rel": 0.6,
+   "type": "report"
+  },
+  {
+   "name": "YourStory",
+   "kind": "rss",
+   "url": "https://yourstory.com/feed",
+   "cat": "india",
+   "rel": 0.5,
+   "type": "report"
+  },
+  {
+   "name": "Inc42",
+   "kind": "rss",
+   "url": "https://inc42.com/feed/",
+   "cat": "india",
+   "rel": 0.5,
+   "type": "report"
+  },
+  {
+   "name": "Lobsters",
+   "kind": "rss",
+   "url": "https://lobste.rs/rss",
+   "cat": "community",
+   "rel": 0.6,
+   "type": "lead"
+  },
+  {
+   "name": "DEV Community",
+   "kind": "rss",
+   "url": "https://dev.to/feed",
+   "cat": "community",
+   "rel": 0.35,
+   "type": "lead"
+  },
+  {
+   "name": "Hacker News (front page)",
+   "kind": "hn",
+   "url": "",
+   "cat": "community",
+   "rel": 0.55,
+   "type": "lead"
+  },
+  {
+   "name": "Inshorts: technology",
+   "kind": "inshorts",
+   "url": "technology",
+   "cat": "news",
+   "rel": 0.45,
+   "type": "lead"
+  },
+  {
+   "name": "Inshorts: science",
+   "kind": "inshorts",
+   "url": "science",
+   "cat": "news",
+   "rel": 0.45,
+   "type": "lead"
+  },
+  {
+   "name": "Inshorts: startup",
+   "kind": "inshorts",
+   "url": "startup",
+   "cat": "india",
+   "rel": 0.4,
+   "type": "lead"
+  },
+  {
+   "name": "GitHub: rising (all)",
+   "kind": "github",
+   "url": "",
+   "cat": "opensource",
+   "rel": 0.5,
+   "type": "lead"
+  },
+  {
+   "name": "GitHub: robotics",
+   "kind": "github",
+   "url": "topic:robotics",
+   "cat": "opensource",
+   "rel": 0.5,
+   "type": "lead"
+  },
+  {
+   "name": "GitHub: security",
+   "kind": "github",
+   "url": "topic:security",
+   "cat": "opensource",
+   "rel": 0.5,
+   "type": "lead"
+  },
+  {
+   "name": "GitHub: embedded",
+   "kind": "github",
+   "url": "topic:embedded",
+   "cat": "opensource",
+   "rel": 0.5,
+   "type": "lead"
+  },
+  {
+   "name": "GitHub: machine-learning",
+   "kind": "github",
+   "url": "topic:machine-learning",
+   "cat": "opensource",
+   "rel": 0.5,
+   "type": "lead"
+  }
+ ]
+}
