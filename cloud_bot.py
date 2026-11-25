@@ -457,11 +457,13 @@ def main():
     if not (CHAT and os.environ.get("TELEGRAM_BOT_TOKEN")):
         sys.exit("Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID.")
     init()
-    try:
-        k = N.DM.classify_pending(N.db())
-        log(f"ML domain model: {N.DM.status()}; classified {k} stored items")
-    except Exception as e:  # noqa
-        log("ML domain model failed:", e)
+    def classify_backlog():  # in the background, so Telegram polling starts immediately
+        try:
+            k = N.DM.classify_pending(N.db())
+            log(f"ML domain model: {N.DM.status()}; classified {k} stored items")
+        except Exception as e:  # noqa
+            log("ML domain model failed:", e)
+    threading.Thread(target=classify_backlog, daemon=True).start()
     try:
         N.tg("setMyCommands", commands=json.dumps([{"command": c, "description": d} for c, d in [
             ("idea", "Project ideas"), ("cyber", "Cybersecurity ideas"), ("briefing", "Short briefing"), ("status", "System health"),
