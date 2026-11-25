@@ -13,6 +13,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import nexus as N
+import menus as MENU
+from types import SimpleNamespace
 
 CHAT = os.environ.get("TELEGRAM_CHAT_ID", "")
 WORKERS = int(os.environ.get("NEXUS_WORKERS", "2"))
@@ -82,6 +84,7 @@ def say(msgs, retries=3):
 
 # ------------------------------------------------------------------ commands
 HELP = ("<b>NEXUS commands</b>\n"
+        "/menu (or /ideas, /domains with nothing after) - tap-through domain menu: subdomains, sorting, projects, actions\n"
         "/idea [domain or topic] - fresh ideas + new directions (e.g. <code>/idea healthcare</code>, <code>/idea underwater robotics</code>)\n"
         "/ideas [domain] [--sort novelty|impact|score|feasibility|scalability|research|hackathon|cost|difficulty|latest] "
         "[--difficulty advanced] [--cost low] [--type hardware] [--time weeks] [--tier 1] [n] - browse the catalogue; <code>cyber+ai</code> = cross-domain\n"
@@ -229,9 +232,12 @@ def run_command(cmd, args):
     if cmd in ("validate", "compare", "architecture", "implement", "github", "explore", "explain"):
         P = plans_by_id()
         ids = [x for x in a if x in P]
-        if cmd == "explain" and num:
+        if not ids:  # "/architecture 3" = project 3 of the last list; no argument = the project opened last
             last = json.loads(kv_get("last_ids", "[]"))
-            ids = [last[num - 1]] if 0 < num <= len(last) else []
+            ids = [last[n - 1] for n in (int(x) for x in a if x.isdigit()) if 0 < n <= len(last) and last[n - 1] in P]
+            if not ids and cmd != "compare":
+                cur = MENU.state(CTX, CHAT).get("cur")
+                ids = [cur] if cur in P else []
         if not ids:
             return [f"Which idea? Use its id, e.g. <code>/{cmd} secrets-leak-radar</code>"
                     + (" or say <code>explain idea 2</code> after a list." if cmd == "explain" else "")], files
@@ -312,6 +318,14 @@ def enqueue(cmd, args):
     with tdb() as c:
         cur = c.execute("INSERT INTO tasks(cmd,args,status,created) VALUES(?,?,?,?)", (cmd, args, "QUEUED", now()))
         return cur.lastrowid
+
+
+def enqueue_once(cmd, args):
+    """Enqueue unless an identical task is already queued or running; returns (task_id, was_duplicate)."""
+    with tdb() as c:
+        r = c.execute("SELECT id FROM tasks WHERE cmd=? AND args=? AND status IN ('QUEUED','RUNNING') ORDER BY id DESC LIMIT 1",
+                      (cmd, args)).fetchone()
+    return (r["id"], True) if r else (enqueue(cmd, args), False)
 
 
 def claim():
@@ -396,11 +410,26 @@ def handle_update(u):
     if cq:
         if str((cq.get("message") or {}).get("chat", {}).get("id")) != CHAT:
             return
-        N.tg("answerCallbackQuery", callback_query_id=cq["id"], text="Working on it...")
         d = str(cq.get("data", ""))
-        if d.startswith("x:"):
-            tid = enqueue("explore", d[2:])
-            say(f"\U0001F50E NEXUS received your request.\nTask ID: <code>{code(tid)}</code>\nBuilding the blueprint for <code>{N.esc(d[2:])}</code> (PDF + Markdown).")
+        if d.startswith("x:"):  # Explore button on idea cards
+            try:
+                N.tg("answerCallbackQuery", callback_query_id=cq["id"], text="Working on it...")
+            except Exception:  # noqa - stale query; still do the work
+                pass
+            tid, dup = enqueue_once("explore", d[2:])
+            if not dup:
+                say(f"\U0001F50E NEXUS received your request.\nTask ID: <code>{code(tid)}</code>\nBuilding the blueprint for <code>{N.esc(d[2:])}</code> (PDF + Markdown).")
+            return
+        try:
+            MENU.handle(N, CTX, CHAT, (cq.get("message") or {}).get("message_id"), cq["id"], d)
+        except Exception as e:  # noqa - never leave a button spinning silently
+            log("menu error:", traceback.format_exc()[-400:])
+            try:
+                N.tg("answerCallbackQuery", callback_query_id=cq["id"], text="That button failed; showing the main menu")
+            except Exception:  # noqa
+                pass
+            say(f"\u274C Menu error: {N.esc(str(e)[:150])}")
+            MENU.show(N, CHAT, None, *MENU.main_menu(), edit=False)
         return
     m = u.get("message") or {}
     if str(m.get("chat", {}).get("id")) != CHAT:
@@ -416,8 +445,12 @@ def handle_update(u):
         cmd, args = ALIASES.get(first[1:], first[1:]), " ".join(words[1:])
     else:  # natural follow-ups
         low = text.lower()
-        mm = re.search(r"(?:idea|number|no\.?|#)\s*(\d+)", low)
-        if mm and any(k in low for k in ("explain", "tell", "show", "idea", "details")):
+        mm = re.search(r"(?:idea|project|number|no\.?|#)\s*(\d+)", low)
+        if mm and any(k in low for k in ("architecture", "implement", "blueprint", "roadmap")):
+            cmd, args = "architecture", mm.group(1)
+        elif mm and any(k in low for k in ("novelty", "validate", "prior art")):
+            cmd, args = "validate", mm.group(1)
+        elif mm and any(k in low for k in ("explain", "tell", "show", "idea", "details", "project")):
             cmd, args = "explain", mm.group(1)
         elif low.split()[0] in ("cyber", "security", "idea", "briefing"):
             cmd, args = ALIASES.get(low.split()[0], low.split()[0]), " ".join(words[1:])
@@ -429,7 +462,10 @@ def handle_update(u):
         else:
             say("I didn't understand that. Try /help, or say <code>explain idea 2</code> after a list."); return
     if cmd == "start":
-        say("\U0001F7E2 <b>NEXUS is online</b> and running in the cloud.\n\n" + HELP); return
+        say("\U0001F7E2 <b>NEXUS is online</b> and running in the cloud.\n\n" + HELP)
+        MENU.show(N, CHAT, None, *MENU.main_menu(), edit=False); return
+    if cmd in ("menu", "ideas", "domains") and not args.strip():
+        MENU.show(N, CHAT, None, *MENU.main_menu(), edit=False); return
     if cmd == "help":
         say(HELP); return
     if cmd == "status":
@@ -451,6 +487,8 @@ def handle_update(u):
 
 
 THREADS = []
+CTX = SimpleNamespace(kv_get=kv_get, kv_set=kv_set, enqueue_once=enqueue_once, code=code, say=lambda m: say(m),
+                      run_command=lambda c, a: run_command(c, a))
 
 
 def main():
@@ -466,7 +504,7 @@ def main():
     threading.Thread(target=classify_backlog, daemon=True).start()
     try:
         N.tg("setMyCommands", commands=json.dumps([{"command": c, "description": d} for c, d in [
-            ("idea", "Project ideas"), ("cyber", "Cybersecurity ideas"), ("briefing", "Short briefing"), ("status", "System health"),
+            ("menu", "Domain menu (tap to explore)"), ("idea", "Project ideas"), ("cyber", "Cybersecurity ideas"), ("briefing", "Short briefing"), ("status", "System health"),
             ("projects", "Explored ideas"), ("help", "All commands")]]))
     except Exception as e:  # noqa
         log("setMyCommands:", e)
