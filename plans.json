@@ -2117,5 +2117,1178 @@
    "low-cost irrigation controller evaluation",
    "gravimetric soil moisture calibration"
   ]
+ },
+ {
+  "id": "fundus-phone-shift",
+  "name": "RetinaShift: honest diabetic-retinopathy screening on low-cost phone fundus images",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "health",
+   "ai",
+   "vision",
+   "india"
+  ],
+  "kw": [
+   "diabetic retinopathy",
+   "fundus",
+   "retinal imaging",
+   "smartphone ophthalmoscope",
+   "domain shift",
+   "eye screening"
+  ],
+  "problem": "Diabetic retinopathy causes preventable blindness, and screening programmes lack retina specialists; models trained on hospital-grade fundus cameras often degrade on cheap smartphone adapters.",
+  "verify": "Read national diabetes/DR prevalence reports and screening-programme coverage; ask two ophthalmologists how phone-captured images are used today.",
+  "existing": "Regulator-cleared autonomous DR screening systems on desktop fundus cameras; academic models on EyePACS/APTOS/IDRiD; a few phone-adapter studies.",
+  "idea": "Quantify and reduce the accuracy drop from clinic cameras to phone adapters with image-quality gating, test-time adaptation and a 'refer when unsure' policy.",
+  "novelty": "Hypothesis: a calibrated quality-gate + abstention policy keeps referral sensitivity on phone images close to clinic images. Must check recent phone-fundus DR literature first.",
+  "stack": "Python, PyTorch, timm, public fundus datasets (APTOS, IDRiD, Messidor-2), Android/TFLite for the demo",
+  "stages": "Baseline on clinic datasets -> simulate phone degradations (blur, glare, vignetting) -> quality gate -> test-time adaptation -> calibration + abstention -> per-device error analysis",
+  "hw": "Laptop/GPU (Colab works); optional clip-on phone fundus lens",
+  "cost": "Free (lens optional, INR 3-15k)",
+  "risks": "Medical-device regulation; simulated degradation may not match real phones; never present as diagnostic.",
+  "metrics": "Referable-DR sensitivity/specificity, AUROC per capture device, abstention rate, expected calibration error",
+  "prior_art": [
+   "smartphone fundus diabetic retinopathy deep learning",
+   "fundus image quality assessment referable",
+   "test-time adaptation medical imaging domain shift"
+  ]
+ },
+ {
+  "id": "amr-antibiogram-watch",
+  "name": "AMRWatch: early warning of rising antibiotic resistance from routine lab antibiograms",
+  "level": 3,
+  "fit": "months",
+  "tags": [
+   "health",
+   "data",
+   "india"
+  ],
+  "kw": [
+   "antimicrobial resistance",
+   "amr",
+   "antibiogram",
+   "antibiotic resistance",
+   "superbug",
+   "surveillance"
+  ],
+  "problem": "Hospitals produce susceptibility results daily but resistance trends are usually reviewed yearly, so local surges are noticed late.",
+  "verify": "Read WHO GLASS and national AMR surveillance reports; ask a hospital microbiologist how often antibiograms are updated and who acts on them.",
+  "existing": "WHONET for lab data management, national surveillance networks, published annual antibiograms; research on resistance forecasting.",
+  "idea": "Statistical change-point and seasonal-baseline detection on organism-antibiotic resistance rates, with small-sample-aware alerts and a weekly ward-level report.",
+  "novelty": "Hypothesis: Bayesian small-count alerts give earlier, fewer-false-alarm warnings than yearly antibiograms. Probably an improved implementation rather than a new mechanism.",
+  "stack": "Python, pandas, PyMC or statsmodels, Streamlit, WHONET-format synthetic or public AMR data",
+  "stages": "Data model -> synthetic data with injected surges -> baselines (yearly %, CUSUM) -> Bayesian alerting -> report -> evaluation on held-out years",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Real lab data needs ethics approval; testing-bias (only sick patients are cultured) distorts rates.",
+  "metrics": "Detection delay for injected surges, false alerts per month, precision of alerts reviewed by a microbiologist",
+  "prior_art": [
+   "antimicrobial resistance trend detection change point",
+   "WHONET outbreak detection SaTScan",
+   "antibiogram forecasting machine learning"
+  ]
+ },
+ {
+  "id": "ot-schedule-opt",
+  "name": "OTFlow: operating-theatre scheduling that learns real surgery durations",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "health",
+   "data"
+  ],
+  "kw": [
+   "operating room",
+   "surgery scheduling",
+   "hospital operations",
+   "theatre utilisation",
+   "case duration"
+  ],
+  "problem": "Booked surgery times are often wrong, causing overruns, cancellations and idle theatres in busy hospitals.",
+  "verify": "Find published theatre-utilisation and same-day cancellation rates; interview a theatre coordinator about how slots are booked.",
+  "existing": "Hospital information systems with booking modules; operations-research papers on surgical scheduling; commercial perioperative analytics.",
+  "idea": "Predict case duration with quantile regression from procedure/surgeon/patient features, then schedule with a stochastic optimiser that limits overrun probability.",
+  "novelty": "Hypothesis: quantile predictions + chance-constrained scheduling cut overruns versus mean-duration booking. Well-studied area; value is an honest open benchmark.",
+  "stack": "Python, LightGBM quantile regression, OR-Tools CP-SAT, synthetic data from published duration distributions",
+  "stages": "Synthetic data -> duration model -> baseline scheduler -> chance-constrained scheduler -> simulation over months -> sensitivity analysis",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "No real data without a hospital partner; human factors dominate real scheduling.",
+  "metrics": "Overrun minutes/day, cancellations, utilisation, pinball loss of duration predictions",
+  "prior_art": [
+   "surgical case duration prediction machine learning",
+   "stochastic operating room scheduling chance constraint",
+   "operating theatre utilisation optimisation"
+  ]
+ },
+ {
+  "id": "cashflow-credit-fair",
+  "name": "FairFlow: cash-flow credit scoring for thin-file borrowers with a built-in fairness audit",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "fintech",
+   "data",
+   "india"
+  ],
+  "kw": [
+   "credit scoring",
+   "thin file",
+   "account aggregator",
+   "cash flow underwriting",
+   "financial inclusion",
+   "algorithmic fairness"
+  ],
+  "problem": "Many small borrowers have no credit history, so bureau scores exclude them; cash-flow data could help but can encode bias.",
+  "verify": "Read RBI/World Bank financial-inclusion data and Account Aggregator adoption reports; check published studies on cash-flow underwriting performance.",
+  "existing": "Lender cash-flow underwriting models, Account Aggregator framework, fairness toolkits (Fairlearn, AIF360), academic credit-scoring benchmarks.",
+  "idea": "Engineer features from synthetic bank-statement transactions, compare against a bureau-only baseline, and ship an automatic fairness and explanation report per model version.",
+  "novelty": "Hypothesis: a small set of interpretable cash-flow features gives most of the lift with auditable fairness. Synthetic data only.",
+  "stack": "Python, pandas, LightGBM, SHAP, Fairlearn, synthetic transaction generator",
+  "stages": "Transaction simulator -> feature library -> baseline vs cash-flow model -> fairness metrics across groups -> reason codes -> model card",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Synthetic data may not reflect reality; lending regulation; never use real personal data without consent.",
+  "metrics": "AUC/KS vs baseline, approval rate at fixed default rate, demographic parity and equal-opportunity gaps",
+  "prior_art": [
+   "cash flow underwriting thin file credit",
+   "credit scoring fairness audit",
+   "transaction data credit risk features"
+  ]
+ },
+ {
+  "id": "crop-claim-verify",
+  "name": "ClaimSat: verifying crop-insurance loss claims with free satellite imagery",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "fintech",
+   "agri",
+   "geospatial",
+   "space",
+   "india"
+  ],
+  "kw": [
+   "crop insurance",
+   "pmfby",
+   "claim settlement",
+   "sentinel-2",
+   "crop loss",
+   "yield estimation"
+  ],
+  "problem": "Crop-insurance claims settle slowly because loss assessment relies on manual crop-cutting experiments, delaying payouts to farmers.",
+  "verify": "Read government crop-insurance scheme reports on claim delays; check how remote sensing is already used in assessment.",
+  "existing": "Government pilots using remote sensing for yield estimation, commercial agri-analytics firms, academic NDVI-based loss models.",
+  "idea": "Field-level vegetation-index time series from Sentinel-2 with cloud gap-filling to flag claims consistent or inconsistent with observed crop damage, for faster human review.",
+  "novelty": "Hypothesis: per-field anomaly vs the field's own history beats district averages for triage. Must check existing remote-sensing assessment pilots carefully.",
+  "stack": "Python, Google Earth Engine or Sentinel Hub (free tiers), rasterio, scikit-learn, Streamlit map",
+  "stages": "Field boundaries -> NDVI/NDWI time series -> cloud gap-fill -> anomaly model -> compare with known disaster events -> reviewer UI",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Cloud cover in monsoon; small fields near 10 m pixel size; ground truth is scarce.",
+  "metrics": "Agreement with ground-truth loss labels, reviewer time saved, false-reject rate (must be very low)",
+  "prior_art": [
+   "sentinel-2 crop damage assessment insurance",
+   "remote sensing crop insurance claim",
+   "field level yield anomaly detection"
+  ]
+ },
+ {
+  "id": "defi-invariant-fuzz",
+  "name": "InvariantForge: mining and fuzzing economic invariants of DeFi contracts",
+  "level": 5,
+  "fit": "months",
+  "tags": [
+   "fintech",
+   "security",
+   "crypto"
+  ],
+  "kw": [
+   "defi exploit",
+   "smart contract",
+   "invariant testing",
+   "fuzzing",
+   "flash loan",
+   "price oracle manipulation"
+  ],
+  "problem": "DeFi exploits often break economic assumptions (price, solvency) rather than simple code bugs, and teams rarely write invariant tests for them.",
+  "verify": "Collect post-mortems of recent DeFi exploits and classify which were economic-invariant violations.",
+  "existing": "Foundry/Echidna invariant fuzzing, formal verification services, academic work on flash-loan attack synthesis.",
+  "idea": "Infer candidate invariants (conservation, monotonic share price, solvency) from transaction traces, then fuzz forked mainnet states to try to break them.",
+  "novelty": "Hypothesis: automatically mined economic invariants find historical exploit paths that generic fuzzing misses. Research-grade; verify against invariant-inference literature.",
+  "stack": "Solidity, Foundry (forge/anvil), Echidna, Python for trace mining",
+  "stages": "Exploit dataset -> trace collection on forks -> invariant mining -> fuzz campaigns -> reproduce known exploits -> false-positive analysis",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Work only on forks and public post-mortems; never on live contracts without authorisation.",
+  "metrics": "Known exploits rediscovered, time to violation, false invariant rate",
+  "prior_art": [
+   "defi invariant inference smart contract",
+   "flash loan attack synthesis",
+   "echidna foundry invariant fuzzing"
+  ]
+ },
+ {
+  "id": "filing-event-study",
+  "name": "EventLens: honest event studies of corporate announcements on Indian exchanges",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "stockmarket",
+   "data",
+   "india"
+  ],
+  "kw": [
+   "corporate announcement",
+   "event study",
+   "abnormal return",
+   "exchange filing",
+   "earnings surprise",
+   "nse"
+  ],
+  "problem": "Retail investors see many claims that some announcement type 'moves the stock', but few check them with proper event-study statistics.",
+  "verify": "Check what academic event studies exist for Indian markets and which announcement categories are public.",
+  "existing": "Academic event-study literature, paid research terminals, retail finfluencer claims without statistics.",
+  "idea": "Pipeline that classifies public filings by type and measures cumulative abnormal returns with market-model baselines, confidence intervals and multiple-testing control.",
+  "novelty": "Hypothesis: most popular 'announcement effects' vanish after proper controls. Educational tool, not trading advice.",
+  "stack": "Python, pandas, statsmodels, public price data, filing text classifier (scikit-learn)",
+  "stages": "Filing collection -> type classifier -> market-model estimation -> CAR with CIs -> multiple-testing correction -> report",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Data licensing for prices; survivorship bias; must not be presented as investment advice.",
+  "metrics": "Classifier F1, CAR significance after correction, robustness across windows",
+  "prior_art": [
+   "event study abnormal returns indian stock market announcements",
+   "corporate disclosure classification",
+   "multiple testing event study"
+  ]
+ },
+ {
+  "id": "regime-stress-lab",
+  "name": "RegimeLab: market-regime detection and stress testing for a personal portfolio",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "stockmarket",
+   "data"
+  ],
+  "kw": [
+   "market regime",
+   "hidden markov model",
+   "stress test",
+   "portfolio risk",
+   "drawdown",
+   "volatility"
+  ],
+  "problem": "Individual investors rarely know how their portfolio behaves in crashes or high-volatility regimes.",
+  "verify": "Compare with risk tools already offered by brokers and portfolio trackers.",
+  "existing": "Institutional risk systems, broker risk dashboards, academic regime-switching models.",
+  "idea": "Fit regime-switching models on index data, then replay historical crisis regimes on the user's holdings to estimate drawdowns with uncertainty.",
+  "novelty": "Hypothesis: regime-conditional stress tests give more realistic drawdown ranges than single-volatility estimates. Mostly an engineering/education project.",
+  "stack": "Python, hmmlearn, arch, pandas, Plotly",
+  "stages": "Data -> regime model -> regime validation -> historical scenario replay -> uncertainty bands -> dashboard",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Regimes are unstable out of sample; not investment advice.",
+  "metrics": "Out-of-sample regime stability, coverage of predicted drawdown intervals",
+  "prior_art": [
+   "hidden markov model market regime detection",
+   "regime switching stress testing portfolio"
+  ]
+ },
+ {
+  "id": "nightlight-nowcast",
+  "name": "LightEcon: district-level economic activity nowcasts from night-time satellite lights",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "economy",
+   "geospatial",
+   "space",
+   "india"
+  ],
+  "kw": [
+   "night lights",
+   "viirs",
+   "gdp nowcast",
+   "district economy",
+   "economic activity",
+   "satellite economics"
+  ],
+  "problem": "District-level economic data arrives late or not at all, which slows policy response.",
+  "verify": "Read the economics literature validating night lights against GDP for India and its known biases.",
+  "existing": "Academic papers using DMSP/VIIRS lights for growth estimation, World Bank tools, some state dashboards.",
+  "idea": "Combine monthly VIIRS radiance with other free signals (electricity, GST where public) to nowcast district activity with honest error bars and backtests.",
+  "novelty": "Hypothesis: monthly lights + a few public indicators beat lights alone for district nowcasts. Must compare with existing studies.",
+  "stack": "Python, Google Earth Engine (VIIRS), geopandas, scikit-learn, statsmodels",
+  "stages": "District boundaries -> monthly radiance -> cleaning (gas flares, saturation) -> join indicators -> nowcast models -> backtest vs official releases",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Lights measure electrification more than income in poor areas; official data revisions.",
+  "metrics": "Backtest error vs official district estimates, direction-of-change accuracy",
+  "prior_art": [
+   "viirs night lights gdp india district",
+   "night time lights economic activity nowcasting"
+  ]
+ },
+ {
+  "id": "tender-price-anomaly",
+  "name": "TenderLens: spotting unusual prices in public procurement tenders",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "economy",
+   "data",
+   "india"
+  ],
+  "kw": [
+   "public procurement",
+   "tender",
+   "bid rigging",
+   "price anomaly",
+   "government spending",
+   "e-procurement"
+  ],
+  "problem": "Overpriced or rigged public purchases waste public money, and reviewers cannot inspect every tender.",
+  "verify": "Read open-contracting reports and audit findings on procurement irregularities; check which tender data is public.",
+  "existing": "Open Contracting Partnership red-flag indicators, audit analytics, academic bid-rigging detection.",
+  "idea": "Normalise item descriptions, compare unit prices across buyers and time, and add bid-pattern red flags (single bidder, cover bids) with explanations.",
+  "novelty": "Hypothesis: text-normalised item matching enables price comparisons that red-flag lists miss. Present as leads for review, never accusations.",
+  "stack": "Python, sentence embeddings for item matching, pandas, scikit-learn, Streamlit",
+  "stages": "Data collection -> item normalisation -> price baselines -> red-flag indicators -> ranking -> manual review of top leads",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Defamation risk if presented as proof; data quality; legitimate price differences.",
+  "metrics": "Precision of top-ranked leads on manual review, item-matching accuracy",
+  "prior_art": [
+   "public procurement red flags open contracting",
+   "bid rigging detection machine learning",
+   "unit price anomaly government procurement"
+  ]
+ },
+ {
+  "id": "pick-path-opt",
+  "name": "PickPath: slotting and pick-route optimisation for small warehouses",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "supply",
+   "data"
+  ],
+  "kw": [
+   "warehouse",
+   "order picking",
+   "slotting",
+   "pick path",
+   "fulfilment",
+   "logistics optimisation"
+  ],
+  "problem": "Small warehouses and dark stores lose much of picker time walking because fast-moving items are not placed well.",
+  "verify": "Find studies on share of picker time spent travelling; interview a small warehouse or dark-store manager.",
+  "existing": "Commercial WMS slotting modules, OR literature on picker routing and storage assignment.",
+  "idea": "Simulate a warehouse grid from order history, re-slot by pick frequency and co-occurrence, and route pickers with batching; measure walking distance saved.",
+  "novelty": "Hypothesis: co-occurrence-aware slotting adds savings over pure ABC slotting. Known OR area; value is a usable open tool.",
+  "stack": "Python, OR-Tools, NetworkX, synthetic order generator, Streamlit",
+  "stages": "Layout model -> order simulator -> baseline (ABC) -> co-occurrence slotting -> routing + batching -> evaluation",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Real layouts have constraints (weight, size) a simple model ignores.",
+  "metrics": "Walking distance per order, picks per hour in simulation",
+  "prior_art": [
+   "order picking routing storage assignment",
+   "warehouse slotting association rules"
+  ]
+ },
+ {
+  "id": "ev-fleet-charge-route",
+  "name": "ChargeRoute: delivery routing for electric fleets with charging and battery wear",
+  "level": 4,
+  "fit": "weeks",
+  "tags": [
+   "supply",
+   "energy",
+   "india"
+  ],
+  "kw": [
+   "electric delivery",
+   "ev fleet",
+   "vehicle routing",
+   "charging",
+   "battery degradation",
+   "last mile"
+  ],
+  "problem": "Last-mile fleets switching to EVs must plan around range, charging queues and battery wear, which ordinary routing ignores.",
+  "verify": "Read last-mile EV adoption reports; talk to an EV delivery operator about charging downtime.",
+  "existing": "Commercial EV fleet software, academic E-VRP literature with charging stations.",
+  "idea": "Electric vehicle routing with time windows, charging-station queues and a battery-degradation cost term, compared against distance-only routing.",
+  "novelty": "Hypothesis: adding a degradation cost changes routes enough to extend battery life at small distance cost. Check E-VRP literature.",
+  "stack": "Python, OR-Tools, PyBaMM or simple degradation models, OpenStreetMap",
+  "stages": "Instance generator -> distance-only baseline -> E-VRP with charging -> degradation term -> trade-off analysis",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Degradation models are approximate; real traffic variability.",
+  "metrics": "Total cost, charging wait, modelled capacity fade per year, on-time rate",
+  "prior_art": [
+   "electric vehicle routing problem charging stations",
+   "battery degradation aware routing"
+  ]
+ },
+ {
+  "id": "spindle-thermal-twin",
+  "name": "ThermoTwin: compensating machine-tool thermal drift with a hybrid digital twin",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "manufacturing",
+   "embedded",
+   "ai"
+  ],
+  "kw": [
+   "cnc",
+   "thermal error",
+   "machine tool",
+   "digital twin",
+   "precision machining",
+   "compensation"
+  ],
+  "problem": "Heat makes CNC machines drift by tens of microns, causing scrap in precision parts; small shops cannot afford compensation systems.",
+  "verify": "Read machining literature on the share of errors caused by thermal effects; ask a toolroom about scrap causes.",
+  "existing": "OEM thermal compensation on high-end controllers, academic regression and physics models.",
+  "idea": "A few cheap temperature sensors plus a physics-informed model predicting drift, validated on a small CNC or 3D printer with a dial gauge.",
+  "novelty": "Hypothesis: a hybrid physics+data model with 4-6 sensors matches heavier models on a low-cost machine. Experimental.",
+  "stack": "ESP32, DS18B20 sensors, dial indicator, Python, scikit-learn/PyTorch",
+  "stages": "Sensor rig -> warm-up drift experiments -> physics model -> hybrid model -> compensation test -> repeatability study",
+  "hw": "ESP32, 6 temperature sensors, dial gauge; access to a CNC or 3D printer",
+  "cost": "INR 3-6k",
+  "risks": "Needs machine access; measurement noise; compensation requires controller integration.",
+  "metrics": "Residual drift (microns) with vs without compensation, model error across ambient conditions",
+  "prior_art": [
+   "machine tool thermal error compensation model",
+   "thermal drift digital twin cnc"
+  ]
+ },
+ {
+  "id": "weld-signal-qc",
+  "name": "WeldSense: in-process weld quality from current, voltage and sound",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "manufacturing",
+   "embedded",
+   "ai",
+   "edge"
+  ],
+  "kw": [
+   "welding",
+   "weld defect",
+   "arc sensing",
+   "quality inspection",
+   "porosity",
+   "industrial iot"
+  ],
+  "problem": "Weld defects are usually found after the fact by inspection or destructive testing, wasting material in small fabrication shops.",
+  "verify": "Ask fabrication shops about rework rates; read arc-sensing literature.",
+  "existing": "High-end welding monitors, academic arc-signal and acoustic defect classifiers.",
+  "idea": "Clamp-on current/voltage sensing plus a microphone feeding an anomaly model that flags likely defective weld segments in real time.",
+  "novelty": "Hypothesis: cheap clamp sensors + unsupervised anomaly scores catch most porosity/lack-of-fusion events. Needs ground truth from cut sections.",
+  "stack": "ESP32-S3 or Raspberry Pi, Hall current sensor, voltage divider, MEMS mic, Python",
+  "stages": "Sensor rig -> data collection with deliberate defects -> features -> anomaly model -> cut-and-inspect validation",
+  "hw": "Current clamp, mic, MCU; access to a welding setup with a trained welder",
+  "cost": "INR 4-8k",
+  "risks": "Electrical safety; needs a welding workshop partner.",
+  "metrics": "Defect-segment recall/precision vs sectioned welds, latency",
+  "prior_art": [
+   "arc welding signal defect detection",
+   "acoustic weld quality monitoring machine learning"
+  ]
+ },
+ {
+  "id": "rov-hull-inspect",
+  "name": "AquaEye: low-cost ROV for inspecting tanks, dams and boat hulls",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "robotics",
+   "embedded",
+   "vision",
+   "infra"
+  ],
+  "kw": [
+   "underwater robot",
+   "rov",
+   "hull inspection",
+   "dam inspection",
+   "underwater vision",
+   "marine robotics"
+  ],
+  "problem": "Inspecting water tanks, small dams and hulls needs divers, which is costly and risky.",
+  "verify": "Ask a municipal water body or fishing-harbour operator how inspections are done today.",
+  "existing": "Commercial mini-ROVs, open-source ROV kits, academic underwater image enhancement.",
+  "idea": "Tethered ROV with camera and depth sensor plus image enhancement and crack/biofouling detection, with a repeatable inspection path.",
+  "novelty": "Hypothesis: repeat-path inspection with change detection is the useful part, not the vehicle. Mostly engineering.",
+  "stack": "ArduSub/BlueOS, Raspberry Pi, thrusters, pressure sensor, Python/OpenCV",
+  "stages": "Vehicle build -> waterproofing tests -> teleop -> image enhancement -> defect detection -> repeat-path change detection",
+  "hw": "Frame, 4-6 thrusters, Pi, camera, tether",
+  "cost": "INR 25-60k",
+  "risks": "Waterproofing failures; tether handling; water safety.",
+  "metrics": "Defect detection recall on test panels, positional repeatability",
+  "prior_art": [
+   "low cost rov inspection open source",
+   "underwater image enhancement crack detection"
+  ]
+ },
+ {
+  "id": "drone-sar-thermal",
+  "name": "SkySearch: drone thermal search patterns that adapt to where people are likely to be",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "robotics",
+   "disaster",
+   "vision",
+   "geospatial"
+  ],
+  "kw": [
+   "search and rescue",
+   "drone",
+   "thermal camera",
+   "missing person",
+   "coverage path planning",
+   "lost person behaviour"
+  ],
+  "problem": "Drone searches often fly uniform lawnmower patterns, wasting battery over unlikely areas while time is critical.",
+  "verify": "Read search-and-rescue literature on lost-person behaviour; talk to a disaster-response volunteer group.",
+  "existing": "Commercial drone SAR apps, academic probabilistic search planning, thermal person detectors.",
+  "idea": "Build a probability map from terrain and lost-person behaviour statistics and plan flights that maximise detection probability per battery minute, tested in simulation.",
+  "novelty": "Hypothesis: probability-weighted paths find targets faster than lawnmower patterns. Check probabilistic search literature.",
+  "stack": "PX4/ArduPilot SITL, Gazebo, Python, YOLO on thermal datasets",
+  "stages": "Probability map -> path planner -> SITL simulation -> thermal detection model -> comparison vs lawnmower",
+  "hw": "Simulation first; real flights need legal drone permission",
+  "cost": "Free (simulation)",
+  "risks": "Drone regulations; thermal detection fails under canopy; never deploy without trained operators.",
+  "metrics": "Time to detection in simulation, area coverage, detection recall",
+  "prior_art": [
+   "probabilistic search planning uav lost person",
+   "thermal person detection drone dataset"
+  ]
+ },
+ {
+  "id": "drone-log-forensics",
+  "name": "FlightTrace: forensic timeline and tamper checks for drone flight logs",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "robotics",
+   "forensics",
+   "security"
+  ],
+  "kw": [
+   "drone forensics",
+   "flight log",
+   "uav incident",
+   "digital forensics",
+   "dji",
+   "ardupilot logs"
+  ],
+  "problem": "Investigating drone incidents needs reliable reconstruction of flights, but logs come in many formats and can be edited.",
+  "verify": "Read drone-forensics papers and tool reviews; check common log formats.",
+  "existing": "Commercial drone forensics suites, academic parsers for DJI/ArduPilot logs.",
+  "idea": "Open tool that parses multiple log formats into one timeline, checks physical consistency (GPS vs IMU vs battery) to flag edits, and exports a court-ready report.",
+  "novelty": "Hypothesis: physics-consistency checks detect log tampering that format checks miss. Use only logs you own.",
+  "stack": "Python, pymavlink, pandas, Plotly, Kalman filter for consistency",
+  "stages": "Parsers -> unified schema -> timeline UI -> physics consistency checks -> tampering experiments -> report",
+  "hw": "Laptop; sample logs from simulators",
+  "cost": "Free",
+  "risks": "Proprietary log formats change; legal admissibility needs process.",
+  "metrics": "Tampering detection rate on edited logs, parser coverage",
+  "prior_art": [
+   "drone forensics flight log analysis",
+   "uav log tampering detection"
+  ]
+ },
+ {
+  "id": "conjunction-screen",
+  "name": "OrbitGuard: open conjunction screening for small-satellite operators",
+  "level": 4,
+  "fit": "weeks",
+  "tags": [
+   "space",
+   "science",
+   "data"
+  ],
+  "kw": [
+   "space debris",
+   "conjunction",
+   "collision avoidance",
+   "tle",
+   "space situational awareness",
+   "smallsat"
+  ],
+  "problem": "Small satellite teams (including university cubesats) have limited tools to understand collision warnings and their uncertainty.",
+  "verify": "Read space-debris reports and how cubesat teams currently receive conjunction data.",
+  "existing": "Government conjunction data messages, commercial SSA providers, open libraries like Orekit and Skyfield.",
+  "idea": "Screen public orbital elements for close approaches and estimate collision probability with uncertainty, showing how TLE error changes decisions.",
+  "novelty": "Hypothesis: an educational, uncertainty-aware screener helps student teams; not a replacement for official warnings.",
+  "stack": "Python, Skyfield/sgp4, poliastro or Orekit, NumPy",
+  "stages": "TLE ingestion -> propagation -> close-approach screening -> covariance assumptions -> Pc calculation -> sensitivity study",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "TLE accuracy is poor; must not be used for real manoeuvre decisions.",
+  "metrics": "Agreement with published conjunction events, runtime for full catalogue",
+  "prior_art": [
+   "conjunction screening tle collision probability",
+   "open source space situational awareness"
+  ]
+ },
+ {
+  "id": "gnss-spoof-watch",
+  "name": "SpoofWatch: detecting GNSS jamming and spoofing with low-cost receivers",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "space",
+   "security",
+   "embedded"
+  ],
+  "kw": [
+   "gps spoofing",
+   "gnss jamming",
+   "navigation security",
+   "navic",
+   "interference detection"
+  ],
+  "problem": "GNSS jamming and spoofing increasingly affect aviation, shipping and timing systems, and cheap receivers do not report it.",
+  "verify": "Read aviation and maritime interference reports; check what raw measurements cheap receivers expose.",
+  "existing": "Professional interference monitors, academic spoofing detectors, crowd-sourced aircraft-based interference maps.",
+  "idea": "Use raw measurements (C/N0, AGC, clock drift, multi-constellation consistency) from low-cost receivers to flag interference, tested only with recorded datasets and simulators.",
+  "novelty": "Hypothesis: multi-constellation consistency checks on cheap receivers catch most spoofing in public datasets. Never transmit GNSS signals - illegal.",
+  "stack": "u-blox receiver with raw output, Python, RTKLIB, public spoofing datasets (e.g. TEXBAT)",
+  "stages": "Raw data logging -> public dataset replay -> features -> detector -> false-alarm study in normal conditions",
+  "hw": "Multi-band GNSS receiver + antenna",
+  "cost": "INR 5-25k",
+  "risks": "Transmitting test signals is illegal; datasets may not reflect current attacks.",
+  "metrics": "Detection rate on public spoofing datasets, false alarms per day, detection delay",
+  "prior_art": [
+   "gnss spoofing detection low cost receiver",
+   "texbat spoofing dataset detection",
+   "gnss interference monitoring c/n0 agc"
+  ]
+ },
+ {
+  "id": "nilm-home",
+  "name": "WattSplit: appliance-level energy breakdown from one smart-meter signal",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "energy",
+   "ai",
+   "embedded",
+   "edge"
+  ],
+  "kw": [
+   "nilm",
+   "load disaggregation",
+   "smart meter",
+   "energy efficiency",
+   "appliance energy"
+  ],
+  "problem": "Households see only a total bill, so they do not know which appliance wastes energy.",
+  "verify": "Read NILM benchmark results and smart-meter rollout plans.",
+  "existing": "NILMTK toolkit, public datasets (REDD, UK-DALE), some commercial home monitors.",
+  "idea": "Train disaggregation models on public data, then adapt to Indian appliances (inverter ACs, geysers, pumps) with a cheap clamp sensor and a few labelled days.",
+  "novelty": "Hypothesis: few-shot adaptation recovers much of the accuracy lost when moving to Indian homes. Check NILM transfer literature.",
+  "stack": "ESP32 + SCT-013 clamp, Python, NILMTK, PyTorch",
+  "stages": "Benchmark on public data -> home sensor -> label a week -> transfer learning -> per-appliance accuracy",
+  "hw": "ESP32, current clamp, voltage sensor",
+  "cost": "INR 1.5-3k",
+  "risks": "Mains electrical safety (use clamp, no direct wiring); low sampling rate limits accuracy.",
+  "metrics": "Per-appliance energy error, F1 for on/off events",
+  "prior_art": [
+   "non intrusive load monitoring transfer learning",
+   "nilm low sampling rate deep learning"
+  ]
+ },
+ {
+  "id": "solar-soiling-detect",
+  "name": "SoilLoss: detecting dust losses on rooftop solar from inverter data alone",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "energy",
+   "climate",
+   "data",
+   "india"
+  ],
+  "kw": [
+   "solar soiling",
+   "rooftop solar",
+   "pv cleaning",
+   "inverter data",
+   "performance ratio",
+   "dust"
+  ],
+  "problem": "Dust on panels can cut output significantly in dry regions, but owners clean on fixed schedules or not at all.",
+  "verify": "Read soiling-loss studies for Indian climates; check what data common inverters expose.",
+  "existing": "Utility-scale soiling stations, academic soiling-rate extraction methods, inverter monitoring apps.",
+  "idea": "Estimate soiling loss from inverter output vs clear-sky irradiance models and weather data, and recommend when cleaning pays for itself.",
+  "novelty": "Hypothesis: inverter-only soiling estimates are accurate enough for cleaning decisions without extra sensors. Compare with published soiling extraction methods.",
+  "stack": "Python, pvlib, open weather APIs, pandas",
+  "stages": "Data collection -> clear-sky model -> performance ratio -> soiling extraction -> validate with manual cleaning events -> cost model",
+  "hw": "Access to a rooftop system's data",
+  "cost": "Free",
+  "risks": "Shading and inverter clipping confound estimates.",
+  "metrics": "Soiling-rate error vs cleaning step changes, net savings of recommended schedule",
+  "prior_art": [
+   "soiling loss estimation pv data pvlib",
+   "photovoltaic cleaning schedule optimisation"
+  ]
+ },
+ {
+  "id": "groundwater-forecast",
+  "name": "AquiferCast: village-scale groundwater level forecasts from wells, rain and satellites",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "water",
+   "climate",
+   "agri",
+   "geospatial",
+   "india"
+  ],
+  "kw": [
+   "groundwater",
+   "water table",
+   "aquifer",
+   "well level",
+   "grace satellite",
+   "drought"
+  ],
+  "problem": "Farmers and panchayats plan pumping without knowing how fast local groundwater is falling.",
+  "verify": "Read Central Ground Water Board assessments and public well-monitoring data availability.",
+  "existing": "Government well monitoring and assessments, GRACE-based regional studies, academic ML forecasts.",
+  "idea": "Forecast monthly well levels from rainfall, past levels and satellite soil moisture, with uncertainty, aggregated to a simple village-level advisory.",
+  "novelty": "Hypothesis: combining sparse wells with satellite soil moisture improves forecasts in data-poor areas. Check hydrology ML literature.",
+  "stack": "Python, public well data, IMD rainfall grids, SMAP/GRACE via Earth Engine, LightGBM/LSTM",
+  "stages": "Data assembly -> baseline (persistence, seasonal) -> ML models -> spatial cross-validation -> advisory format",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Sparse, irregular well data; advisories must not overstate certainty.",
+  "metrics": "Forecast RMSE vs persistence, coverage of prediction intervals",
+  "prior_art": [
+   "groundwater level forecasting machine learning india",
+   "grace groundwater downscaling"
+  ]
+ },
+ {
+  "id": "waste-sort-vision",
+  "name": "SortRight: vision-based dry-waste sorting for material recovery centres",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "climate",
+   "vision",
+   "edge",
+   "robotics",
+   "india"
+  ],
+  "kw": [
+   "waste sorting",
+   "recycling",
+   "material recovery",
+   "plastic waste",
+   "computer vision",
+   "circular economy"
+  ],
+  "problem": "Informal and municipal recovery centres sort mixed dry waste by hand, which is slow and unsafe.",
+  "verify": "Visit or read about a municipal material recovery facility; check composition studies of Indian dry waste.",
+  "existing": "Commercial AI sorting robots for large plants, public datasets (TACO, TrashNet).",
+  "idea": "Edge camera over a conveyor classifies material types common in Indian waste and drives a simple air-jet or flap diverter on a bench prototype.",
+  "novelty": "Hypothesis: a locally collected dataset matters more than model choice. Mostly engineering and data work.",
+  "stack": "Raspberry Pi 5 or Jetson, camera, YOLO, servo or solenoid diverter",
+  "stages": "Local dataset -> model -> bench conveyor -> diverter control -> throughput and purity test",
+  "hw": "Pi/Jetson, camera, small conveyor or ramp, servo",
+  "cost": "INR 10-25k",
+  "risks": "Dirty, crumpled items differ from datasets; hygiene during data collection.",
+  "metrics": "Sorting purity, items per minute, mAP on local test set",
+  "prior_art": [
+   "waste sorting computer vision taco dataset",
+   "low cost recycling robot conveyor"
+  ]
+ },
+ {
+  "id": "mandi-price-forecast",
+  "name": "MandiCast: honest crop price forecasts to help farmers decide when to sell",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "agri",
+   "economy",
+   "data",
+   "india"
+  ],
+  "kw": [
+   "mandi prices",
+   "agmarknet",
+   "crop prices",
+   "price forecasting",
+   "farmer income",
+   "onion prices"
+  ],
+  "problem": "Farmers often sell right after harvest when prices are lowest, without reliable information on whether waiting pays.",
+  "verify": "Check Agmarknet data coverage; talk to farmers or FPOs about how they decide when to sell.",
+  "existing": "Government price portals, private agri-apps with forecasts, academic commodity forecasting.",
+  "idea": "Forecast market prices with uncertainty and compare against storage costs to give 'sell now vs hold' guidance, evaluated against naive baselines.",
+  "novelty": "Hypothesis: most simple ML forecasts barely beat seasonal naive; showing that honestly plus a decision rule is the contribution.",
+  "stack": "Python, Agmarknet data, statsmodels, LightGBM, WhatsApp-style message output",
+  "stages": "Data cleaning -> naive/seasonal baselines -> ML models -> decision rule with storage cost -> backtest farmer outcomes",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Policy shocks (export bans) break forecasts; guidance must show uncertainty.",
+  "metrics": "MAPE vs seasonal naive, backtested farmer revenue vs sell-at-harvest",
+  "prior_art": [
+   "agmarknet price forecasting machine learning",
+   "crop price forecast storage decision"
+  ]
+ },
+ {
+  "id": "cattle-heat-collar",
+  "name": "HerdSense: low-cost collar detecting heat and early illness in dairy cattle",
+  "level": 3,
+  "fit": "months",
+  "tags": [
+   "agri",
+   "embedded",
+   "edge",
+   "ai",
+   "india"
+  ],
+  "kw": [
+   "livestock monitoring",
+   "dairy cattle",
+   "estrus detection",
+   "accelerometer collar",
+   "animal health",
+   "rumination"
+  ],
+  "problem": "Small dairy farmers miss heat (estrus) and early illness, losing milk yield and breeding cycles.",
+  "verify": "Read dairy extension reports on missed heat detection; talk to a veterinarian or dairy cooperative.",
+  "existing": "Commercial activity collars for large farms, academic accelerometer behaviour classifiers.",
+  "idea": "Accelerometer collar with on-device activity and rumination features sending daily summaries over BLE/LoRa, with heat and illness alerts.",
+  "novelty": "Hypothesis: a sub-INR-2k collar with on-device features is accurate enough for smallholders. Needs farm partner for labels.",
+  "stack": "nRF52 or ESP32-C3, IMU, LoRa or BLE gateway, TinyML",
+  "stages": "Collar build -> labelled data with farmer logs -> behaviour classifier -> heat detection -> battery life test",
+  "hw": "MCU, IMU, battery, enclosure, gateway",
+  "cost": "INR 2-5k per collar",
+  "risks": "Animal welfare and robustness; labels depend on farmer records.",
+  "metrics": "Heat-detection sensitivity vs vet confirmation, battery days, false alerts",
+  "prior_art": [
+   "accelerometer estrus detection dairy cows",
+   "low cost cattle activity collar"
+  ]
+ },
+ {
+  "id": "storage-spoilage-nose",
+  "name": "SpoilSniff: gas-sensing early warning of spoilage in onion and potato storage",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "agri",
+   "embedded",
+   "supply",
+   "india"
+  ],
+  "kw": [
+   "post-harvest loss",
+   "onion storage",
+   "potato storage",
+   "spoilage",
+   "electronic nose",
+   "cold storage"
+  ],
+  "problem": "A large share of onions and potatoes rot in storage, often discovered only when the smell is obvious.",
+  "verify": "Read post-harvest loss studies; talk to a farmer or trader who stores onions.",
+  "existing": "Research electronic noses, commercial cold-storage monitors (temperature/humidity), sensor-based quality studies.",
+  "idea": "Low-cost gas, temperature and humidity sensors in storage with a drift-corrected anomaly model warning days before visible rot.",
+  "novelty": "Hypothesis: early VOC/CO2 rise precedes visible rot by days with cheap MOX sensors. Must test on real storage batches.",
+  "stack": "ESP32, SGP30/BME688/MQ sensors, SHT31, Python",
+  "stages": "Sensor node -> controlled rot experiments in bins -> baseline drift correction -> anomaly model -> warning lead-time test",
+  "hw": "MCU, gas sensors, humidity sensor, solar/battery",
+  "cost": "INR 2-4k per node",
+  "risks": "MOX sensor drift and humidity cross-sensitivity.",
+  "metrics": "Warning lead time before visible rot, false alarms per week",
+  "prior_art": [
+   "electronic nose onion storage rot",
+   "potato storage spoilage gas sensor"
+  ]
+ },
+ {
+  "id": "misconception-miner",
+  "name": "MisconceptionMap: finding common student misconceptions from wrong answers",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "education",
+   "ai",
+   "data"
+  ],
+  "kw": [
+   "misconception",
+   "learning analytics",
+   "formative assessment",
+   "student errors",
+   "maths education",
+   "diagnostic questions"
+  ],
+  "problem": "Teachers see scores, not why students are wrong, so remediation targets the wrong concept.",
+  "verify": "Read research on diagnostic multiple-choice questions; ask two teachers how they analyse wrong answers.",
+  "existing": "Diagnostic question banks, knowledge-tracing models, research datasets of student answers.",
+  "idea": "Cluster wrong answers and solution steps to surface recurring misconceptions per class, with a short explanation for the teacher and a targeted practice set.",
+  "novelty": "Hypothesis: clustering wrong-answer patterns recovers expert-labelled misconceptions with useful accuracy. Check public misconception datasets.",
+  "stack": "Python, sentence embeddings, HDBSCAN, public math answer datasets, Streamlit",
+  "stages": "Dataset -> answer normalisation -> clustering -> compare with expert labels -> teacher report -> pilot feedback",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Student data privacy; clusters may be noisy.",
+  "metrics": "Cluster purity vs expert misconception labels, teacher-rated usefulness",
+  "prior_art": [
+   "student misconception detection clustering answers",
+   "diagnostic questions misconception dataset"
+  ]
+ },
+ {
+  "id": "offline-class-server",
+  "name": "ClassBox: offline classroom server with spaced repetition and progress analytics",
+  "level": 2,
+  "fit": "weeks",
+  "tags": [
+   "education",
+   "embedded",
+   "india"
+  ],
+  "kw": [
+   "offline learning",
+   "rural schools",
+   "spaced repetition",
+   "raspberry pi",
+   "low connectivity",
+   "edtech"
+  ],
+  "problem": "Many rural schools have devices but unreliable internet, so online learning platforms do not work.",
+  "verify": "Read school connectivity data; talk to a rural teacher or NGO running device labs.",
+  "existing": "Kolibri, RACHEL offline servers, many edtech apps needing internet.",
+  "idea": "Raspberry Pi hotspot serving curriculum-aligned practice with spaced repetition and teacher dashboards, syncing progress when connectivity appears.",
+  "novelty": "Hypothesis: adding spaced repetition and sync to existing offline content improves retention. Build on Kolibri rather than from scratch.",
+  "stack": "Raspberry Pi, Kolibri or custom PWA, SQLite, FSRS scheduler",
+  "stages": "Content selection -> offline PWA -> spaced repetition -> teacher dashboard -> sync -> pilot",
+  "hw": "Raspberry Pi 4/5, SD card, power bank",
+  "cost": "INR 6-10k",
+  "risks": "Adoption depends on teachers; content licensing.",
+  "metrics": "Retention on delayed quizzes, weekly active students",
+  "prior_art": [
+   "kolibri offline learning evaluation",
+   "spaced repetition school retention study"
+  ]
+ },
+ {
+  "id": "materials-surrogate-honest",
+  "name": "HonestSurrogate: when do ML property predictors fail on new materials?",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "science",
+   "ai",
+   "data"
+  ],
+  "kw": [
+   "materials discovery",
+   "graph neural network",
+   "materials project",
+   "property prediction",
+   "out of distribution"
+  ],
+  "problem": "ML materials predictors report excellent accuracy on random splits but can fail on genuinely new chemistries, misleading discovery efforts.",
+  "verify": "Read recent papers on extrapolation and out-of-distribution benchmarks in materials ML.",
+  "existing": "Matbench, Materials Project data, GNNs like CGCNN/MEGNet/M3GNet, OOD benchmark papers.",
+  "idea": "Compare models on chemistry- and structure-based splits, measure calibration and abstention, and publish a reproducible failure map.",
+  "novelty": "Hypothesis: uncertainty estimates flag most OOD failures. Builds on existing OOD benchmark work.",
+  "stack": "Python, matminer, pymatgen, PyTorch Geometric, Matbench",
+  "stages": "Data -> random vs cluster splits -> baselines and GNNs -> uncertainty methods -> failure analysis",
+  "hw": "GPU helpful (Colab)",
+  "cost": "Free",
+  "risks": "Compute limits; results may confirm known findings (still useful if reproducible).",
+  "metrics": "MAE by split type, calibration error, abstention-accuracy curve",
+  "prior_art": [
+   "materials property prediction out of distribution benchmark",
+   "matbench extrapolation uncertainty"
+  ]
+ },
+ {
+  "id": "diy-spectrometer",
+  "name": "SpectraKit: a calibrated low-cost spectrometer for water and food testing labs in schools",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "science",
+   "embedded",
+   "education"
+  ],
+  "kw": [
+   "spectrometer",
+   "absorbance",
+   "low cost lab equipment",
+   "colorimetric assay",
+   "citizen science"
+  ],
+  "problem": "Schools and small labs cannot afford spectrophotometers for basic water and food tests.",
+  "verify": "Check prices of entry-level lab spectrophotometers and published DIY spectrometer accuracy studies.",
+  "existing": "Public Lab DIY spectrometers, smartphone spectrometers, commercial colorimeters.",
+  "idea": "Diffraction-grating spectrometer with a camera sensor plus a rigorous calibration and uncertainty procedure, validated against a lab instrument on standard dyes.",
+  "novelty": "Hypothesis: careful calibration makes a cheap build quantitatively useful for specific assays. Main value is the validation protocol.",
+  "stack": "Raspberry Pi camera or webcam, DVD/grating, 3D-printed housing, Python",
+  "stages": "Build -> wavelength calibration -> linearity tests -> Beer-Lambert assays -> comparison with lab spectrophotometer",
+  "hw": "Camera, grating, light source, enclosure",
+  "cost": "INR 2-5k",
+  "risks": "Stray light and sensor nonlinearity; needs access to a reference instrument.",
+  "metrics": "Wavelength error (nm), linearity R2, concentration error vs reference",
+  "prior_art": [
+   "low cost diy spectrometer validation",
+   "smartphone spectrometer absorbance accuracy"
+  ]
+ },
+ {
+  "id": "api-break-detector",
+  "name": "BreakGuard: catching breaking API changes before a library release",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "web",
+   "data"
+  ],
+  "kw": [
+   "breaking change",
+   "semantic versioning",
+   "api compatibility",
+   "openapi",
+   "library release",
+   "dependency upgrade"
+  ],
+  "problem": "Libraries often ship breaking changes in minor versions, causing downstream failures.",
+  "verify": "Read empirical studies of semver violations in package ecosystems.",
+  "existing": "Language-specific API diff tools, OpenAPI diff tools, research on semver compliance.",
+  "idea": "Diff public APIs between versions (signatures, schemas, behaviour via downstream tests) and predict which dependents break, as a CI check.",
+  "novelty": "Hypothesis: running dependents' tests on a sample predicts breakage better than signature diffs alone.",
+  "stack": "Python, ast/griffe, OpenAPI diff, GitHub API, Docker",
+  "stages": "Signature diff -> schema diff -> dependent selection -> sandboxed test runs -> CI action -> study on real releases",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Running third-party tests needs sandboxing; flaky tests confuse results.",
+  "metrics": "Precision/recall of predicted breakages on historical releases",
+  "prior_art": [
+   "semantic versioning breaking changes empirical study",
+   "api breaking change detection python"
+  ]
+ },
+ {
+  "id": "bus-eta-crowd",
+  "name": "BusNow: bus arrival predictions from crowdsourced rider GPS",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "infra",
+   "data",
+   "india"
+  ],
+  "kw": [
+   "public transport",
+   "bus arrival",
+   "eta prediction",
+   "crowdsourced gps",
+   "gtfs",
+   "urban mobility"
+  ],
+  "problem": "Many city buses lack tracking, so riders wait without knowing arrival times.",
+  "verify": "Check which cities publish GTFS/realtime feeds and how riders currently get information.",
+  "existing": "Official bus tracking apps where AVL exists, transit apps, academic crowdsourced ETA work.",
+  "idea": "Riders' phones share location while on a bus; map-match to routes, detect which bus they are on, and predict ETAs for downstream stops with privacy-preserving aggregation.",
+  "novelty": "Hypothesis: a few riders per bus are enough for useful ETAs. Privacy design is central.",
+  "stack": "Flutter or PWA, Python backend, OSRM map matching, GTFS, gradient boosting",
+  "stages": "Route data -> simulated riders -> map matching -> bus identification -> ETA model -> privacy safeguards",
+  "hw": "Phones",
+  "cost": "Free",
+  "risks": "Needs enough users; location privacy.",
+  "metrics": "ETA error minutes vs actual, coverage with N riders",
+  "prior_art": [
+   "crowdsourced bus arrival time prediction",
+   "map matching bus identification smartphone"
+  ]
+ },
+ {
+  "id": "quake-mems-net",
+  "name": "QuakeNet: a low-cost MEMS seismometer network and its real detection limits",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "disaster",
+   "embedded",
+   "science",
+   "edge"
+  ],
+  "kw": [
+   "earthquake early warning",
+   "mems accelerometer",
+   "seismometer",
+   "raspberry shake",
+   "seismic network"
+  ],
+  "problem": "Earthquake-prone regions have sparse seismic stations; low-cost sensors could fill gaps, but their real limits are unclear.",
+  "verify": "Read studies of low-cost seismic networks and early-warning performance.",
+  "existing": "Raspberry Shake, smartphone-based networks, national seismic networks, academic low-cost sensor evaluations.",
+  "idea": "Deploy a few MEMS sensor nodes, apply STA/LTA and ML pickers, and measure detection limits against official catalogues.",
+  "novelty": "Hypothesis: ML pickers lower the magnitude threshold of cheap sensors noticeably. Honest evaluation is the contribution.",
+  "stack": "ESP32/RPi, ADXL355 or similar, Python, ObsPy, SeisBench",
+  "stages": "Sensor nodes -> timing sync -> noise characterisation -> STA/LTA and ML pickers -> comparison with catalogue",
+  "hw": "MEMS accelerometer nodes, GPS for timing",
+  "cost": "INR 8-15k per node",
+  "risks": "Urban noise; detection only, not public warnings without authorities.",
+  "metrics": "Detection rate vs magnitude/distance, false triggers per day, timing error",
+  "prior_art": [
+   "low cost mems seismometer network evaluation",
+   "seisbench phase picking low cost sensors"
+  ]
+ },
+ {
+  "id": "research-gap-graph",
+  "name": "GapGraph: mapping research gaps from paper abstracts with a knowledge graph",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "ai",
+   "science",
+   "data"
+  ],
+  "kw": [
+   "knowledge graph",
+   "literature review",
+   "research gaps",
+   "scientific discovery",
+   "openalex",
+   "citation network"
+  ],
+  "problem": "Finding what is unstudied in a field takes weeks of reading, and gaps are easy to miss.",
+  "verify": "Read literature-based discovery research and existing tools for gap finding.",
+  "existing": "Literature-based discovery systems, OpenAlex/Semantic Scholar APIs, connected-papers style maps.",
+  "idea": "Extract method-problem-dataset triples from abstracts, build a graph, and surface combinations rarely studied but adjacent to active work; validate with domain experts.",
+  "novelty": "Hypothesis: adjacency-based gap suggestions are rated useful by experts more often than random combinations.",
+  "stack": "Python, OpenAlex API, spaCy/sciBERT, NetworkX/Neo4j",
+  "stages": "Corpus -> triple extraction -> graph -> gap scoring -> expert rating study",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Extraction errors; 'gaps' may be gaps for good reasons.",
+  "metrics": "Extraction F1, expert usefulness ratings vs random baseline",
+  "prior_art": [
+   "literature based discovery knowledge graph",
+   "research gap identification scientific papers"
+  ]
  }
 ]
