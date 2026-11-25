@@ -1,10 +1,12 @@
 {
- "version": "v20261125-2012",
+ "version": "v20261126-0209",
  "embedder": "BAAI/bge-base-en-v1.5",
  "C": 30.0,
- "n_train": 1168,
+ "n_train": 1813,
  "n_gold": 800,
  "weak": true,
+ "n_search": 645,
+ "n_self_trained": 0,
  "classes": [
   "agriculture",
   "ai",
@@ -27,11 +29,11 @@
   "stockmarket",
   "supplychain"
  ],
- "acc_mixed": 0.7591666666666667,
- "top2_mixed": 0.8995833333333334,
- "f1_mixed": 0.7385299221933794,
- "acc_unseen": 0.682400452980971,
- "top2_unseen": 0.8324941152035447,
- "f1_unseen": 0.5553626341675889,
- "trained": "2026-11-25 20:12"
+ "acc_mixed": 0.7587499999999998,
+ "top2_mixed": 0.89625,
+ "f1_mixed": 0.7612982769111853,
+ "acc_unseen": 0.6698276100803101,
+ "top2_unseen": 0.8448770621513628,
+ "f1_unseen": 0.5480820582382748,
+ "trained": "2026-11-26 02:09"
 }

@@ -90,12 +90,16 @@ def rows_for(N, dcode, sub, mode, states):
         return [r for r in rows if states.get(r["id"]) == "shortlisted"], "⭐ Shortlist"
     if dcode == "A":
         return rows, "🌐 All domains"
+    if dcode == "G":
+        return [r for r in rows if r["p"].get("gen")], "🤖 Research-agent ideas"
     doms = dec(dcode)
     if not doms:
         return None, None
     pick = all if mode == "x" else any
     rows = [r for r in rows if pick(match_dom(r, d) for d in doms)]
     title = (" × " if mode == "x" else " + ").join(dlabel(d) for d in doms)
+    if sub == "g":
+        return [r for r in rows if r["p"].get("gen")], title + " › 🤖 agent ideas"
     if sub not in ("-", None) and len(doms) == 1:
         subs = sub_list(N, doms[0])
         i = int(sub)
@@ -140,7 +144,7 @@ def sub_list(N, d):
 def main_menu():
     b = [btn(lab, f"D|{k}") for k, lab in MENU]
     kb = grid(b) + [[btn("🧩 Select multiple domains", "MS"), btn("🔀 Cross-domain ideas", "MS|x")],
-                    [btn("⭐ My shortlist", "L|S|-|sc|0|u")]]
+                    [btn("🤖 New agent ideas", "L|G|-|lt|0|u"), btn("⭐ My shortlist", "L|S|-|sc|0|u")]]
     return ("<b>NEXUS — SELECT YOUR DOMAIN</b>\nWhich field would you like to explore today?\n\n"
             "<i>Tap a domain for its subdomains, projects, sorting and fresh research.</i>"), kb
 
@@ -157,7 +161,9 @@ def domain_menu(N, d):
     without = [(i, s) for i, s in enumerate(subs) if not s[2]]
     b = [btn(f"{s[1][:24]} ({s[2]})", f"B|{d}|{i}") for i, s in with_p] + \
         [btn(f"🔎 {s[1][:24]}", f"B|{d}|{i}") for i, s in without]
-    kb = [[btn(f"📚 All {len(rows)} {CT.DOMAINS[d][0][:20]} projects", f"L|{enc([d])}|-|sc|0|u")]] + grid(b) + [
+    n_gen = sum(1 for r in rows if r["p"].get("gen"))
+    kb = [[btn(f"📚 All {len(rows)} {CT.DOMAINS[d][0][:20]} projects", f"L|{enc([d])}|-|sc|0|u")]] + \
+        [[btn(f"🤖 Agent ideas ({n_gen}), newest first", f"L|{enc([d])}|g|lt|0|u")]] + grid(b) + [
         [btn("↕️ Sort projects", f"O|{enc([d])}|-|u"), btn("📰 Latest news (ML)", f"N|{d}")],
         [btn("🔄 Refresh research", f"R|{d}|-"), btn("🔁 Change domain", "H")],
         [btn("🔙 Back", "H"), btn("🏠 Main menu", "H")]]
@@ -188,7 +194,7 @@ def list_screen(N, ctx, chat, dcode, sub, sort, page, mode):
     for n, r in enumerate(chunk, page * PER_PAGE + 1):
         p, s = r["p"], r["sc"]
         first = p["problem"].split(". ")[0].rstrip(".")
-        lines.append(f"<b>{n}. {N.esc(r['name'].split(':')[0][:60])}</b>  [T{r['tier']}] est. <b>{r['composite']}/100</b>\n"
+        lines.append(f"<b>{n}. {'🤖 ' if p.get('gen') else ''}{N.esc(r['name'].split(':')[0][:60])}</b>  [T{r['tier']}] est. <b>{r['composite']}/100</b>\n"
                      f"<b>Problem:</b> {N.esc(first[:150])}.\n<b>Solution:</b> {N.esc(p['idea'][:170])}\n"
                      f"<i>{r['d']}/{r['sub']} | innovation: {r['innov']} | novelty {s[1]}/5 (hypothesis) | "
                      f"feasibility {s[0]}/5 | scalability {s[3]}/5</i>")
@@ -239,6 +245,7 @@ def project_screen(N, ctx, chat, pid):
     kb = [[btn("🔍 Explore project", f"A|x|{pid}"), btn("🏗️ Implementation plan", f"A|i|{pid}")],
           [btn("🧪 Novelty investigation", f"A|v|{pid}"), btn("🏆 Judging (estimates)", f"A|j|{pid}")],
           [btn("⚖️ Compare", f"A|c|{pid}"), btn("⭐ Add to shortlist", f"A|s|{pid}")],
+          [btn("👎 Not interested (hide, teach the agent)", f"A|n|{pid}")],
           [btn("🔙 Back to list", st.get("last_list") or "H"), btn("🔙 Domain selection", "H")]]
     return text, kb
 
@@ -353,14 +360,14 @@ def handle(N, ctx, chat, mid, cq_id, data):
     elif k == "R":
         d, sub = parts[1], parts[2]
         args = d
-        if sub != "-":
+        if sub.isdigit():
             subs = sub_list(N, d)
             args += " " + (subs[int(sub)][1] if int(sub) < len(subs) else "")
-        tid, dup = ctx.enqueue_once("idea", args)
-        toast = f"Already running as {ctx.code(tid)}" if dup else f"Research started: {ctx.code(tid)}"
+        tid, dup = ctx.enqueue_once("agent", args)
+        toast = f"Already running as {ctx.code(tid)}" if dup else f"Research agent started: {ctx.code(tid)}"
         if not dup:
-            ctx.say(f"🧠 Fresh research mission on <b>{N.esc(args)}</b> started.\nTask ID: <code>{ctx.code(tid)}</code>\n"
-                    "Results arrive here when ready.")
+            ctx.say(f"🤖 Research agent working on <b>{N.esc(args)}</b>: searching news, finding topics, writing and "
+                    f"critiquing new ideas.\nTask ID: <code>{ctx.code(tid)}</code> - takes 1-3 minutes.")
     elif k == "N":
         tid, dup = ctx.enqueue_once("news", parts[1])
         toast = f"{'Already running' if dup else 'Fetching'} {ctx.code(tid)}"
@@ -392,6 +399,9 @@ def project_action(N, ctx, chat, act, pid):
         ctx.say(judging_text(N, r)); return "Scorecard sent"
     if act == "s":
         N.CT.set_state(N.db(), pid, "shortlisted"); return "⭐ Added to your shortlist"
+    if act == "n":
+        N.CT.set_state(N.db(), pid, "archived")
+        return "👎 Hidden. The research agent will steer away from ideas like this"
     if act == "c":
         tray = [x for x in st.get("cmp", []) if x in cat and x != pid]
         if not tray:

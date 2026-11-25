@@ -60,12 +60,18 @@ def text_of(title, summary):
     return f"{title or ''}. {(summary or '')[:300]}"
 
 
-def predict(texts):
-    """Return [(d1, p1, d2, p2), ...] for a list of texts; empty list if the model is unavailable."""
+def predict(texts, return_vectors=False):
+    """Return [(d1, p1, d2, p2), ...] for a list of texts; empty list if the model is unavailable.
+    With return_vectors=True, also return the unit-length embeddings (reused by the research agent)."""
     if not texts or not _load():
-        return []
+        return ([], None) if return_vectors else []
     X = np.array(list(_state["emb"].embed(texts, batch_size=64)), dtype=np.float32)
     X /= np.linalg.norm(X, axis=1, keepdims=True) + 1e-12
+    out = _classify(X)
+    return (out, X) if return_vectors else out
+
+
+def _classify(X):
     z = X @ _state["w"].T + _state["b"]
     z -= z.max(1, keepdims=True)
     P = np.exp(z); P /= P.sum(1, keepdims=True)
@@ -81,7 +87,9 @@ def classify_pending(c, limit=5000):
                      "WHERE d.id IS NULL AND i.dup_of IS NULL LIMIT ?", (limit,)).fetchall()
     if not rows or not _load():
         return 0
-    preds = predict([text_of(t, s) for _, t, s in rows])
+    preds, X = predict([text_of(t, s) for _, t, s in rows], return_vectors=True)
+    c.execute("CREATE TABLE IF NOT EXISTS item_emb(id TEXT PRIMARY KEY, v BLOB)")  # embedding cache for the agent
+    c.executemany("INSERT OR REPLACE INTO item_emb VALUES(?,?)", [(r[0], v.astype(np.float16).tobytes()) for r, v in zip(rows, X)])
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     ver = _state["meta"]["version"]
     c.executemany("INSERT OR REPLACE INTO item_domain VALUES(?,?,?,?,?,?,?)",

@@ -20,6 +20,8 @@ CHAT = os.environ.get("TELEGRAM_CHAT_ID", "")
 WORKERS = int(os.environ.get("NEXUS_WORKERS", "2"))
 FETCH_H = float(os.environ.get("NEXUS_FETCH_HOURS", "6"))
 DIGEST_H = int(os.environ.get("NEXUS_DIGEST_HOUR", "7"))
+AGENT_H = float(os.environ.get("NEXUS_AGENT_HOURS", "3"))       # research-agent cycle interval
+KEEP_DAYS = int(os.environ.get("NEXUS_KEEP_DAYS", "120"))       # news kept in the database
 TDB = N.DATA / "tasks.db"
 HEART = N.DATA / "heartbeat"
 LOCK = threading.Lock()
@@ -97,6 +99,7 @@ HELP = ("<b>NEXUS commands</b>\n"
         "/projects - ideas you've explored\n"
         "/knowledge &lt;words&gt; - search stored news\n"
         "/news &lt;domain&gt; - latest news the ML model files under a domain (e.g. <code>/news healthcare</code>)\n"
+        "/agent [domain] - run the research agent now: search news, find topics, write + critique NEW ideas\n"
         "/validate &lt;id&gt; - novelty checklist and prior-art searches\n"
         "/architecture &lt;id&gt; | /implement &lt;id&gt; | /github &lt;id&gt; - blueprint (PDF + MD)\n"
         "/compare &lt;id1&gt; &lt;id2&gt; - side by side\n"
@@ -107,7 +110,7 @@ HELP = ("<b>NEXUS commands</b>\n"
 
 QUEUED_CMDS = {"idea", "cyber", "briefing", "trend", "problems", "opportunities", "projects", "knowledge", "validate",
                "architecture", "implement", "github", "compare", "research", "deepdive", "explore", "result", "explain",
-               "ideas", "domains", "top", "project", "shortlist", "archive", "shortlisted", "export", "news"}
+               "ideas", "domains", "top", "project", "shortlist", "archive", "shortlisted", "export", "news", "agent"}
 ALIASES = {"security": "cyber", "cybersecurity": "cyber", "daily": "briefing", "catalog": "ideas", "catalogue": "ideas"}
 
 
@@ -133,6 +136,45 @@ def domain_mission(args, num):
                     "I invent nothing for it; with an API key, /research can go deeper.</i>")
     remember(m)
     return m
+
+
+def agent_report(rep):
+    name = N.CT.DOMAINS[rep["domain"]][0]
+    t = (f"\U0001F916 <b>Research cycle: {N.esc(name)}</b>\n"
+         f"News searched: +{rep['gathered']} new items | fresh topics: {rep['signals']} | ideas written: {rep['proposed']} | "
+         f"<b>kept after critique: {len(rep['kept'])}</b>")
+    if rep["rejected"]:
+        t += "\n\n<b>Rejected:</b>\n" + "\n".join(f"- {N.esc(n.split(':')[0][:50])}: {N.esc(w[:110])}" for n, w in rep["rejected"][:6])
+    if rep["note"]:
+        t += f"\n\n<i>{N.esc(rep['note'][:250])}</i>"
+    return t
+
+
+def agent_run(args, num, auto=False):
+    """Run research cycles. args: '' / 'auto' = the agent picks domains; otherwise a domain (+ optional focus words)."""
+    c = N.db()
+    q = N.CT.parse(args) if args.strip() and args.strip() != "auto" else None
+    doms = sorted({d for g in q.doms for d in g}) if q else []
+    if q and not doms:
+        return ["Which domain? e.g. <code>/agent healthcare</code>, or just <code>/agent</code> and I pick."]
+    doms = doms[:2] or N.AG.pick_domains(N, c, 2 if auto else 1)
+    reps = [N.AG.cycle(N, c, d, focus=" ".join(q.words) if q else "") for d in doms]
+    if auto:
+        kept = [r for r in reps if r["kept"]]
+        if kept and kv_get("paused") != "1":
+            say("\U0001F916 <b>Research agent</b> wrote new ideas: " + ", ".join(
+                f"{N.esc(N.CT.DOMAINS[r['domain']][0])} +{len(r['kept'])}" for r in kept) +
+                "\nOpen /menu \u2192 \U0001F916 New agent ideas.")
+        return [agent_report(r) for r in reps]
+    msgs = [agent_report(r) for r in reps]
+    for r in reps:
+        if r["kept"]:  # show the new ideas as cards (unseen agent ideas come first)
+            msgs += domain_mission(r["domain"], len(r["kept"]))
+    if not N.AG.provider():
+        msgs.append("To let the agent write ideas, add a free LLM key as a GitHub secret (no card needed): "
+                    "<b>GROQ_API_KEY</b> from console.groq.com, or <b>GEMINI_API_KEY</b> from aistudio.google.com. "
+                    "See GITHUB_SETUP.md.")
+    return msgs
 
 
 def plans_by_id():
@@ -185,6 +227,8 @@ def run_command(cmd, args):
                 f"{'See /shortlisted.' if cmd == 'shortlist' else 'Hidden from lists; add --archived to /ideas to see archived ones.'}"], files
     if cmd == "cyber":
         m = N.build_msgs("security", min(num or 15, 30)); remember(m); return m, files
+    if cmd == "agent":
+        return agent_run(args, num, auto=args.strip() == "auto"), files
     if cmd == "news":
         q = N.CT.parse(args)
         doms = sorted({d for g in q.doms for d in g})
@@ -304,6 +348,7 @@ def status_text():
     rows.append(f"\U0001F7E2 Queue: queued {q.get('QUEUED', 0)}, running {q.get('RUNNING', 0)}, completed {q.get('COMPLETED', 0)}, failed {q.get('FAILED', 0)}")
     rows.append(f"Workers: {sum(t.is_alive() for t in THREADS)}/{WORKERS} alive; uptime {int((time.time() - STARTED) / 60)} min")
     rows.append(("\U0001F7E2 " if N.DM.available() else "\U0001F7E1 ") + N.esc(N.DM.status()))
+    rows.append(("\U0001F7E2 " if N.AG.provider() else "\U0001F7E1 ") + N.esc(N.AG.status(N.db())))
     rows.append("AI provider: " + ("configured (key present, not test-called)" if os.environ.get("ANTHROPIC_API_KEY") else "⚪ not configured"))
     rows.append(f"Scheduler: fetch every {FETCH_H:g} h, digest daily at {DIGEST_H:02d}:00; " + ("PAUSED" if kv_get("paused") == "1" else "active"))
     if lastok:
@@ -362,6 +407,8 @@ def worker():
                 continue
             msgs, files = run_command(cmd, args)
             finish(tid, "COMPLETED", msgs, None, 0)
+            if cmd == "agent" and args == "auto":  # background cycle: it sends its own short notice, no task chatter
+                continue
             ok = say(msgs)
             for f, cap, mime in files:
                 try:
@@ -384,9 +431,14 @@ def scheduler():
         try:
             if time.time() - last_fetch > FETCH_H * 3600:
                 N.fetch_all(); N.build(); last_fetch = time.time(); kv_set("last_fetch", last_fetch)
-                cut = (datetime.now(timezone.utc) - timedelta(days=21)).isoformat()  # keep state small
+                cut = (datetime.now(timezone.utc) - timedelta(days=KEEP_DAYS)).isoformat()  # the agent's long memory
                 with N.db() as c:
                     c.execute("DELETE FROM items WHERE fetched < ?", (cut,))
+                    c.execute("DELETE FROM item_emb WHERE id NOT IN (SELECT id FROM items WHERE fetched > ?)",
+                              ((datetime.now(timezone.utc) - timedelta(days=30)).isoformat(),))
+            if time.time() - float(kv_get("last_agent", "0")) > AGENT_H * 3600:
+                kv_set("last_agent", time.time())
+                enqueue_once("agent", "auto")
             today = datetime.now().strftime("%Y-%m-%d")
             if datetime.now().hour >= DIGEST_H and kv_get("last_digest") != today and kv_get("paused") != "1":
                 m = N.build_msgs(None, 12); remember(m); say(m); kv_set("last_digest", today)

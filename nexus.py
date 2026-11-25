@@ -25,6 +25,7 @@ from blueprint import blueprint_md, md_to_pdf  # noqa: E402
 import fresh as F  # noqa: E402
 import catalog as CT  # noqa: E402
 import domain_model as DM  # noqa: E402
+import agent as AG  # noqa: E402
 DATA = Path(os.environ.get("NEXUS_DATA", ROOT))  # writable state dir (a mounted volume in the cloud)
 DATA.mkdir(parents=True, exist_ok=True)
 DB = DATA / "nexus.db"
@@ -81,6 +82,7 @@ def db():
     """)
     F.init(c)
     DM.init(c)
+    AG.init(c)
     return c
 
 
@@ -231,7 +233,66 @@ def f_github(src):
     return out
 
 
-FETCH = {"rss": f_rss, "arxiv": f_arxiv, "hn": f_hn, "inshorts": f_inshorts, "github": f_github}
+# ---- official vulnerability data (public JSON APIs of the original publishers)
+def _since(days):
+    return datetime.now(timezone.utc) - timedelta(days=days)
+
+
+def f_kev(src):
+    """CISA Known Exploited Vulnerabilities catalog (CISA's official GitHub copy; cisa.gov blocks automated readers)."""
+    d = json.loads(http(src["url"], timeout=40))
+    vs = sorted(d["vulnerabilities"], key=lambda v: v.get("dateAdded", ""), reverse=True)[:25]
+    return [mk(src, f"https://nvd.nist.gov/vuln/detail/{v['cveID']}",
+               f"Actively exploited: {v['vendorProject']} {v['product']} - {v['vulnerabilityName']} ({v['cveID']})",
+               f"{v.get('shortDescription', '')} Required action: {v.get('requiredAction', '')}",
+               parse_date(v.get("dateAdded"))) for v in vs]
+
+
+def f_ghsa(src):
+    """GitHub Advisory Database: newest reviewed critical/high advisories (public REST API)."""
+    out = []
+    h = {"Accept": "application/vnd.github+json"}
+    tok = os.environ.get("GITHUB_TOKEN") or os.environ.get("GITHUB_TOKEN_FOR_STATE")  # avoids the anonymous rate limit
+    if tok:
+        h["Authorization"] = "Bearer " + tok
+    for sev in ("critical", "high"):
+        for a in json.loads(http(f"{src['url']}?type=reviewed&severity={sev}&per_page=15", h)):
+            pk = ", ".join(sorted({(v.get("package") or {}).get("ecosystem", "") + ":" + (v.get("package") or {}).get("name", "")
+                                   for v in a.get("vulnerabilities") or []}))[:120]
+            out.append(mk(src, a["html_url"], f"[{sev}] {a['summary']} ({a.get('cve_id') or a['ghsa_id']})",
+                          f"{pk}. {(a.get('description') or '')[:400]}", parse_date(a.get("published_at"))))
+    return out
+
+
+def f_nvd(src):
+    """NVD CVE API 2.0: CVEs rated CRITICAL published in the last 7 days."""
+    fmt = "%Y-%m-%dT%H:%M:%S.000"
+    q = urllib.parse.urlencode({"pubStartDate": _since(7).strftime(fmt), "pubEndDate": datetime.now(timezone.utc).strftime(fmt),
+                                "cvssV3Severity": "CRITICAL", "resultsPerPage": 40})
+    d = json.loads(http(f"{src['url']}?{q}", timeout=40))
+    out = []
+    for v in d.get("vulnerabilities", [])[-40:]:
+        c = v["cve"]
+        desc = next((x["value"] for x in c.get("descriptions", []) if x.get("lang") == "en"), "")
+        out.append(mk(src, f"https://nvd.nist.gov/vuln/detail/{c['id']}", f"Critical {c['id']}: {desc[:110]}", desc,
+                      parse_date(c.get("published"))))
+    return out
+
+
+def f_redhat(src):
+    """Red Hat Security Data API: critical and important CVEs of the last 14 days."""
+    out = []
+    for sev in ("critical", "important"):
+        q = urllib.parse.urlencode({"after": _since(14).strftime("%Y-%m-%d"), "severity": sev, "per_page": 20})
+        for v in json.loads(http(f"{src['url']}?{q}", timeout=40)):
+            out.append(mk(src, f"https://access.redhat.com/security/cve/{v['CVE']}",
+                          f"[{sev}] {v['CVE']}: {(v.get('bugzilla_description') or '')[:110]}",
+                          f"Affected packages: {', '.join(v.get('affected_packages') or [])[:300]}", parse_date(v.get("public_date"))))
+    return out
+
+
+FETCH = {"rss": f_rss, "arxiv": f_arxiv, "hn": f_hn, "inshorts": f_inshorts, "github": f_github,
+         "kev": f_kev, "ghsa": f_ghsa, "nvd": f_nvd, "redhat": f_redhat}
 
 
 def fetch_all():
@@ -251,23 +312,8 @@ def fetch_all():
     new = 0
     with cf.ThreadPoolExecutor(10) as ex:
         for s, items, err in ex.map(job, srcs):
-            n = 0
-            for it in items:
-                iid = hashlib.sha1(canon(it["url"]).encode()).hexdigest()[:16]
-                if c.execute("SELECT 1 FROM items WHERE id=?", (iid,)).fetchone():
-                    continue
-                nt = re.sub(r"\W+", " ", it["title"].lower()).strip()
-                dup = None
-                for t in seen_t:
-                    if t == nt or (abs(len(t) - len(nt)) < 25 and difflib.SequenceMatcher(None, t, nt).quick_ratio() > 0.92
-                                   and difflib.SequenceMatcher(None, t, nt).ratio() > 0.9):
-                        dup = "syndicated/duplicate title"; break
-                seen_t.append(nt)
-                tags = tag_text(it["title"] + " " + it["summary"])
-                c.execute("INSERT INTO items VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                          (iid, it["url"], it["title"], it["summary"], it["source"], it["cat"], it["type"], it["rel"],
-                           it["published"], now, json.dumps(tags), dup, json.dumps(it["extra"])))
-                n += 1; new += 1
+            n = store_items(c, [(s, it) for it in items], seen_t, now)
+            new += n
             c.execute("INSERT INTO health VALUES(?,?,?,?,?) ON CONFLICT(source) DO UPDATE SET last_try=excluded.last_try,"
                       "n=excluded.n,error=excluded.error,last_ok=CASE WHEN excluded.error IS NULL THEN excluded.last_try ELSE last_ok END",
                       (s["name"], None if err else now, now, len(items), err))
@@ -279,6 +325,35 @@ def fetch_all():
         log(f"ML domain model: classified {k} items" if k else "ML domain model: " + DM.status())
     except Exception as e:  # noqa - classification must never break fetching
         log(f"ML domain model failed: {e}")
+
+
+def store_items(c, pairs, seen_t=None, now=None):
+    """Insert (source, item) pairs that are not stored yet; near-identical titles are kept but marked as duplicates.
+    Returns how many new items were stored. Used by fetch_all and by the research agent's searches."""
+    now = now or datetime.now(timezone.utc).isoformat()
+    if seen_t is None:
+        recent = [r[0] for r in c.execute("SELECT title FROM items WHERE published > ? ORDER BY published DESC LIMIT 400",
+                                          ((datetime.now(timezone.utc) - timedelta(days=4)).isoformat(),))]
+        seen_t = [re.sub(r"\W+", " ", t.lower()).strip() for t in recent]
+    n = 0
+    for _, it in pairs:
+        iid = hashlib.sha1(canon(it["url"]).encode()).hexdigest()[:16]
+        if c.execute("SELECT 1 FROM items WHERE id=?", (iid,)).fetchone():
+            continue
+        nt = re.sub(r"\W+", " ", it["title"].lower()).strip()
+        dup = None
+        for t in seen_t:
+            if t == nt or (abs(len(t) - len(nt)) < 25 and difflib.SequenceMatcher(None, t, nt).quick_ratio() > 0.92
+                           and difflib.SequenceMatcher(None, t, nt).ratio() > 0.9):
+                dup = "syndicated/duplicate title"; break
+        seen_t.append(nt)
+        tags = tag_text(it["title"] + " " + it["summary"])
+        c.execute("INSERT INTO items VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                  (iid, it["url"], it["title"], it["summary"], it["source"], it["cat"], it["type"], it["rel"],
+                   it["published"], now, json.dumps(tags), dup, json.dumps(it["extra"])))
+        n += 1
+    c.commit()
+    return n
 
 
 def show_health():
@@ -314,6 +389,7 @@ def load_plans():
     g = DATA / "plans_generated.json"
     if g.exists():
         plans += json.load(open(g, encoding="utf-8"))
+    plans += AG.load_plans(db())  # ideas written by the research agent from stored news
     ids = {p["id"] for p in plans}
     plans += [p for p in F.load_sparks(db()) if p["id"] not in ids]  # new directions derived from recent items
     return plans
@@ -521,7 +597,12 @@ ICON = {"primary": "\U0001F3DB", "research": "\U0001F52C", "report": "\U0001F4F0
 
 def catalog_rows():
     meta = json.load(open(ROOT / "catalogue_meta.json", encoding="utf-8"))
-    return CT.enrich(load_plans(), meta)
+    meta.update(AG.load_meta(db()))
+    rows = CT.enrich(load_plans(), meta)
+    for r in rows:
+        if r["p"].get("gen"):
+            r["at"] = r["p"].get("created", "")
+    return rows
 
 
 def build_msgs(topic=None, n=12, mark=True, only_ids=None, tags=None, words=None, label=None, again=False):
@@ -540,6 +621,8 @@ def build_msgs(topic=None, n=12, mark=True, only_ids=None, tags=None, words=None
         pool = [p for p in pool if p["id"] in new_ids or p["id"] in only_ids]
     for p in pool:  # convincing matches only: 2+ keywords, or 2+ shared topic tags
         p["strong"] = [x for x in p["news"] if len(x["why"]) >= 2 or x["th"] >= 2][:2]
+        if p.get("gen"):  # an agent idea cites the news topic it was built from
+            p["strong"] = [dict(e, why=["origin"], th=9) for e in p.get("evidence", [])][:2]
         if p.get("source_item"):  # a spark always cites the item it came from
             p["strong"] = [dict(p["source_item"], why=["origin"], th=9)] + [x for x in p["strong"] if x["url"] != p["source_item"]["url"]][:1]
     day = f"{datetime.now():%Y-%m-%d}"
@@ -549,10 +632,14 @@ def build_msgs(topic=None, n=12, mark=True, only_ids=None, tags=None, words=None
     unseen = [p for p in regular if p["id"] not in seen]
     seen_list = [p for p in regular if p["id"] in seen]
     rot = lambda ps: sorted(ps, key=lambda p: hashlib.md5((day + p["id"]).encode()).hexdigest())
-    ordered = [p for p in unseen if p["strong"]] + rot([p for p in unseen if not p["strong"]])
+    newest = sorted((p for p in unseen if p.get("gen")), key=lambda p: p.get("created", ""), reverse=True)
+    unseen = [p for p in unseen if not p.get("gen")]
+    ordered = newest + [p for p in unseen if p["strong"]] + rot([p for p in unseen if not p["strong"]])
     if again:  # only when explicitly asked: re-show old ideas after the unseen ones
         ordered += [p for p in seen_list if p["strong"]] + rot([p for p in seen_list if not p["strong"]])
-    chosen = sparks_new + ordered[: max(n - len(sparks_new), 0)]
+    lead = newest[:n]  # never-shown agent ideas first, then today's sparks, then unseen catalogue ideas
+    sparks_new = sparks_new[: max(n - len(lead), 0)]
+    chosen = lead + sparks_new + ordered[len(newest):][: max(n - len(lead) - len(sparks_new), 0)]
     if mark:
         F.mark(c, [p["id"] for p in chosen if not p.get("spark")])
     k = sum(1 for p in chosen if p["strong"])
@@ -582,10 +669,15 @@ def build_msgs(topic=None, n=12, mark=True, only_ids=None, tags=None, words=None
         first = p["problem"].split(". ")[0].rstrip(".") + "."
         if p.get("spark"):
             tag = "✨ New direction:"
+        if p.get("gen"):
+            tag = "🤖 Agent idea:"
         t = (f"{tag} <b>{esc(p['name'])}</b>\n<code>{p['id']}</code>\n"
              f"Level {p['level']}/5 | {p['fit']} | {esc(p['cost'])}\n\n<b>Problem:</b> {esc(first)}\n")
         if p.get("spark"):
             t += f"<b>Idea:</b> {esc(p['idea'])}\n<i>Built from today's item; verify the problem and novelty before committing.</i>\n"
+        if p.get("gen"):
+            t += (f"<b>Idea:</b> {esc(p['idea'])}\n<b>Novelty:</b> {esc(p['novelty'])}\n"
+                  f"<i>Written by the research agent from the news below and reviewed by its critic; verify before committing.</i>\n")
         if p["strong"]:
             t += "\n<b>Why now:</b>\n" + "\n".join(
                 f"{ICON.get(x['type'], '')} <a href=\"{html.escape(x['url'])}\">{esc(x['title'][:85])}</a> - {esc(x['source'])}"

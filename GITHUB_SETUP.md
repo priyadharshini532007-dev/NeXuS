@@ -23,6 +23,10 @@ run. An hourly schedule restarts the chain if it ever stops. Use a PUBLIC reposi
    - `STATE_KEY` - any long random passphrase; make one with
      `-join ((48..57)+(65..90)+(97..122) | Get-Random -Count 40 | % {[char]$_})`  (save it somewhere safe)
    - `ANTHROPIC_API_KEY` - optional (paid; enables /research and deep blueprints)
+   - `GROQ_API_KEY` - **free, recommended**: lets the research agent write new project ideas. Get it at
+     https://console.groq.com/keys (sign up, no card). Alternatives, also free: `GEMINI_API_KEY` from
+     https://aistudio.google.com/apikey or `OPENROUTER_API_KEY` from https://openrouter.ai/keys. One is enough.
+     Without any of them NEXUS still gathers and sorts news but only shows catalogue ideas.
 4. Actions tab -> enable workflows -> `nexus` -> Run workflow (first run; later runs are automatic).
 5. Stop the Windows copies: `Stop-ScheduledTask "NEXUS bot"; Disable-ScheduledTask "NEXUS bot"; Disable-ScheduledTask "NEXUS daily"`
 6. Turn the laptop off and send `/start`, `/status`, `/idea`, `/cyber` from the phone.

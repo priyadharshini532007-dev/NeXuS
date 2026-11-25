@@ -26,12 +26,17 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}          # free LLM for the research agent (any one of these three)
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       GITHUB_TOKEN_FOR_STATE: ${{ secrets.GITHUB_TOKEN }}
       STATE_KEY: ${{ secrets.STATE_KEY }}
       NEXUS_DATA: ${{ github.workspace }}/state
       FASTEMBED_CACHE_PATH: ${{ github.workspace }}/.fastembed
       NEXUS_RUN_MINUTES: "50"
       NEXUS_DRAIN_MINUTES: "8"
+      NEXUS_FETCH_HOURS: "2"       # read all 123 sources every 2 hours
+      NEXUS_AGENT_HOURS: "3"       # research-agent cycle
       TZ: Asia/Kolkata
     steps:
       - uses: actions/checkout@v4

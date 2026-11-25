@@ -408,6 +408,582 @@
    "cat": "opensource",
    "rel": 0.5,
    "type": "lead"
+  },
+  {
+   "name": "Schneier on Security",
+   "kind": "rss",
+   "url": "https://www.schneier.com/blog/index.rdf",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Security Affairs",
+   "kind": "rss",
+   "url": "https://securityaffairs.co/wordpress/feed",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Security",
+   "kind": "rss",
+   "url": "https://gizmodo.com/tag/security/rss",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Kaspersky official blog",
+   "kind": "rss",
+   "url": "https://blog.kaspersky.com/feed/",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Securelist",
+   "kind": "rss",
+   "url": "https://securelist.com/feed/",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Palo Alto Networks Blog",
+   "kind": "rss",
+   "url": "https://researchcenter.paloaltonetworks.com/feed/",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "CyberScoop",
+   "kind": "rss",
+   "url": "https://www.cyberscoop.com/feed/",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "The Register – Security",
+   "kind": "rss",
+   "url": "https://www.theregister.co.uk/security/headlines.atom",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "CERT Recently Published Vulnerability Notes",
+   "kind": "rss",
+   "url": "https://www.kb.cert.org/vulfeed",
+   "cat": "security",
+   "rel": 0.85,
+   "type": "primary"
+  },
+  {
+   "name": "The Verge",
+   "kind": "rss",
+   "url": "https://www.theverge.com/rss/full.xml",
+   "cat": "engineering",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Dark Reading",
+   "kind": "rss",
+   "url": "https://www.darkreading.com/rss.xml",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Microsoft Security Blog",
+   "kind": "rss",
+   "url": "https://www.microsoft.com/en-us/security/blog/feed/",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "SANS Internet Storm Center",
+   "kind": "rss",
+   "url": "https://isc.sans.edu/rssfeed_full.xml",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Qualys Security Blog",
+   "kind": "rss",
+   "url": "https://blog.qualys.com/feed",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Cisco Security Blog",
+   "kind": "rss",
+   "url": "https://blogs.cisco.com/security/feed",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Gizmodo",
+   "kind": "rss",
+   "url": "https://gizmodo.com/rss",
+   "cat": "engineering",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Lifehacker",
+   "kind": "rss",
+   "url": "https://lifehacker.com/feed/rss",
+   "cat": "engineering",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "ZDNET Security",
+   "kind": "rss",
+   "url": "https://www.zdnet.com/topic/security/rss.xml",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Malwarebytes",
+   "kind": "rss",
+   "url": "https://www.malwarebytes.com/blog/feed/index.xml",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Elastic Stack",
+   "kind": "rss",
+   "url": "https://discuss.elastic.co/c/announcements/security-announcements/31.rss",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Blaze's Security Blog",
+   "kind": "rss",
+   "url": "https://bartblaze.blogspot.com/feeds/posts/default",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Project Zero",
+   "kind": "rss",
+   "url": "https://googleprojectzero.blogspot.com/feeds/posts/default",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Tripwire State of Security",
+   "kind": "rss",
+   "url": "https://feeds.feedburner.com/tripwire-state-of-security",
+   "cat": "security",
+   "rel": 0.65,
+   "type": "report"
+  },
+  {
+   "name": "Microsoft MSRC Security Update Guide",
+   "kind": "rss",
+   "url": "https://api.msrc.microsoft.com/update-guide/rss",
+   "cat": "security",
+   "rel": 0.9,
+   "type": "primary"
+  },
+  {
+   "name": "Chrome Releases",
+   "kind": "rss",
+   "url": "https://chromereleases.googleblog.com/feeds/posts/default",
+   "cat": "security",
+   "rel": 0.9,
+   "type": "primary"
+  },
+  {
+   "name": "Jenkins Security Advisories",
+   "kind": "rss",
+   "url": "https://www.jenkins.io/security/advisories/rss.xml",
+   "cat": "security",
+   "rel": 0.9,
+   "type": "primary"
+  },
+  {
+   "name": "Splunk Security Advisories",
+   "kind": "rss",
+   "url": "https://advisory.splunk.com/feed.xml",
+   "cat": "security",
+   "rel": 0.9,
+   "type": "primary"
+  },
+  {
+   "name": "ZDI Published Advisories",
+   "kind": "rss",
+   "url": "https://www.zerodayinitiative.com/rss/published/",
+   "cat": "security",
+   "rel": 0.9,
+   "type": "primary"
+  },
+  {
+   "name": "Oracle Security Alerts",
+   "kind": "rss",
+   "url": "https://www.oracle.com/ocom/groups/public/@otn/documents/webcontent/rss-otn-sec.xml",
+   "cat": "security",
+   "rel": 0.9,
+   "type": "primary"
+  },
+  {
+   "name": "Google Threat Intelligence (Mandiant)",
+   "kind": "rss",
+   "url": "https://cloudblog.withgoogle.com/topics/threat-intelligence/rss/",
+   "cat": "security",
+   "rel": 0.8,
+   "type": "report"
+  },
+  {
+   "name": "CISA Known Exploited Vulnerabilities",
+   "kind": "kev",
+   "url": "https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json",
+   "cat": "security",
+   "rel": 0.95,
+   "type": "primary"
+  },
+  {
+   "name": "GitHub Advisory Database",
+   "kind": "ghsa",
+   "url": "https://api.github.com/advisories",
+   "cat": "security",
+   "rel": 0.9,
+   "type": "primary"
+  },
+  {
+   "name": "NVD critical CVEs",
+   "kind": "nvd",
+   "url": "https://services.nvd.nist.gov/rest/json/cves/2.0",
+   "cat": "security",
+   "rel": 0.95,
+   "type": "primary"
+  },
+  {
+   "name": "Red Hat Security Data",
+   "kind": "redhat",
+   "url": "https://access.redhat.com/hydra/rest/securitydata/cve.json",
+   "cat": "security",
+   "rel": 0.9,
+   "type": "primary"
+  },
+  {
+   "name": "Google Research Blog",
+   "kind": "rss",
+   "url": "https://research.google/blog/rss/",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Google AI Blog",
+   "kind": "rss",
+   "url": "https://blog.google/technology/ai/rss/",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Microsoft Research Blog",
+   "kind": "rss",
+   "url": "https://www.microsoft.com/en-us/research/feed/",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Microsoft Source (news)",
+   "kind": "rss",
+   "url": "https://news.microsoft.com/source/feed/",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "NVIDIA Blog",
+   "kind": "rss",
+   "url": "https://blogs.nvidia.com/feed/",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "AWS Machine Learning Blog",
+   "kind": "rss",
+   "url": "https://aws.amazon.com/blogs/machine-learning/feed/",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "AWS News Blog",
+   "kind": "rss",
+   "url": "https://aws.amazon.com/blogs/aws/feed/",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Meta Engineering",
+   "kind": "rss",
+   "url": "https://engineering.fb.com/feed/",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Apple Machine Learning Research",
+   "kind": "rss",
+   "url": "https://machinelearning.apple.com/rss.xml",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "AMD Newsroom",
+   "kind": "rss",
+   "url": "https://ir.amd.com/rss/news-releases.xml",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Samsung Newsroom",
+   "kind": "rss",
+   "url": "https://news.samsung.com/global/feed",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Cloudflare Blog",
+   "kind": "rss",
+   "url": "https://blog.cloudflare.com/rss/",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Databricks Blog",
+   "kind": "rss",
+   "url": "https://www.databricks.com/feed",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Salesforce Engineering",
+   "kind": "rss",
+   "url": "https://engineering.salesforce.com/feed/",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Netflix Tech Blog",
+   "kind": "rss",
+   "url": "https://netflixtechblog.com/feed",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Cisco Newsroom",
+   "kind": "rss",
+   "url": "https://newsroom.cisco.com/c/services/i/servlets/newsroom/rssfeed.json?feed=all",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Siemens Press",
+   "kind": "rss",
+   "url": "https://press.siemens.com/global/en/rss.xml",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Tesla / energy - Electrek",
+   "kind": "rss",
+   "url": "https://electrek.co/feed/",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Stripe Blog",
+   "kind": "rss",
+   "url": "https://stripe.com/blog/feed.rss",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "PayPal Newsroom",
+   "kind": "rss",
+   "url": "https://newsroom.paypal-corp.com/news?pagetemplate=rss",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "Reserve Bank of India press releases",
+   "kind": "rss",
+   "url": "https://www.rbi.org.in/pressreleases_rss.xml",
+   "cat": "company",
+   "rel": 0.7,
+   "type": "primary"
+  },
+  {
+   "name": "IBM (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22IBM%22+%28AI+OR+quantum+OR+research+OR+technology%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "JPMorgan (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22JPMorgan%22+%28AI+OR+technology+OR+blockchain+OR+payments%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "Goldman Sachs (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22Goldman+Sachs%22+%28AI+OR+technology+OR+markets%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "Morgan Stanley (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22Morgan+Stanley%22+%28AI+OR+technology%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "Visa (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22Visa%22+%28payments+OR+fintech+OR+technology%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "Mastercard (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22Mastercard%22+%28payments+OR+fintech+OR+technology%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "Infosys (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22Infosys%22+%28AI+OR+technology+OR+deal%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "TCS (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22Tata+Consultancy+Services%22+OR+%22TCS%22+AI+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "Wipro (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22Wipro%22+%28AI+OR+technology%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "Qualcomm (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22Qualcomm%22+%28chip+OR+AI+OR+Snapdragon%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "Intel (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22Intel%22+%28chip+OR+foundry+OR+AI%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "Anthropic (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22Anthropic%22+%28Claude+OR+AI%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "Meta AI (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22Meta%22+%28Llama+OR+%22AI+research%22%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "Oracle (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22Oracle%22+%28cloud+OR+AI+OR+database%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "SAP (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22SAP%22+%28AI+OR+cloud+OR+ERP%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "UPI / NPCI (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22UPI%22+OR+%22NPCI%22+payments+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
+  },
+  {
+   "name": "Uber (Google News)",
+   "kind": "rss",
+   "url": "https://news.google.com/rss/search?q=%22Uber%22+%28technology+OR+autonomous+OR+AI%29+when%3A7d&hl=en-IN&gl=IN&ceid=IN%3Aen",
+   "cat": "company",
+   "rel": 0.55,
+   "type": "report"
   }
  ]
 }

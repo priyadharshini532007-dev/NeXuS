@@ -55,9 +55,9 @@ def load_all():
     gold = [json.loads(l) for l in open(ML / "data" / "gold.jsonl", encoding="utf-8")]
     gold_ids = {g["id"] for g in gold}
     c = sqlite3.connect(f"file:{ROOT / 'nexus.db'}?mode=ro", uri=True)
-    weak = [(i, text(t, s), CAT2DOM[cat], src) for i, t, s, src, cat in
-            c.execute("SELECT id,title,summary,source,cat FROM items WHERE dup_of IS NULL")
-            if cat in CAT2DOM and i not in gold_ids]
+    weak = [(i, text(t, s), CAT2DOM[cat], src) for i, t, s, src, cat, ex in
+            c.execute("SELECT id,title,summary,source,cat,extra FROM items WHERE dup_of IS NULL")
+            if cat in CAT2DOM and i not in gold_ids and "qdomain" not in (ex or "")]  # search-labelled news is separate (exp. 5)
     meta = json.load(open(ROOT / "catalogue_meta.json", encoding="utf-8"))
     ideas = [(p["id"], f"{p['name']}. {p['problem']} {p['idea']}", meta[p["id"]][0], "catalogue")
              for p in json.load(open(ROOT / "plans.json", encoding="utf-8")) if p["id"] in meta]
