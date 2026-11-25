@@ -82,7 +82,10 @@ def say(msgs, retries=3):
 
 # ------------------------------------------------------------------ commands
 HELP = ("<b>NEXUS commands</b>\n"
-        "/idea - project ideas with fresh news (tap Explore for a blueprint)\n"
+        "/idea [domain or topic] - fresh ideas + new directions (e.g. <code>/idea healthcare</code>, <code>/idea underwater robotics</code>)\n"
+        "/ideas [domain] [--sort novelty|impact|score|feasibility|scalability|research|hackathon|cost|difficulty|latest] "
+        "[--difficulty advanced] [--cost low] [--type hardware] [--time weeks] [--tier 1] [n] - browse the catalogue; <code>cyber+ai</code> = cross-domain\n"
+        "/domains [name] - domains and subdomains | /top - strongest candidates | /project &lt;id&gt; | /shortlist &lt;id&gt; | /archive &lt;id&gt; | /export\n"
         "/cyber [n] - cybersecurity ideas + top security news\n"
         "/briefing - short technology briefing\n"
         "/trend - topics rising in the last 3 days\n"
@@ -99,8 +102,31 @@ HELP = ("<b>NEXUS commands</b>\n"
         "Follow-ups work too: <code>explain idea 2</code> uses the last list I showed.")
 
 QUEUED_CMDS = {"idea", "cyber", "briefing", "trend", "problems", "opportunities", "projects", "knowledge", "validate",
-               "architecture", "implement", "github", "compare", "research", "deepdive", "explore", "result", "explain"}
-ALIASES = {"ideas": "idea", "security": "cyber", "cybersecurity": "cyber", "daily": "briefing"}
+               "architecture", "implement", "github", "compare", "research", "deepdive", "explore", "result", "explain",
+               "ideas", "domains", "top", "project", "shortlist", "archive", "shortlisted", "export"}
+ALIASES = {"security": "cyber", "cybersecurity": "cyber", "daily": "briefing", "catalog": "ideas", "catalogue": "ideas"}
+
+
+def domain_mission(args, num):
+    """Fresh, domain-specific mission: unseen library ideas of that domain + new sparks from recent matching items."""
+    q = N.CT.parse(args)
+    rows = N.catalog_rows()
+    doms = sorted({d for g in q.doms for d in g})
+    n = min(num or 12, 30)
+    if doms:
+        ids = {r["id"] for r in rows if any(all(N.CT.in_domain(r, d) for d in g) for g in q.doms)}
+        tags = set().union(*(N.CT.DOMAIN_TAGS.get(d, set()) for d in doms))
+        topic = "security" if doms == ["cyber"] else None
+        label = " + ".join(N.CT.DOMAINS[d][0] for d in doms)
+        m = N.build_msgs(topic, n, only_ids=ids, tags=tags, words=q.words or None, label=label)  # extra words narrow the fresh sparks
+    else:  # a topic that is not in the taxonomy: search stored news and the catalogue for those words only
+        words = q.words or args.lower().split()
+        ids = {r["id"] for r in rows if any(w in (r["p"]["name"] + " " + r["p"]["problem"] + " " + r["sub"]).lower() for w in words)}
+        m = N.build_msgs(None, n, only_ids=ids, words=words, label=args[:40])
+        m.insert(1, f"<i>'{N.esc(args[:40])}' is not one of my listed domains, so I searched stored news and the catalogue for those words. "
+                    "I invent nothing for it; with an API key, /research can go deeper.</i>")
+    remember(m)
+    return m
 
 
 def plans_by_id():
@@ -119,7 +145,38 @@ def run_command(cmd, args):
     a = args.split()
     num = next((int(x) for x in a if x.isdigit()), None)
     if cmd == "idea":
+        if args.strip() and not args.strip().isdigit():
+            return domain_mission(args, num), files
         m = N.build_msgs(None, min(num or 12, 30)); remember(m); return m, files
+    if cmd in ("ideas", "domains", "top", "project", "shortlist", "archive", "shortlisted", "export"):
+        rows = N.catalog_rows()
+        st = N.CT.get_states(N.db())
+        byid = {r["id"]: r for r in rows}
+        if cmd == "domains":
+            return N.CT.fmt_domains(rows, a[0].lower() if a else None), files
+        if cmd == "top":
+            return N.CT.fmt_top(rows, st), files
+        if cmd == "ideas":
+            q = N.CT.parse(args)
+            q.n = q.n or 60
+            if q.group:
+                return N.CT.fmt_domains(rows), files
+            return N.CT.fmt_list(N.CT.run(rows, q, st), q), files
+        if cmd == "shortlisted":
+            ids = [i for i, s in st.items() if s == "shortlisted" and i in byid]
+            return ["<b>Shortlist</b>\n" + ("\n".join(f"<code>{i}</code> {N.esc(byid[i]['name'].split(':')[0])}" for i in ids) or "empty - use /shortlist id")], files
+        if cmd == "export":
+            f = N.CT.export_csv(rows, N.DATA / "catalogue.csv")
+            files.append((f, "Catalogue export. Scores are NEXUS screening estimates, not validated.", "text/csv"))
+            return [f"Exported {len(rows)} projects."], files
+        pid = next((x for x in a if x in byid), None)
+        if not pid:
+            return [f"Which project? Use its id, e.g. <code>/{cmd} secrets-leak-radar</code> (see /ideas)."], files
+        if cmd == "project":
+            return [N.CT.fmt_project(byid[pid], st.get(pid))], files
+        N.CT.set_state(N.db(), pid, "shortlisted" if cmd == "shortlist" else "archived")
+        return [f"{'⭐ Shortlisted' if cmd == 'shortlist' else '\U0001F5C4 Archived'}: <code>{pid}</code>. "
+                f"{'See /shortlisted.' if cmd == 'shortlist' else 'Hidden from lists; add --archived to /ideas to see archived ones.'}"], files
     if cmd == "cyber":
         m = N.build_msgs("security", min(num or 15, 30)); remember(m); return m, files
     if cmd == "briefing":
@@ -342,8 +399,13 @@ def handle_update(u):
         mm = re.search(r"(?:idea|number|no\.?|#)\s*(\d+)", low)
         if mm and any(k in low for k in ("explain", "tell", "show", "idea", "details")):
             cmd, args = "explain", mm.group(1)
-        elif low.split()[0] in ("cyber", "security", "ideas", "idea", "briefing"):
+        elif low.split()[0] in ("cyber", "security", "idea", "briefing"):
             cmd, args = ALIASES.get(low.split()[0], low.split()[0]), " ".join(words[1:])
+        elif low.split()[0] in ("ideas", "domains", "top") or N.CT.parse(text).doms or "sort" in low:
+            cmd, args = ("domains" if low.split()[0] == "domains" else "top" if low.split()[0] == "top" else "ideas"), \
+                (" ".join(words[1:]) if low.split()[0] in ("ideas", "domains", "top") else text)
+        elif re.match(r"(explore|find|investigate|research|give me|show me)\b", low):
+            cmd, args = "idea", text  # custom domain / natural-language mission
         else:
             say("I didn't understand that. Try /help, or say <code>explain idea 2</code> after a list."); return
     if cmd == "start":

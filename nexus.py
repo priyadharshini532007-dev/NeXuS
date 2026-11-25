@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 from blueprint import blueprint_md, md_to_pdf  # noqa: E402
 import fresh as F  # noqa: E402
+import catalog as CT  # noqa: E402
 DATA = Path(os.environ.get("NEXUS_DATA", ROOT))  # writable state dir (a mounted volume in the cloud)
 DATA.mkdir(parents=True, exist_ok=True)
 DB = DATA / "nexus.db"
@@ -53,6 +54,13 @@ TAGS = {
  "infra": ["infrastructure", "bridge", "railway", "building", "traffic", "smart city", "structural", "road"],
  "india": ["india", "isro", "drdo", "iit", "iisc", "bengaluru", "indian", "upi", "aadhaar"],
  "science": ["physics", "simulation", "materials", "quantum", "chemistry", "protein", "pde"],
+ "fintech": ["payment", "upi", "fraud", "banking", "fintech", "loan", "credit score", "mule account", "money laundering"],
+ "stockmarket": ["stock market", "trading", "order book", "equity market", "securities", "market surveillance", "exchange"],
+ "economy": ["inflation", "gdp", "economic", "price index", "unemployment", "central bank", "recession"],
+ "manufacturing": ["manufactur", "factory", "assembly line", "defect", "quality control", "pcb", "industrial automation"],
+ "disaster": ["earthquake", "landslide", "cyclone", "wildfire", "disaster", "tsunami", "flood", "evacuation"],
+ "education": ["education", "student", "tutor", "school", "classroom", "e-learning", "edtech"],
+ "geospatial": ["satellite imagery", "remote sensing", "gis", "geospatial", "sentinel", "landsat"],
 }
 TAG_RX = {t: re.compile("|".join(r"\b" + re.escape(k) + (r"\b" if len(k) <= 4 else "") for k in ks), re.I)
           for t, ks in TAGS.items()}
@@ -500,7 +508,12 @@ def esc(t):
 ICON = {"primary": "\U0001F3DB", "research": "\U0001F52C", "report": "\U0001F4F0", "lead": "\U0001F4AC"}
 
 
-def build_msgs(topic=None, n=12, mark=True):
+def catalog_rows():
+    meta = json.load(open(ROOT / "catalogue_meta.json", encoding="utf-8"))
+    return CT.enrich(load_plans(), meta)
+
+
+def build_msgs(topic=None, n=12, mark=True, only_ids=None, tags=None, words=None, label=None):
     """Return Telegram HTML messages. topic='security' -> cyber desk.
     Never repeats: library ideas already shown (last 45 days) are used only after unseen ones run out, and about a third
     of the list is NEW 'sparks' built from today's items (each item becomes a spark once, ever)."""
@@ -508,9 +521,11 @@ def build_msgs(topic=None, n=12, mark=True):
     items = load_items(3)
     c = db()
     nspark = max(2, n // 3)
-    new_ids = {p["id"] for p in F.make_sparks(c, items, nspark, cyber)}
+    new_ids = {p["id"] for p in F.make_sparks(c, items, nspark, cyber, tags, words)}
     plans = sorted(match(load_plans(), items), key=lambda p: -p["heat"])
     pool = [p for p in plans if "security" in p["tags"]] if cyber else plans
+    if only_ids is not None:  # domain-specific mission: library ideas of that domain + fresh sparks
+        pool = [p for p in pool if p["id"] in new_ids or p["id"] in only_ids]
     for p in pool:  # convincing matches only: 2+ keywords, or 2+ shared topic tags
         p["strong"] = [x for x in p["news"] if len(x["why"]) >= 2 or x["th"] >= 2][:2]
         if p.get("source_item"):  # a spark always cites the item it came from
@@ -530,7 +545,7 @@ def build_msgs(topic=None, n=12, mark=True):
     k = sum(1 for p in chosen if p["strong"])
     n_new = len(sparks_new) + sum(1 for p in chosen if not p.get("spark") and p["id"] not in seen)
 
-    title = "\U0001F6E1 <b>NEXUS Cyber Desk" if cyber else "\U0001F9E0 <b>NEXUS daily"
+    title = "\U0001F6E1 <b>NEXUS Cyber Desk" if cyber else (f"\U0001F9ED <b>NEXUS mission: {esc(label)}" if label else "\U0001F9E0 <b>NEXUS daily")
     msgs = [f"{title} - {datetime.now():%d %b %Y}</b>\n"
             f"{len(chosen)} {'cybersecurity ' if cyber else ''}project ideas ({k} with fresh related news, "
             f"{len(chosen) - k} timeless). <b>{n_new} are new to you</b>, never shown before.\n\n"

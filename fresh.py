@@ -117,7 +117,7 @@ def _plan(it):
             "prior_art": [t, f"{t} independent evaluation"]}
 
 
-def make_sparks(c, items, k, security=False):
+def make_sparks(c, items, k, security=False, tags=None, words=None):
     """Create up to k NEW sparks from today's best items (one per item, ever). Returns the new plan dicts."""
     if k <= 0:
         return []
@@ -128,6 +128,10 @@ def make_sparks(c, items, k, security=False):
             continue
         kd = _kind(it)
         if security and kd != "sec" and "security" not in it["tags"]:
+            continue
+        if tags and not (set(it["tags"]) & tags):
+            continue
+        if words and not any(w in (it["title"] + " " + it["summary"]).lower() for w in words):
             continue
         groups[kd].append(it)
     order = ["sec", "paper", "repo", "claim"] if security else ["paper", "sec", "repo", "claim"]

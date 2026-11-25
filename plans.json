@@ -1551,5 +1551,571 @@
    "UPI intent scam analysis",
    "quishing detection research"
   ]
+ },
+ {
+  "id": "upi-mule-graph",
+  "name": "MuleNet: graph analytics to flag money-mule account networks in payment data",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "fintech",
+   "security",
+   "data",
+   "india"
+  ],
+  "kw": [
+   "mule account",
+   "money laundering",
+   "payment fraud",
+   "upi fraud",
+   "transaction graph",
+   "fraud ring"
+  ],
+  "problem": "Fraud proceeds are moved through chains of mule accounts; per-transaction rules miss the network structure.",
+  "verify": "Read RBI/I4C fraud statistics and published mule-detection literature; confirm what open synthetic datasets exist (e.g. PaySim, AMLSim).",
+  "existing": "Bank rule engines, commercial graph fraud tools, academic GNN papers on synthetic data.",
+  "idea": "Build a transaction graph on synthetic data, detect fan-in/fan-out and rapid-pass-through patterns, and compare simple graph features against a GNN with honest baselines.",
+  "novelty": "Hypothesis: simple structural features nearly match GNNs at lower cost and are easier to explain. Use only synthetic or consented data.",
+  "stack": "Python, NetworkX/igraph, PyTorch Geometric, scikit-learn, PaySim/AMLSim synthetic data",
+  "stages": "Generate synthetic data -> rule baseline -> graph features -> GNN comparison -> explainability report -> false-positive analysis",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Synthetic data may not reflect reality; privacy and legal limits on real payment data.",
+  "metrics": "Precision at fixed review budget, recall of ring members, explanation quality",
+  "prior_art": [
+   "mule account detection graph neural network",
+   "AMLSim PaySim benchmark",
+   "transaction graph fraud detection explainable"
+  ]
+ },
+ {
+  "id": "orderbook-spoof",
+  "name": "SpoofScope: detect spoofing and layering patterns in public limit-order-book data",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "stockmarket",
+   "data",
+   "ai"
+  ],
+  "kw": [
+   "spoofing",
+   "layering",
+   "order book",
+   "market surveillance",
+   "market manipulation",
+   "market microstructure"
+  ],
+  "problem": "Manipulative order patterns distort prices, and surveillance teams need transparent detectors rather than black boxes.",
+  "verify": "Read regulator enforcement cases and market-surveillance papers; find open order-book datasets (sample LOBSTER data or public crypto-exchange feeds).",
+  "existing": "Exchange surveillance systems (proprietary), academic anomaly papers.",
+  "idea": "A research tool that labels order-cancel patterns via interpretable rules and compares them with an unsupervised detector on public data. It is a surveillance analytics tool, not a trading system.",
+  "novelty": "Hypothesis: rule-plus-statistics hybrids are competitive and auditable. No claim about trading profit.",
+  "stack": "Python, pandas/Polars, scikit-learn, public LOB or crypto exchange data",
+  "stages": "Collect data -> reconstruct order book -> define patterns -> inject synthetic spoofing -> detect -> evaluate false positives",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "No ground truth for real manipulation; labelled data is rare; never present results as investment advice.",
+  "metrics": "Detection of injected patterns, false positives per trading day",
+  "prior_art": [
+   "spoofing detection limit order book machine learning",
+   "LOBSTER dataset",
+   "market manipulation detection survey"
+  ]
+ },
+ {
+  "id": "cpi-nowcast",
+  "name": "PriceLens: nowcast food-price inflation from open price data",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "economy",
+   "data",
+   "india"
+  ],
+  "kw": [
+   "inflation",
+   "price index",
+   "food prices",
+   "cpi",
+   "nowcast",
+   "consumer prices"
+  ],
+  "problem": "Official price indices arrive with delay; early signals of food-price shocks matter for households and planners.",
+  "verify": "Compare official CPI release lag with open daily price sources (e.g. government mandi/price portals); read the nowcasting literature.",
+  "existing": "Central-bank nowcasts, scraped-price indices (Billion Prices Project style).",
+  "idea": "Build a transparent nowcast from open daily commodity prices and test it against later official releases with proper out-of-sample evaluation.",
+  "novelty": "Hypothesis: a small interpretable model competes with heavier ones for food items. An analytical tool, not a forecast service.",
+  "stack": "Python, pandas, statsmodels, open government price data, backtesting harness",
+  "stages": "Collect data -> clean -> baseline (last value, seasonal) -> model -> walk-forward backtest -> report errors",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Data gaps, terms of use for scraping, regime changes; no policy claims.",
+  "metrics": "Error vs baseline (MAE/MASE), lead time over official release",
+  "prior_art": [
+   "inflation nowcasting online prices",
+   "Billion Prices Project",
+   "food price forecasting India mandi data"
+  ]
+ },
+ {
+  "id": "supplier-risk-radar",
+  "name": "SupplierWatch: early warning of supplier disruption from public news and shipping signals",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "supply",
+   "data",
+   "ai"
+  ],
+  "kw": [
+   "supplier risk",
+   "supply disruption",
+   "port congestion",
+   "shortage",
+   "logistics delay",
+   "supply chain risk"
+  ],
+  "problem": "Small manufacturers learn about supplier problems after delivery fails.",
+  "verify": "Read supply-chain risk surveys; list free public signals (news, port data, weather).",
+  "existing": "Resilinc, Everstream and other paid risk platforms; enterprise-only.",
+  "idea": "A lightweight tracker that links supplier locations to public events and scores disruption risk with transparent rules and an evaluation on past incidents.",
+  "novelty": "Hypothesis: transparent low-cost version is useful for small firms. Commercial tools exist; differentiation is cost and explainability.",
+  "stack": "Python, RSS/news APIs, GDELT or similar open events, geocoding, SQLite, simple dashboard",
+  "stages": "Define supplier list -> ingest events -> match by location/industry -> rule scoring -> backtest on 5 known disruptions",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Noisy news, geocoding errors, false alarms.",
+  "metrics": "Lead time before known disruptions, precision of alerts",
+  "prior_art": [
+   "supply chain risk monitoring open data",
+   "GDELT supply chain disruption",
+   "supplier risk early warning"
+  ]
+ },
+ {
+  "id": "pcb-defect-fewshot",
+  "name": "FewShotQC: few-shot visual defect detection for small electronics workshops",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "manufacturing",
+   "vision",
+   "ai",
+   "edge"
+  ],
+  "kw": [
+   "defect detection",
+   "pcb inspection",
+   "anomaly detection",
+   "quality control",
+   "few-shot",
+   "visual inspection"
+  ],
+  "problem": "Small shops lack labelled defect data, so standard supervised inspection models do not apply.",
+  "verify": "Review MVTec AD and PCB defect datasets; ask a workshop what defects cost them.",
+  "existing": "Commercial AOI machines, PatchCore/anomaly-detection papers.",
+  "idea": "Train on good boards only (unsupervised anomaly detection such as PatchCore) and measure how few reference images are needed on real PCB photos.",
+  "novelty": "Hypothesis: performance versus number of good samples on a small real dataset. Method is existing; evaluation is the contribution.",
+  "stack": "PyTorch, anomalib, OpenCV, Raspberry Pi/phone camera, lighting rig",
+  "stages": "Reproduce on MVTec -> capture own PCB images -> train on N good samples -> test injected defects -> latency on Pi",
+  "hw": "Camera, fixed light, sample PCBs",
+  "cost": "INR 2-6k",
+  "risks": "Lighting variance, few real defects to test.",
+  "metrics": "AUROC vs number of training images, false rejects per 100 boards",
+  "prior_art": [
+   "PatchCore anomaly detection",
+   "MVTec AD",
+   "PCB defect detection deep learning"
+  ]
+ },
+ {
+  "id": "slope-sense",
+  "name": "SlopeSense: low-cost tilt and rainfall nodes for landslide early warning",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "disaster",
+   "embedded",
+   "infra",
+   "india"
+  ],
+  "kw": [
+   "landslide",
+   "slope monitoring",
+   "rainfall threshold",
+   "early warning",
+   "tiltmeter",
+   "hillslope"
+  ],
+  "problem": "Hill communities face landslides with little warning; professional instrumentation is costly.",
+  "verify": "Read GSI/NDMA landslide data and low-cost sensor pilot studies; check rainfall-threshold literature.",
+  "existing": "Professional inclinometers, rainfall-threshold systems, a few IIT/Amrita pilot networks.",
+  "idea": "Solar LoRa nodes with MEMS tilt and soil-moisture sensors plus rainfall thresholds; validate on a lab slope model before any field use.",
+  "novelty": "Hypothesis: cheap tilt plus moisture trend improves early warning over rainfall alone. Pilots exist, so cite and compare.",
+  "stack": "ESP32/nRF, MEMS inclinometer, soil moisture probe, LoRa, solar, Python analysis",
+  "stages": "Sensor characterisation -> lab slope tank with induced failure -> thresholds -> LoRa link tests -> field-readiness review with experts",
+  "hw": "2-3 nodes, sensors, LoRa, solar",
+  "cost": "INR 10-20k",
+  "risks": "Safety and false alarms; do not deploy as a warning system without expert validation.",
+  "metrics": "Detection lead time in lab failures, false alarm rate, power autonomy",
+  "prior_art": [
+   "low-cost landslide early warning system",
+   "Amrita landslide sensor network",
+   "tilt sensor MEMS slope failure"
+  ]
+ },
+ {
+  "id": "flood-forecast-bench",
+  "name": "FloodBench: honest comparison of simple and ML river-flood forecasts on open hydrology data",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "disaster",
+   "data",
+   "ai",
+   "science"
+  ],
+  "kw": [
+   "flood forecasting",
+   "streamflow",
+   "hydrology",
+   "river discharge",
+   "rainfall runoff",
+   "lstm"
+  ],
+  "problem": "ML flood forecasts are reported with weak baselines and leakage-prone splits.",
+  "verify": "Read Kratzert et al. LSTM hydrology work and the Caravan dataset documentation.",
+  "existing": "Google Flood Hub, GloFAS, NeuralHydrology.",
+  "idea": "Benchmark persistence and linear baselines against an LSTM using strict time-based splits on open catchments, including lead-time degradation.",
+  "novelty": "Hypothesis: skill gain over strong baselines is smaller than headlines suggest at longer leads.",
+  "stack": "Python, Caravan dataset, NeuralHydrology, scikit-learn",
+  "stages": "Pick 30 catchments -> baselines -> LSTM -> time-split evaluation -> lead-time curves -> write-up",
+  "hw": "Laptop/GPU optional",
+  "cost": "Free",
+  "risks": "Compute; regional generalisation; do not present as an operational warning.",
+  "metrics": "NSE/KGE vs lead time, skill over persistence",
+  "prior_art": [
+   "NeuralHydrology",
+   "Caravan dataset",
+   "LSTM streamflow prediction baselines"
+  ]
+ },
+ {
+  "id": "field-change-sentinel",
+  "name": "FieldChange: Sentinel-2 change detection for flood extent and crop stress",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "geospatial",
+   "agri",
+   "disaster",
+   "ai"
+  ],
+  "kw": [
+   "sentinel-2",
+   "change detection",
+   "remote sensing",
+   "ndvi",
+   "flood mapping",
+   "satellite imagery"
+  ],
+  "problem": "Farmers and responders lack timely, cheap maps of flood damage and crop stress.",
+  "verify": "Review Copernicus Sentinel-2/-1 availability and existing flood-mapping products.",
+  "existing": "Copernicus EMS, Google Earth Engine tutorials, ISRO Bhuvan.",
+  "idea": "A reproducible pipeline using open Sentinel data to map water extent and NDVI change, validated against reference maps for past events.",
+  "novelty": "Hypothesis: a simple, documented pipeline with uncertainty maps for one region. Many products exist; evaluation is local.",
+  "stack": "Python, rasterio, Earth Engine or Copernicus API, scikit-learn",
+  "stages": "Pick 2 past events -> download scenes -> water index + thresholds -> compare with reference -> NDVI change -> uncertainty",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Cloud cover, resolution limits.",
+  "metrics": "IoU vs reference flood maps, processing time",
+  "prior_art": [
+   "Sentinel-1 flood mapping open source",
+   "NDVI crop stress detection",
+   "Copernicus EMS rapid mapping"
+  ]
+ },
+ {
+  "id": "cell-health",
+  "name": "CellHealth: battery state-of-health estimation compared across public datasets",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "energy",
+   "data",
+   "ai"
+  ],
+  "kw": [
+   "battery",
+   "state of health",
+   "lithium-ion",
+   "remaining useful life",
+   "battery degradation",
+   "battery management"
+  ],
+  "problem": "Battery packs degrade unpredictably; estimators trained on one chemistry often fail on another.",
+  "verify": "Read NASA Ames, CALCE and Oxford battery dataset papers.",
+  "existing": "BMS vendor algorithms, many dataset-specific papers.",
+  "idea": "Compare simple capacity-trend models and ML across datasets to quantify transfer failure and propose a minimal feature set.",
+  "novelty": "Hypothesis: cross-dataset evaluation exposes overfitting hidden by single-dataset results.",
+  "stack": "Python, pandas, scikit-learn, PyTorch, public battery datasets",
+  "stages": "Load 3 datasets -> baseline -> models -> cross-dataset tests -> feature ablation",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Datasets differ in protocol; limited real-world conditions.",
+  "metrics": "RMSE of SoH across datasets, degradation of cross-dataset error",
+  "prior_art": [
+   "NASA battery dataset RUL",
+   "battery SOH transfer learning",
+   "CALCE battery data"
+  ]
+ },
+ {
+  "id": "air-cal",
+  "name": "AirCal: calibrate low-cost PM2.5 sensors against reference stations",
+  "level": 2,
+  "fit": "weeks",
+  "tags": [
+   "climate",
+   "embedded",
+   "data",
+   "india"
+  ],
+  "kw": [
+   "pm2.5",
+   "air quality",
+   "low-cost sensor",
+   "particulate",
+   "calibration",
+   "air pollution"
+  ],
+  "problem": "Cheap PM sensors are biased by humidity; uncorrected readings mislead communities.",
+  "verify": "Read EPA/AQ-SPEC low-cost sensor evaluations and CPCB station data availability.",
+  "existing": "PurpleAir correction formulas, CPCB reference stations.",
+  "idea": "Co-locate a sensor near a reference station, learn a humidity correction, and report error with intervals.",
+  "novelty": "Hypothesis: local correction quality for Indian conditions. Mostly applied engineering.",
+  "stack": "ESP32, PMS5003/SPS30, SHT4x, Python regression, CPCB open data",
+  "stages": "Log data -> co-locate -> fit corrections -> validate on later weeks -> publish calibration notes",
+  "hw": "ESP32, PM sensor, humidity sensor",
+  "cost": "INR 3-5k",
+  "risks": "Sensor drift; reference data gaps.",
+  "metrics": "RMSE/MAE vs reference before and after, drift per month",
+  "prior_art": [
+   "low-cost PM sensor humidity correction",
+   "PurpleAir EPA correction",
+   "CPCB open data air quality"
+  ]
+ },
+ {
+  "id": "alarm-sense",
+  "name": "AlarmSense: false-alarm reduction on open ICU waveform alarm data",
+  "level": 3,
+  "fit": "months",
+  "tags": [
+   "health",
+   "ai",
+   "data"
+  ],
+  "kw": [
+   "false alarm",
+   "alarm fatigue",
+   "icu",
+   "patient monitoring",
+   "physionet",
+   "bedside monitor"
+  ],
+  "problem": "Most bedside alarms are false, causing alarm fatigue and missed real events.",
+  "verify": "Read the PhysioNet/CinC 2015 false-alarm challenge paper.",
+  "existing": "Challenge entries, vendor algorithms.",
+  "idea": "Reproduce top challenge methods, evaluate generalisation across alarm types and signal quality, and report sensitivity-first metrics.",
+  "novelty": "Hypothesis: signal-quality gating improves specificity without losing sensitivity. No clinical claims.",
+  "stack": "Python, wfdb, scikit-learn, PhysioNet open data",
+  "stages": "Reproduce baseline -> signal quality index -> cross-alarm evaluation -> sensitivity constraints -> report",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "Must not suppress true alarms; research-only.",
+  "metrics": "Sensitivity and specificity per alarm type, missed true alarms",
+  "prior_art": [
+   "PhysioNet 2015 false alarm challenge",
+   "alarm fatigue ICU machine learning",
+   "signal quality index ECG PPG"
+  ]
+ },
+ {
+  "id": "eeg-bci-eval",
+  "name": "NeuroCheck: cross-session reliability of motor-imagery EEG classifiers on open datasets",
+  "level": 4,
+  "fit": "months",
+  "tags": [
+   "health",
+   "hci",
+   "ai",
+   "science"
+  ],
+  "kw": [
+   "eeg",
+   "brain-computer interface",
+   "motor imagery",
+   "bci",
+   "neuroscience",
+   "moabb"
+  ],
+  "problem": "BCI accuracy claims fall sharply across sessions and subjects, limiting real use.",
+  "verify": "Read MOABB benchmark papers and BCI reproducibility reviews.",
+  "existing": "MOABB, OpenBCI community projects, deep-learning EEG papers.",
+  "idea": "Reproduce several classifiers and quantify cross-session and cross-subject drops, then test simple recalibration.",
+  "novelty": "Hypothesis: lightweight recalibration recovers a large share of lost accuracy. Evaluation-driven.",
+  "stack": "Python, MNE, MOABB, PyTorch, open datasets (BNCI)",
+  "stages": "Run MOABB baselines -> cross-session tests -> recalibration variants -> statistics -> report",
+  "hw": "Laptop; optional OpenBCI headset later",
+  "cost": "Free (headset INR 50k+ optional)",
+  "risks": "EEG variability; small effect sizes.",
+  "metrics": "Accuracy drop across sessions, recovery after recalibration with N trials",
+  "prior_art": [
+   "MOABB benchmark",
+   "EEG cross-session transfer motor imagery",
+   "BNCI Horizon dataset"
+  ]
+ },
+ {
+  "id": "learn-loop",
+  "name": "LearnLoop: offline spaced-repetition tutor evaluated on a small student cohort",
+  "level": 2,
+  "fit": "weeks",
+  "tags": [
+   "education",
+   "web",
+   "data",
+   "india"
+  ],
+  "kw": [
+   "spaced repetition",
+   "adaptive learning",
+   "tutor",
+   "offline learning",
+   "student",
+   "retention"
+  ],
+  "problem": "Students in low-connectivity settings lack adaptive practice tools that work offline.",
+  "verify": "Read spaced-repetition efficacy studies; talk to teachers about connectivity.",
+  "existing": "Anki, Khan Academy offline, Duolingo.",
+  "idea": "A PWA with an FSRS-style scheduler for a single subject and a small A/B study against fixed-order review.",
+  "novelty": "Hypothesis: measured retention gain in a real class. Tools exist; the contribution is the study.",
+  "stack": "PWA, IndexedDB, FSRS algorithm, small analytics export",
+  "stages": "Pick topic -> build scheduler -> content -> two-group pilot -> retention test after 2 weeks",
+  "hw": "Phones",
+  "cost": "Free",
+  "risks": "Small sample sizes; consent and child-privacy rules.",
+  "metrics": "Retention score difference, completion rate",
+  "prior_art": [
+   "FSRS spaced repetition",
+   "adaptive learning offline PWA",
+   "spaced repetition randomized trial students"
+  ]
+ },
+ {
+  "id": "flake-hunter",
+  "name": "FlakeHunter: detect and rank flaky tests from CI history",
+  "level": 2,
+  "fit": "48h",
+  "tags": [
+   "web",
+   "data"
+  ],
+  "kw": [
+   "flaky test",
+   "ci",
+   "continuous integration",
+   "test reliability",
+   "regression testing"
+  ],
+  "problem": "Flaky tests waste developer time and hide real failures.",
+  "verify": "Read flaky-test studies (Google, Luo et al.) and sample GitHub Actions histories.",
+  "existing": "Google internal tooling, pytest-rerunfailures, commercial CI analytics.",
+  "idea": "Mine CI run history, flag tests whose outcome changes without code change, and rank by cost.",
+  "novelty": "Hypothesis: a simple statistical detector captures most flakiness. Mostly engineering.",
+  "stack": "Python, GitHub API, pandas, a small dashboard",
+  "stages": "Collect histories from 20 public repos -> detector -> validate by re-running -> ranking report",
+  "hw": "Laptop",
+  "cost": "Free",
+  "risks": "API limits; confirming ground truth costs CI time.",
+  "metrics": "Precision of flagged tests on re-run, developer hours saved (estimated)",
+  "prior_art": [
+   "flaky test detection empirical study",
+   "iDFlakies",
+   "CI flaky test dataset"
+  ]
+ },
+ {
+  "id": "smoke-watch",
+  "name": "SmokeWatch: early wildfire-smoke detection from low-cost cameras on a Raspberry Pi",
+  "level": 3,
+  "fit": "weeks",
+  "tags": [
+   "disaster",
+   "vision",
+   "edge",
+   "embedded"
+  ],
+  "kw": [
+   "wildfire",
+   "smoke detection",
+   "forest fire",
+   "early detection",
+   "fire camera"
+  ],
+  "problem": "Wildfires are found late; satellite revisit times leave gaps and ground cameras are expensive.",
+  "verify": "Read FIgLib/HPWREN smoke-camera work and Indian forest-fire statistics (FSI).",
+  "existing": "HPWREN/ALERTWildfire cameras, commercial AI fire detection.",
+  "idea": "Edge detector trained on public smoke images with temporal filtering to cut false alarms from clouds and dust.",
+  "novelty": "Hypothesis: temporal consistency halves false alarms. Existing systems are stronger; evaluate honestly.",
+  "stack": "Raspberry Pi 5, camera, YOLO-nano or MobileNet, OpenCV, FIgLib dataset",
+  "stages": "Reproduce baseline -> temporal filter -> collect cloud/dust negatives -> Pi latency -> alert logic",
+  "hw": "RPi, camera",
+  "cost": "INR 6-10k",
+  "risks": "False alarms; do not rely on it as safety system; deployment permissions.",
+  "metrics": "Detection delay, false alarms per camera-day",
+  "prior_art": [
+   "FIgLib smoke detection",
+   "wildfire smoke deep learning camera",
+   "HPWREN fire cameras"
+  ]
+ },
+ {
+  "id": "soil-mesh",
+  "name": "SoilMesh: calibrated low-cost soil-moisture sensing for irrigation decisions",
+  "level": 2,
+  "fit": "weeks",
+  "tags": [
+   "agri",
+   "embedded",
+   "water",
+   "india"
+  ],
+  "kw": [
+   "soil moisture",
+   "irrigation",
+   "capacitive sensor",
+   "smart irrigation",
+   "precision agriculture"
+  ],
+  "problem": "Over- and under-watering waste water and yield; cheap capacitive sensors are inconsistent across soils.",
+  "verify": "Find ICAR/FAO irrigation efficiency figures and capacitive-sensor calibration papers.",
+  "existing": "Commercial probes, ESP32 hobby projects with uncalibrated sensors.",
+  "idea": "Calibrate capacitive sensors per soil type against gravimetric moisture and drive a simple irrigation rule, measuring water saved in a pot trial.",
+  "novelty": "Hypothesis: per-soil calibration makes cheap sensors usable. Engineering with a measured trial.",
+  "stack": "ESP32, capacitive sensors, LoRa/BLE, Python calibration",
+  "stages": "Gravimetric calibration -> sensor drift test -> irrigation rule -> two-group pot trial -> water-use comparison",
+  "hw": "ESP32, sensors, pots, scale",
+  "cost": "INR 3-6k",
+  "risks": "Biology timescales; soil variability.",
+  "metrics": "Calibration error (vol. % moisture), water used vs control, plant outcome",
+  "prior_art": [
+   "capacitive soil moisture sensor calibration",
+   "low-cost irrigation controller evaluation",
+   "gravimetric soil moisture calibration"
+  ]
  }
 ]
