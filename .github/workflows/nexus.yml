@@ -45,21 +45,33 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      - name: Check required secrets
+        run: |
+          for v in TELEGRAM_BOT_TOKEN TELEGRAM_CHAT_ID STATE_KEY; do
+            if [ -z "${!v}" ]; then echo "::error::Repository secret $v is missing or empty (Settings > Secrets and variables > Actions)"; exit 1; fi
+          done
+
       - name: Decrypt state
         run: |
           mkdir -p state
           if [ -f statebranch/state.enc ]; then
-            openssl enc -d -aes-256-cbc -pbkdf2 -pass env:STATE_KEY -in statebranch/state.enc | tar xz -C state
-            echo "state restored"
+            if openssl enc -d -aes-256-cbc -pbkdf2 -pass env:STATE_KEY -in statebranch/state.enc | tar xz -C state; then
+              echo "state restored"
+            else
+              echo "::error::Could not decrypt state.enc - STATE_KEY differs from the key it was saved with. Fix the secret, or delete the 'state' branch to start fresh. Saved state is left untouched."
+              exit 1
+            fi
           else
             echo "no saved state yet"
           fi
 
       - name: Run NEXUS (listen, answer, work)
+        id: nexus
         run: python cloud_bot.py
 
       - name: Save encrypted state
-        if: always()
+        # only when NEXUS actually ran (even if it then failed); never after a failed restore
+        if: always() && steps.nexus.conclusion != 'skipped'
         run: |
           tar czf - -C state . | openssl enc -aes-256-cbc -pbkdf2 -salt -pass env:STATE_KEY -out /tmp/state.enc
           rm -rf /tmp/out && mkdir /tmp/out && cp /tmp/state.enc /tmp/out/state.enc && cd /tmp/out
