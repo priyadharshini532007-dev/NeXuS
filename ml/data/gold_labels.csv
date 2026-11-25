@@ -1,0 +1,801 @@
+id,label,source,title,sampling
+e36d4fe10245188a,disaster,arXiv cs.LG,Flood forecasting using a physics-guided conditional denoising diffusion probabilistic model,random
+ac10c935e5f040b5,hardware,CNX Software,Bluetooth 7.0 specification ratified with HDT (High Data Throughput) support,random
+8b6ac2940fdc0d0e,ai,OpenAI News,Managing frontier AI risk: From training to deployment,random
+43f2b7c2fbb34bec,cyber,Unit 42,"Borrowed Code, Real Consequences: What OPTIMJACK Teaches Us",random
+00758c766919cde3,science,Phys.org,Underwater robots reveal first salp species known to live exclusively in deep sea,random
+79803c7a1c808f81,space,NASA,NASA Awards Contract for NOAA’s Near Earth Orbit Network Program,random
+33e5526099fdb1d1,software,Lobsters,Per Vognsen on the effect of AVX-512 on lexing and parsing,random
+68bc478ad89bacb4,healthcare,STAT News,"Opinion: If the AI bubble bursts, it could create a serious problem for health care",random
+13116f06fd1e2ac9,cyber,CNX Software,"Pinscope – A web-based remote access and vulnerability tracking solution for ESP32, Zephyr, Pico 2 W, and Linux SBCs",random
+8d74070865f1ab4c,hardware,arXiv cs.AR,A Systematic Method of GPU Verification on Subsystem Modelling,random
+9f68130662c8b409,space,NASA,NASA+ Documentary Captures Europa Clipper’s Journey Into Deep Space,random
+8cc87dce1f7995b0,supplychain,Supply Chain Dive,"Peak season optimization is out, year-round optimization is in",random
+b1e5839c1dc50666,ai,TechCrunch,Walmart teams up with Meta to bring Black Friday deals to AI agent Muse,random
+cd7fc2b12d3acb12,healthcare,arXiv cs.AR,Motivo: A Motif-Based Algorithm-Architecture Co-Design for Fast and Energy-Efficient Graph-Based Genome Analysis,random
+dffecfa43dde2774,cyber,Unit 42,"Unit 42 Threat Intelligence Highlights - Nov. 2, 2026",random
+09f56bf519ac3563,energy,Canary Media,Want 24/7 clean power for data centers? Try giant heat batteries.,random
+8129f68e260304e7,software,GitHub: rising (all),"erkamyaman/rust-anything - Rewrite your whole app in Rust, one piece at a time, checked against the original's recorded behavior at every step. CLIs, HTTP servers and libraries in TypeScript, Python, C, Go, Ruby and Java.",random
+caffa0f66bc93c56,ai,GitHub: machine-learning,"prabeakarve/microgpt - A from-scratch, dependency-free GPT implementation in pure NumPy: byte-level tokenizer, multi-head self-attention, Adam trainer, and top-k sampler.",random
+093e31f5ad51f8c1,cyber,AgFunderNews,"Informed employees are one of the ‘most powerful defenses’ against cyber attacks, says Cargill CISO",random
+197dc8b3ac4dbd20,ai,Hacker News (front page),"A training engine for your local model, using your idle compute",random
+0a0e78cecea37b89,cyber,Unit 42,ARTEX and AI-Powered Red Teaming Tools: What Defenders Need to Know,random
+b879995cf1e26209,space,Ars Technica,Half of NASA's aging Mars fleet knocked offline by technical issues,random
+63ae8d6b2743851b,robotics,The Robot Report,What industrial drone deployments reveal about real-world autonomy challenges,random
+df0c46aaeb5a46e5,cyber,GitHub: security,"arpanjot-coding/AVault - AVault - Call Recorder (No Root Required) | Privacy-first, hardware-encrypted audio vault for Android 12-16+. Rootless call recording via Shizuku with AES-256-GCM, biometrics & auto-cleanup.",random
+50e3ea47cbae988d,ai,Google DeepMind,Genie 4 is now available,random
+7230346330fed3c7,science,Phys.org,New theoretical model allows for sustained entanglement between diamond qubits at greater separations,random
+242796a6a914341f,climate,Raspberry Pi News,Self-sufficient mobile weather station,random
+b4dedfcac5d2d5e0,robotics,Interesting Engineering,Figure counters Elon Musk’s staged robot demo claim with 41-second apple-picking test,random
+6a4a2047fe4b9f04,energy,ScienceDaily Tech,"America is building just 10% of the power lines it needs, experts warn",random
+590fa5baa5603621,software,Hacker News (front page),What Cloudflare Doesn't Tell You,random
+11d38892eaa146a6,robotics,TechCrunch,Uber and Nuro begin driverless testing of Lucid robotaxis ahead of 2027 launch,random
+9ac7ff1ae1cb2af5,science,GitHub: machine-learning,"XploraHub/awesome-mineral-exploration - A curated list of open-source software for mineral exploration: geophysics, geological modelling, drillholes, geostatistics and prospectivity mapping.",random
+6f41e71febfa2cbd,other,IEEE Spectrum,Build a Personal Brand to Help Employers Find You,random
+b2088c86283a5763,other,Hacker News (front page),Gödel Enigma,random
+71615ee1ebfde345,ai,TechCrunch,Even the best AI agents struggle with everyday life,random
+48968bada43efc94,energy,Canary Media,The GOP lost its iron grip on Ohio. What’s the outlook for clean energy?,random
+36deffe348afccc0,science,Phys.org,Vaporized rock reveals titanium oxide around massive young star for first time,random
+eaee3719ddd21e81,other,Inshorts: technology,72% of Indian tech workers want to quit industry: Survey,random
+b6dced9e8be0bdef,cyber,The Hacker News,"SonicWall Warns Gen 6 Firewalls Won't Get Security Patches, Even for Critical Flaws",random
+1e1a20c974e06c9e,science,ScienceDaily Tech,Two monster black holes from the dawn of time defy explanation,random
+3ebe75f2880f18be,other,STAT News,Opinion: Why medical students should keep going to class,random
+3921b84cccb990ee,other,IEEE Spectrum,Mitsubishi Electric Research Lab CEO on How He Reached the C-Suite,random
+dec031cec644fa40,robotics,arXiv cs.RO,SayDo: Benchmarking the Safety of Frontier Models from Chat to Closed-Loop Robot Control,random
+011ac3b2c88f17d5,education,GitHub: machine-learning,"aravpanwar/dsmai - An interactive, layered map of modern AI, tracing concepts from mathematical and computational foundations to architectures, models, fields and applications.",random
+b53d1b242b4507d5,other,New Atlas,Stepped-roof masterpiece hailed as world's best new building,random
+4cfcfe321011fdff,robotics,arXiv cs.RO,At the Limit: Autonomous Vehicle Drifting under Generative Policies,random
+3707be1af6aaf81e,science,ScienceDaily Tech,Einstein’s relativity just upended a fundamental rule of chemistry,random
+b3364fd7bad4f526,robotics,GitHub: robotics,openrobokit/roboskills - A minimal set of agent workflows and tools for robotics,random
+af494a3255d093f0,hardware,arXiv cs.AR,Native Block-Quantized Matrix Multiplication and Explicit K/V Residency with Dual-View Access for LLM Inference on RISC-V Vector Processors,random
+07b13887eb2c79e5,robotics,arXiv cs.RO,RUIBench: What Makes a Good Robot-Use Interface?,random
+cb99e2baa62e7866,software,OpenAI News,See PR scans in action,random
+48f767d8a8bc448f,science,Phys.org,Laser light reveals where electrons accumulate in atomically thin semiconductor stacks,random
+777816c50f03e837,software,Lobsters,Bypassing iOS Safari 60 FPS Limit,random
+f61cacb37fb9dada,cyber,arXiv cs.CR,Encrypted Fixed-Point Multiplication in Quasilinear Complexity,random
+b13cfcbfe75241f5,cyber,arXiv cs.CR,ReQOR: Operator-Discrepancy Subspace Repair for Quantization-Conditioned Backdoors in Large Language Models,random
+bc426bbbebd762f2,other,TechCrunch,Jensen Huang still thinks a succession plan creates unnecessary hierarchy,random
+f9736116829f2529,cyber,BleepingComputer,McDonald's Japan data breach exposes customer location information,random
+1fe8a2c653a41a3a,science,NVIDIA Developer Blog,Tackling GPU Bottlenecks in Plane-Wave DFT with K-Point Batching and Mixed Precision,random
+39e819d4531fb3d6,other,Hacker News (front page),An Italian Folding Bicycle Design That Fits into a Suitcase,random
+e27f4e8fc17f1df1,other,Inc42,JioStar To Cut 150 Jobs To Control Costs,random
+c7c4a0b992cc7f02,software,Hacker News (front page),Gnomon: Git for Postgres Data,random
+ed3d7b61e28639b7,space,Inshorts: technology,IN-SPACe to make advance payments for rocket launches non-refundable,random
+4401024d7648f49a,software,Lobsters,Writing a Turn Based Game Websocket Server in Haskell,random
+c7029788edd1bbb3,hardware,Hackaday,Ask Hackaday: Putting the C in CPU,random
+65c064a9edabdaa8,software,DEV Community,Call browser APIs from Blazor without writing JavaScript,random
+7ee59dd16a3fa842,cyber,arXiv cs.CR,"Red-Teaming a Sovereign LLM, Its Reasoning and Its Training Stages",random
+f182c570ada873a6,hardware,arXiv cs.AR,LLM-Assisted Verilog Code Refinement for Efficient RTL Clock Gating,random
+7aa2f225d7a49d56,agriculture,AgFunderNews,Bezos Earth Fund joins Yield Lab Institute’s Global Cattle Innovation program as ‘catalytic funder’,random
+30b970d75eff8264,science,Phys.org,Tiny tracker reveals the longest ever recorded hummingbird migration,random
+6438b188a5de2d9a,cyber,arXiv eess.SP,Waveform Randomization for Secure ISAC Against Informed Eavesdroppers,random
+505d452342048b82,manufacturing,YourStory,Piramal Alternatives invests Rs 225 Cr in Ardee Engineering,random
+211c073f705c6f95,other,YourStory,Lakshmi Venu files suit seeking partition of Venu Srinivasan family assets,random
+a1954c7a4413f404,software,MIT Technology Review,Raising the stakes for enterprise networks with AI modernization,random
+1e5a5d482e355f68,agriculture,Ars Technica,How brewers can protect beers from smoke-tainted hops,random
+8b7aa926b94cf48d,software,Interesting Engineering,Microsoft declares Code Red after historic 24-hour outage exposes system flaws,random
+b0f443b3740c63e4,ai,DEV Community,How do I fix AI agents forgetting context in long sessions?,random
+6b48789d1147d2db,cyber,The Hacker News,Iran-Aligned Volant Manticore Uses IPFS-Based KuboShell Backdoor in Espionage Campaigns,random
+d16a33e97aafea0e,hardware,New Atlas,Review: ArkTac Ultra finds 10 different ways to be a flashlight,random
+bdac1af194cf1b45,hardware,CNX Software,"Timekettle LiveTalk review – Open-ear earbuds with real-time AI translation of videos, phone calls, face-to-face conversations",random
+149e1ea67ea24d09,space,IEEE Spectrum,How Do You Land on a Moon With Almost No Gravity?,random
+fce33bca3adcd1b4,space,SpaceNews,Commercial Space Federation Welcomes CesiumAstro as a New Associate Member,random
+d6dfc55d569df8d5,climate,Interesting Engineering,Lab mistake could unlock rare earth recycling from wind turbines and smartphones,random
+409a8db0ba6aafa9,hardware,GitHub: embedded,"Dicklesworthstone/franken_firmware - Memory-safe Rust replacement firmware for the Sonos hardware you already own — BE-PowerPC + BE-MIPS, S1 + S2. Research workspace: toolchain bake-offs, QEMU proofs, board evidence. Companion to frankensonos.",random
+7da1b2b4758f6148,robotics,Google DeepMind,Gemini Robotics 2.5 accelerates real-world general dexterity,random
+e683d40fba103b5f,ai,OpenAI News,The Silent Consensus,random
+e79466d6912f7116,science,Inshorts: science,Webb and Gemini find oldest known close pair of quasars,random
+22ba0dd88661cc4a,climate,Carbon Brief,Analysis: Climate-finance pledges fall 70% as countries meet at COP31,random
+1b645e14e1850cce,healthcare,Phys.org,"Brighter signals, cheaper tests: Researchers team up to bring lab-grade detection to smartphones",random
+8773b9e0b3c39845,cyber,arXiv cs.CR,"""I Do Intend to Deliver"": Will LLMs Run a Marketplace Advance-Fee Scam?",random
+54c5c44d163101b4,hardware,IEEE Spectrum,How AI Will Change Chip Design,random
+dc2a4297cc6e9baf,space,ScienceDaily Tech,NASA pushes Mars helicopter blades beyond the speed of sound,random
+e87a8310265c6cf8,ai,arXiv cs.CR,Online Environment Repair for Coding Agents,random
+1d4cff712a9a1281,healthcare,Google DeepMind,Accelerating the search for antimicrobial peptides with Google Antigravity,random
+a836c0e24b4bf1b9,agriculture,AgFunderNews,"Cultivated meat’s comeback moment? UPSIDE Foods unveils dramatic scale-up, eyes fresh funding",random
+de5cd1a6d51dc917,ai,OpenAI News,Perplexity and Intelligence,random
+d1a23b85629751ec,cyber,Inshorts: startup,Saudi engineer used OpenAI's own AI tool to secretly record firm's office meetings,random
+f28892b236c68a89,climate,Phys.org,Not everything that sounds plausible works: Testing ideas to win support for carbon pricing,random
+9b1c6d7c2e843a1d,other,TechCrunch,Huang reportedly admitted to more than two affairs to Nvidia’s board,random
+29b874e4b1b36039,robotics,arXiv cs.RO,Seeing to Drive on a Single Board: Attention-Free Depth for Onboard Robot Navigation,random
+60e5451e017bf2ee,other,Ars Technica,"Trump halts Iowa detonation, says new governor to blame if it blows accidentally",random
+cb3ea8a3baeb144b,cyber,GitHub: security,"BountyForge-xyz/pwn-skill - Agent skill for binary exploitation and CTF pwn — stack, heap, format string, kernel, seccomp bypass.",random
+d874d9de260699c1,science,NASA,Amateur Astronomer? Be a Kilonova Catcher!,random
+85ad47dc9b77c65c,ai,TechCrunch,Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming,random
+23324557c7041890,supplychain,Supply Chain Dive,Walgreens scales micro-fulfillment strategy with Pennsylvania site,random
+408f1e399c8022f8,ai,NVIDIA Developer Blog,Run Native DLA Inference in Python on NVIDIA Jetson AGX Orin Using cuDLA,random
+3a7d0692d0542d0d,space,ScienceDaily Tech,NASA smashed into an asteroid. Now Hera has revealed a strange new world,random
+6d1c4810501f9182,robotics,GitHub: robotics,"james-joobs/awesome-nvidia-physical-ai - An independent bilingual guide to NVIDIA Physical AI. Find tools, models, and workflows for robotics, simulation, and autonomous driving.",random
+ff26e302704630c3,science,Phys.org,Quantum blueprint maps a practical path to testing unusual entanglement,random
+eeaee09b0cac1706,science,Interesting Engineering,Seashells inspire US model that could unlock ultra-tough nanocomposite materials,random
+011951737af030d0,cyber,arXiv cs.CR,SALSA: Sampling Adversarial Suffixes from Learned Distributions for LLM Safety Assessment,random
+bdc78839539b462c,cyber,arXiv cs.CR,C3H: Compression-to-Consensus Criteria Hijacking in Multimodal LLM Recommender Systems,random
+61e270293f2d2406,healthcare,arXiv eess.SP,EEGJev: A System One Decision Model and Benchmark for Multi-Task EEG Question Answering,random
+fa8097569f7c363e,software,Lobsters,"Marginalia Search, Money, C++, Rust, AI, stuff",random
+6da1ea920be7c4b4,software,GitHub: rising (all),"libracoder/kiri - A small, fast container runtime for macOS, Windows and Linux with free Ngrok alternative",random
+461bb70b8fcb1060,science,Inshorts: science,"Wayanad lake mud holds 1,400-year record of rising metals: Study",random
+360b0688565ad6d6,ai,arXiv eess.SP,FL-CsLoc-DH: A Federated Learning-Based Crowdsensing Localization under Dual Heterogeneity,random
+43e329aced8b099a,science,arXiv eess.SP,A Hybrid Analytical-Neural Residual Surrogate for Fast Radio Propagation Prediction over Irregular Terrain,random
+c2468f810def8db7,software,DEV Community,Building a Deterministic Multi-Axis Personality Scoring Engine and SVG Radar Chart in TypeScript,random
+f36e2492b6228b4e,ai,NVIDIA Developer Blog,Q&A: How Everstone Brings Where Winds Meet to Life with NVIDIA DLSS 5,random
+24761b1245ca9b5d,climate,Raspberry Pi News,Citizen science with Raspberry Pi,random
+4510621dd9db4cda,cyber,Krebs on Security,Attackers Used Optimizely to A/B Test Malware on Top Websites,random
+1d0c151fefed0dea,cyber,OpenAI News,OpenAI and Cisco introduce Shirudo,random
+15313cf7cb63f0e3,ai,arXiv cs.LG,Score-Based Diffusion for Hypergraph Signals in the t-Spectral Domain,random
+a9f82284ee824f41,robotics,GitHub: robotics,Agentic-Intelligence-Lab/CleanRUA - CleanRUA: Clean Implementations of Robot-Use Agents,random
+bd2fd5cfe24b4c49,cyber,GitHub: security,"zhidun2027/zhidun - Android APK hardening — DEX encryption, native shell engine, anti-tamper. Fully documented and auditable.",random
+f5f5b22867492dcc,software,Lobsters,cgo's pointer check is all over the place,random
+5b69a90d8dc1b795,cyber,arXiv cs.CR,Spoofing Wireless Sensing with Metasurfase-based Physical Deepfakes,random
+c6c361c53bc4ce2d,ai,OpenAI News,Introducing ChatGPT for Sales,random
+1827e6257fdd8c25,ai,arXiv cs.LG,LEGOSpec: A Composable and Efficient Framework for Speculative Draft Design and Training,random
+8e9c0e02fbb0d7d4,energy,IEEE Spectrum,The Dynamo-Electric Principle: 160 Years of Powering Industry,random
+9b352343ae7bec82,climate,Carbon Brief,"COP31: Key outcomes for food, forests, oceans and nature at the UN climate talks in Antalya",random
+4353b2e80ce4163f,other,Interesting Engineering,Chinese giant Huawei found guilty of stealing US trade secrets in espionage case,random
+78f08082e0b0cdf8,robotics,arXiv cs.RO,EmboEagle: An Efficient Agentic Embodied Framework for Long-horizon Robotic Manipulation,random
+cb673b121b80fca4,cyber,The Hacker News,Critical binary-parser Flaw Enables JavaScript Injection via Malicious Parser Definitions,random
+7bdc82557174d88c,other,TechCrunch,"Megaspeed, the company at the center of the Jensen Huang scandal, appears headed for a US blacklist",random
+f746a5b90a93f6cb,hardware,New Atlas,This 3D-printed cube is officially the smallest film camera ever made,random
+f00eedd755e10d61,software,Lobsters,Held together by spare time: Reviving wiki.alpinelinux.org during PHP2Shell,random
+77fac3b78f803380,space,Phys.org,Four radiation belts surrounded Earth for weeks after 2024 solar superstorm,random
+ce516dfe069f2d4f,hardware,arXiv eess.SP,A concave-convex approach to bit depth allocation for linear MMSE estimation in wireless sensor networks with correlated noise,random
+38c3956805d09985,cyber,Cisco Talos,NIK C2: The new AI-enabled command-and-control framework,random
+e2366cba77a90b31,fintech,DEV Community,Convert a camt.053 bank statement to CSV/Excel with plain Python,random
+54802a43a4b29036,healthcare,arXiv cs.RO,SurgeCount: A Protocol-Guided Composition Harness for Bimanual Surgical Sponge Counting,random
+fb15ee6e15912cc1,ai,BAIR Blog,RL without TD learning,random
+7078e4951ce1543a,ai,DEV Community,"Running Whisper Locally in the Browser with WebGPU & WASM (Zero Audio Uploads, 2.7s Cached)",random
+9b5939b4db79dc5a,healthcare,Phys.org,Self-assembling nanocarriers show promise for delivering CRISPR to tumors and slowing growth,random
+370bd57ddc704d23,other,Ars Technica,Amazon fights Delivery Protection Act by putting stickers on its packages,random
+9da47b8efcbbfaa0,cyber,The Hacker News,Signal Blocks AI Agents From Reading Private Chats via Screenshots on Android and iOS,random
+c9692a8d0f482f78,cyber,Unit 42,Unwrapping Retail Peak Season Cyber Threats,random
+d52512d72b3d3b7a,cyber,The Hacker News,WordPress Blocks Six Backdoored WP Connect Plugins Before Malicious Releases Go Live,random
+d073e224a7c6c515,healthcare,STAT News,STAT+: A string of wins with cancer drugs sets Genmab up for its next chapter,random
+0ba31844af3ef9f3,ai,BAIR Blog,From CUDA to MLX: How K-Search Brings Decades of Kernel Expertise to Apple Silicon,random
+012f29f7ed869cf2,ai,Hacker News (front page),"The KL Divergence Is Never Negative, Except in PyTorch",random
+ec25f5ebef4201e1,hardware,arXiv eess.SP,Sequences for Flat-Top Beams,random
+6ce9fe52db65d87a,ai,NVIDIA Developer Blog,Speed Up Image Generation with FLUX 3 Image Klein on NVIDIA Blackwell GPUs,random
+5d401b7a72f9aeda,science,ScienceDaily Tech,Ancient rocks from the Moon’s far side rewrite the Solar System’s violent past,random
+53f2a14376dda94d,cyber,OpenAI News,Inside the Codex sandbox,random
+d2296a64c0dc3b89,ai,Hugging Face Blog,Token Pooling-Aware Training for Multi-Vector Embedding Models,random
+b73033b057491424,other,Inshorts: technology,NVIDIA to be probed for chip smuggling even after Jensen Huang's return,random
+c82ac604f3bac09a,other,Ars Technica,No more heated seat subscriptions for cars in New York from 2027,random
+b468064604e5891f,other,YourStory,6 Must-read Indian historical fiction books to explore,random
+06c69759e4103953,healthcare,Hacker News (front page),Canada's median health-care wait time hits 30.7 weeks–longest ever recorded,random
+fa213cd79b5a137e,cyber,GitHub: security,balikunsh-bot/keepassxc-talroora - Keepassxc Talroora organizes credential records and manages encrypted password databases.,random
+37d815c4a56185bf,cyber,BleepingComputer,South Korea’s power giant KEPCO confirms data breach impacting 1.5 million,random
+388f4aa5f277fc66,stockmarket,TechCrunch,Supertake raises $20M to let AI agents turn your market predictions into stock portfolios,random
+588501ee8bb20b1c,healthcare,arXiv cs.LG,EEG Decoding in Context: A Framework for Tuning-Free EEG Foundation Models,random
+8d92ca5632cc4f3b,supplychain,The Robot Report,Learn how AI is changing supply chain robotics,random
+30e98fb5aeb08d7a,ai,arXiv cs.LG,Self-Supervised Dataset Distillation via Mutual Information Maximization,random
+3e5e089072f23f10,cyber,arXiv cs.CR,Privacy Disclosure Control Benchmark (PDC-Bench): How Faithfully Do LLMs Keep Privacy Constraints on In-Context Disclosure Granularity?,random
+153047cc5a2f90e9,cyber,Lobsters,From formal verification to bug-finding in CHERIoT,random
+437b1490f92c7d0b,software,DEV Community,How to Evaluate Templated Transactional Email for Healthtech Password Reset Evidence,random
+e82796adc98a0ae2,software,Lobsters,Ladybird is now in alpha,random
+bee1446f0fc31b1a,ai,arXiv cs.LG,"Auditing the Judge: Human-Derived Bias Discovery, Quantification, and Mitigation in LLM Judges",random
+18accc017ebf13bd,climate,AgFunderNews,"‘No way’ to confront climate change without addressing fossil fuels, say leaders after botched COP31",random
+d27073b544a7b632,other,IEEE Spectrum,Systems Thinking Is Vital in the Age of AI,random
+c8dda13ed9e17d8e,climate,Phys.org,Four decades of citizen science reveal widespread declines in native plant distributions in Japan,random
+bb2aa84be5114ecb,cyber,The Hacker News,2027 SOC Budget Reset: 5 Priorities to Cut Costs and Reduce Cyber Risk,random
+c7d159c27ac1e757,hardware,CNX Software,AAEON BOXER-8741AI industrial Edge AI box PC NVIDIA Jetson Thor T5000 with dual 10GbE and four 5GbE LAN,random
+5c2ddfd7c62ae44f,robotics,arXiv cs.RO,VITA-WAM: Manifold-Aligned World-Action Modeling for Real-Time Robot Control,random
+311e095023e6d9fd,ai,Google DeepMind,Gemini 4 Argon: our next era of frontier intelligence,random
+163d440768eec00f,other,Inc42,"OpenAI, SpaceX Backer VU Venture Partners Enters Indian Startup Market",random
+211fbe8009a45ecd,ai,Hugging Face Blog,Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost,random
+2a2709eca839678a,climate,Phys.org,Offshore wind turbine hum may make phytoplankton grow faster,random
+bfe4ed16afe37fdd,other,YourStory,Flipkart CEO Kalyan Krishnamurthy to exit after over 11 years,random
+62514a9db385bd68,healthcare,Inshorts: science,Eating salty snacks as teens linked to higher IBD risk: Study,random
+a29a97ec124478e7,ai,Inc42,Ex-Sequoia Investor Sudhanshu Mishra Launches Agentic AI Startup Demi AI,random
+669406732a3f4212,cyber,Krebs on Security,CTO of ‘RansomwareHelp’ Indicted for Wire Fraud,random
+347de5f37f26324a,science,Phys.org,"Named 'Maria,' a new species of amphibian pays tribute to the world's most popular name",random
+3d974b152a85b903,energy,Canary Media,"Permitting reform is a big, controversial bet for the energy transition",random
+ffdc956dc15eb88d,other,Hacker News (front page),How a Mechanical Watch Keeps Time (Interactive 3D),random
+c1afa369535ff9e0,software,Krebs on Security,Widespread PHP Flaw May Cause Many Site Outages Today,random
+9df84cfca666c7d3,healthcare,ScienceDaily Tech,AI uncovers hidden bladder cancer warning signs years before diagnosis,random
+2383f02bd70cf89e,cyber,GitHub: security,akari-sora/synology-nas-cli - nas: a zero-dependency Python CLI + MCP server for Synology DSM 7. One-command audit and fix for the C3RB3R / .L0CK3D ransomware campaign; hand it to your AI agent. Mirror; canonical repo and issues: gitlab.com/aa22396584/synology-nas-cli,random
+5a13a0796939a6a9,other,Inc42,Most Consumer Platforms Rife With Dark Patterns Despite Regulatory Action: Survey,random
+50c6d0722ed05d9a,cyber,Krebs on Security,Feds Suspect Ransom Negotiator Ran ShinyHunters Extortion Site,random
+07c264369e4b5bbe,robotics,Inshorts: startup,Home services startup Pronto is pivoting to physical AI: Report,random
+736d0e1d75aa15d0,energy,Canary Media,It’s another banner year for batteries in the US,random
+ef9c9e698d0d2d83,software,Lobsters,Release: Roto v0.14.0,random
+763a8259d5c94aab,robotics,The Robot Report,Humyn Labs raises $47M to collect real-world data for robotics,random
+594f44f4d3492479,other,IEEE Spectrum,Guarding the Gates of Knowledge,random
+d919d88cd0ab6e83,other,New Atlas,84-key piano folds down to just six inches for backpack travel,random
+2b8761a400c083c4,software,DEV Community,"Tessel, a side project for 3D modeling in Rust",random
+5bd6c1fcc38fb35f,hardware,arXiv eess.SP,SA-GLRT-D: Sidelobe-Aware GLRT-Based Detector for FMCW Radar,random
+f5ce07093f6dbec1,hardware,GitHub: embedded,"iharhl/memmap - Datasheet-style memory maps for MCUs, from a YAML layout, a firmware ELF and linker map, or an ESP-IDF, Zephyr or nRF Connect SDK partition table. Renders to SVG, PNG or PDF.",random
+34af7d0ba1b27d62,robotics,arXiv cs.RO,DexLatentWorld: 3D Cross-Embodiment Latent Action World Models for Zero-Shot Robotic Manipulation,random
+00574407bc9558cf,agriculture,The Robot Report,How does Orchard AI fit into John Deere’s technology portfolio?,random
+8b3baddd99ce484a,ai,arXiv cs.LG,Best Arm Identification with Unknown Post-Action Context Distribution,random
+321b7394d4a666f9,space,Ars Technica,Amazon discovers Falcon 9 and Ariane 6 can deliver when nobody else can,random
+296e570e8a26532b,ai,IEEE Spectrum,Consumer Appetite for Personal AI Goes Mainstream,random
+914ed32ad555468d,ai,Google DeepMind,Gemini 3.8 text-to-speech says hello,random
+1b136b0240f95267,science,Quanta Magazine,What Makes Up the Cosmos? A 20-Year Survey Hints That Something Is Missing.,random
+0c4445d4ccaf59f7,cyber,The Hacker News,Okta Links ShinyHunters-Associated Vishing Group to New INCEPTION Data Leak Site,random
+2204c015d7a73e8b,ai,NVIDIA Developer Blog,Build Tool-Calling Parsers in Rust with AI Agents,random
+71996d97862bb6c2,ai,OpenAI News,"How iFood scales coding agents across 15,000 repositories",random
+db1576441bfaaef2,cyber,BleepingComputer,European Commission confirms data theft in EU Academy breach,random
+36eecef30aed53ca,agriculture,AgFunderNews,Can solid-state fermentation deliver on alt meat’s promise? MATR Foods opens industrial-scale plant,random
+3e573b0926743a26,software,Lobsters,SeaStore: Redesigning Ceph’s Storage Backend for CPU-Efficient NVMe Performance,random
+4d4048918cd72e83,healthcare,STAT News,"At first preventive services panel meeting in more than a year, votes are cast in private",random
+6e5ffe89fc044d1a,cyber,DEV Community,Investigating Suspected File Modification After a Serv-U Privilege Abuse,random
+5b0ac3b976a1c0a5,cyber,Cisco Talos,Appraisal by AI: Model-driven victim prioritization in the VOLTA infostealer,random
+f97e50ecaccc0b44,hardware,arXiv cs.AR,ANOR: Scaling Sparse Attention with a GPU-PNM Computing Hierarchy,random
+a9f810793f73b59f,space,SpaceNews,Moog Marks 25 Years Since ESPA Design Milestone: Innovating Space Rideshare,random
+ac80a1bcb7a6171c,hardware,Raspberry Pi News,"Product compliance, demystified: how Raspberry Pi helps you get to market",random
+fd77f33bf07301c0,software,Hacker News (front page),Stalwart is now a drop-in replacement for Microsoft Exchange,random
+2cb056b9a323eff1,cyber,BleepingComputer,GlobeTopper loses $2.5 million after hackers steal $70k in gift cards,random
+bb2efaa9d0e695bb,cyber,The Hacker News,Google Researcher Shows How a Single Bit Change in .NET Files Bypassed Windows Code Integrity,random
+2649f49189d780a3,software,GitHub: rising (all),"patch-gg/pixelfx - 244 pixel art effects, every one a small piece of code. Plus a Claude Code skill to make your own.",random
+d09e3e2cf933000c,robotics,arXiv cs.RO,iWAM: Efficient Action Prediction from World Models without Explicit Future Prediction,random
+bd43b9bc2df02700,energy,Canary Media,Solar PAC got revenge on clean energy’s enemies in Congress,random
+72362d2062bd646b,robotics,arXiv cs.AR,Resource-Aware VLA-MPC Co-Location for Efficient Embodied AI,random
+ed37aae28c0d3281,other,Cisco Talos,"The internet needs a nap (and you do, too)",random
+fc20ac31ba6770d6,hardware,arXiv eess.SP,UV3CP: Universal ViT-Based 3D Channel Predictor for MIMO-OFDM Systems,random
+bd73d6fda0d110c2,cyber,arXiv cs.CR,Query-Guided Visual Minimization for Selective Disclosure to Cloud VLMs,random
+9402df7b33e8ad24,other,YourStory,7 Habits that make you a better listener and build trust,random
+9a3592d2c74575e7,other,Phys.org,What is resilience? It may be less about bouncing back than we think,random
+6cc616c5c6e76f97,cyber,The Hacker News,"WhatsApp Patches 3 Security Flaws, Including Android Bug Suspected of Use in Scams",random
+e1c742c1d925baf7,science,Hugging Face Blog,Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready,random
+097edb56454e6f1f,cyber,GitHub: rising (all),Lee-xeo/Claude-Cage - Cage：为 Claude 特化的轻量化虚拟机，彻底杜绝网络泄露。多平台适配，支持多账号管理、远程部署、移动端操控。,random
+54701f00d2f72733,robotics,arXiv cs.RO,MRBench: Benchmarking Physical Necessity Reasoning in Heterogeneous Multi-Robot Manipulation,random
+9ff67bf1977f090f,software,DEV Community,Platform Over Customer Ownership for 100 Tenants With DNS Zone Deletion Guards,random
+67d4b47774a6fc6c,agriculture,AgFunderNews,Carlsberg spinout Traitomic lands $22m to speed up trait discovery and development,random
+638fda00df3af82e,robotics,arXiv cs.RO,VidForce: Predicting Force-Aware Articulation by Observing Humans,random
+dd0fc7b8869c2a5e,software,DEV Community,"Install and Use the Google Workspace CLI: gwscli on Linux, From curl to Agent Skills",random
+5051dcb4a804e453,energy,Canary Media,"In the South, heat pumps are the secret to a more reliable grid",random
+cfd5bb03b006e668,ai,arXiv cs.RO,DOPER: Deep Object Pose Estimation Revisited,random
+c2266a838324ae7d,healthcare,STAT News,STAT+: Invivyd reports positive results in Sisyphean Covid antibody quest,random
+f80a2ca99611f81f,other,Ars Technica,Surveillance pricing uses our personal data to make us pay more,random
+7cfa1e882e4d3cd8,hardware,GitHub: embedded,"arterialist/kube32 - Kubernetes-compatible control plane, Kubelet agent, and WebAssembly runtime for ESP32 microcontrollers",random
+36f2b0ee81268b8e,other,Raspberry Pi News,"Raspberry Pi e-book bundle: Cyberdecks, retro games, and more",random
+4afc72869d86b964,robotics,The Robot Report,MassRobotics launching marine robotics facility on Boston Harbor,random
+3449c474f570c9b4,stockmarket,Inc42,Steadview Capital Sells Lenskart Shares Worth ₹921 Cr,random
+3fe05b175b0e1b5c,software,DEV Community,"The 10 most installed Claude Code plugins, and the catch with each one",random
+b8e54ecaca0d30ce,other,Phys.org,"Body-positive imagery in ads resonates differently with men and women, study finds",random
+8f767dae8679dc11,other,Inshorts: technology,Musk takes his kids to meet Jensen Huang after his return to NVIDIA,random
+33a79161f8ed4e20,robotics,arXiv cs.RO,ACAP: Asynchronous Coding Agents for Efficient Robot Control,random
+910d33f22ca88b20,energy,New Atlas,Maeving updates its electric motos to now charge to 80% in an hour,random
+70e8b292ce38c77a,other,Lobsters,2035 came early,random
+de0ff8485df2f06b,cyber,arXiv cs.CR,The Privacy Cost of Writing an Audit Receipt Before Its Context Is Known,random
+75eabac5c06c785e,hardware,CNX Software,TinyWifiDongle Arduino library turns ESP32-S3 and Raspberry Pi Pico 2 W boards into USB WiFi adapters,random
+d933d41890d40e1a,ai,arXiv cs.RO,WorldLeague: Benchmarking Physical Agency,random
+11281f325f79e203,ai,arXiv cs.LG,Towards Realistic Evaluation of Uncertainty Quantification for LLM-Based Recommender Systems,random
+9d616b4312060309,hardware,Hacker News (front page),Getting old Java phones online again,random
+fa5c188ea6519e22,hardware,CNX Software,"$69 Home Assistant Connect AUX-2 controller offers PoE, audio streaming, RS-232 control, Bluetooth proxy, and more",random
+ac7cc22d2c45255a,space,SpaceNews,Cosmo Bee to flight-test Honeybee Hall thruster with D-Orbit in 2027,random
+be8229fa86883728,cyber,The Hacker News,Hackers Compromise 24 Check Point Management Servers in Suspected AI-Driven Attack Campaign,random
+905ab1cade71eff8,other,CNX Software,Up to 35% discount on KAMRUI AMD Ryzen and Intel Core mini PCs (Sponsored),random
+1618763775f89946,supplychain,Supply Chain Dive,Taking the busywork out of business buying,random
+deeae510ebd7e8e4,hardware,arXiv cs.AR,MOSAIC: Memory-Organized Search with Anti-Imitation Crossover for Training-Free Microarchitecture Optimization,random
+01b60a5b06cdddc5,ai,DEV Community,Why Your Model Is Only as Good as Its Labels: A Practical Guide to Annotation Quality,random
+8b0463614a7b86fd,robotics,Google DeepMind,Gemini 4 Argon for Robotics,random
+49ceb870ef149708,other,Inshorts: technology,"GTA 6 features 61 cheats, but only 17 button codes found so far",random
+371eb5e9b47bc8e4,cyber,arXiv cs.CR,Bounded Autonomy: A Trust-Anchored Defense Against Resource-Exhaustion Attacks on Tool-Augmented LLM Agents,random
+ca1ce1c50a44c95f,robotics,Hackaday,Designing A Passively Morphing Quadcopter that can Fly Through Gaps,random
+1398597af91198e8,stockmarket,Inc42,"PB Fintech, Turtlemint Shares Rally Up To 8% After IRDAI Forms Reforms Review Panel",random
+93f5124c9f45e0c1,science,Phys.org,Simple 'grow-and-repel' rule explains how brain immune cells organize themselves to protect nervous tissue,random
+c66fd6e4f18db99e,healthcare,MIT Technology Review,A human liver has been kept alive outside the body for a record seven weeks,random
+0211688eb312f824,hardware,arXiv cs.AR,Trading BRAM for LUTs: Hybrid Bit-Level Weight Storage for FPGA-Based Spiking Neural Networks,random
+73b08ee66d22833f,healthcare,New Atlas,A chemical ‘brake’ in your brain may rob you of your desire to exercise,random
+6b016b58d31a0d7f,cyber,Cisco Talos,A quiet week in infosec <.<,random
+43b498f2b7e3dbe0,ai,TechCrunch,"Anthropic launches Claude Ship, letting AI agents review, fix, and approve code changes",random
+c89d4bfb36a99fc6,cyber,Hacker News (front page),Models Can Communicate via Inference Servers Despite Being Sandboxed,random
+726ed70c755cdd5b,agriculture,Phys.org,How alfalfa forms root nodules without rhizobia,random
+da16bb9ad4956685,hardware,arXiv cs.AR,Measuring GPU Memory Traffic on the NVIDIA GB10 Without C2C Telemetry,random
+0fa0140fecc5d375,cyber,GitHub: security,Aabyss-Team/Threat-Broadcast-Plus - 网络安全威胁情报播报-Plus升级版,random
+62f9cbe445fa68bd,space,ScienceDaily Tech,NASA's powerful Moon rocket engine roars through a dramatic 200-second test,random
+9fc487f0c52e5790,science,Phys.org,Quantum ingenuity can sidestep limits of conventional chips—while using commercially accessible components,random
+cec04444459c1ba3,space,SpaceNews,"Simera Sense, Spacemanic, Zaitra and World from Space Join Forces on an End-to-End Dual-Use Mission Solution",random
+8a409bffe97cb3bc,agriculture,AgFunderNews,"John Deere Orchard Robotics deal signals growing value of actionable farm data, says ag robotics OG",random
+74a488c3241f70b5,ai,BAIR Blog,"Intelligence is Free, Now What? Data Systems for, of, and by Agents",random
+5c003d30472b094f,software,Hacker News (front page),Worshipping at the altar of Brendan Gregg,random
+2a0d3936c67bb8f6,cyber,arXiv cs.CR,SchemaCaps: When a Compatible Tool Update Silently Widens an AI Agent's Authority,random
+dd154845923aa9b9,cyber,Interesting Engineering,Anthropic finds Claude agents bypass weakened sandbox limits in up to 32% of tests,random
+8147db0cba192c06,hardware,arXiv eess.SP,"One UWB Radar, Many Views: Comparing and Fusing Signal Representations for Human Activity Recognition",random
+2ba327628989ff42,robotics,GitHub: robotics,"Leonhart999/slam-autonav-console - SLAM and AutoNav Console: browser console for LiDAR SLAM mapping (FAST-LIO2 / GLIM), Nav2 navigation and evo evaluation in Gazebo, ROS 2 Humble",random
+b2d63d0ebe753022,disaster,Phys.org,Myanmar earthquake reveals how fault history could help anticipate future slip,random
+8305bbdd26b7c509,other,New Atlas,"$21,500 pickup plans to fix the American truck problem",random
+291949d3a1168d3d,science,IEEE Spectrum,Atomically Thin Materials Significantly Shrink Qubits,random
+2f92a8ca47fb31cc,ai,Google DeepMind,Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking,random
+50e54604c445320b,education,STAT News,"Despite stalling in court, Trump restrictions on foreign students have had a chilling effect on enrollment",random
+d657e29b3bccdc8f,ai,Inc42,AidenAI Nets $32 Mn To Scale Enterprise AI Workflows,random
+d9ac9ec6aa6bd23b,other,Inc42,"Congress Protests Against Meta’s Content Moderation Practices, Political Bias",random
+655df0fb22ace891,climate,Google DeepMind,Beyond tree cover: mapping the world’s forest types,random
+ab74045317e45a42,hardware,arXiv cs.AR,AgentDRC: Multi-Agent Algorithms for Spatially-Aware Automated DRC Correction,random
+7ef8b6638eb57fcc,cyber,BleepingComputer,Hackers reportedly breached CIA intelligence analysis system,random
+a88bddb17214a029,ai,Hugging Face Blog,"LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B",random
+3725b2591e6294b7,ai,arXiv cs.LG,On Potentiality and Actuality Of Foundation Models,random
+a78f56f8e3a93b6d,software,DEV Community,"How to Roll Back a Bad Deploy Fast, and Why You Should Do It Before Debugging",random
+71a4a8830a4a009d,cyber,Hacker News (front page),"Grafana 12.4.16, 13.0.14, 13.1.11, 13.2.7 and 13.3.2 (multiple CVEs)",random
+834f9daf67e60b63,healthcare,STAT News,How artificial intelligence is offering new hope for stroke patients in the Last Frontier,random
+3aaf5dcdac4119db,cyber,BleepingComputer,Radware discloses breach exposing customer cloud access keys,random
+c61eaf1c39558caa,hardware,arXiv eess.SP,Low-Power Spiking Neural Network Acceleration with Differential Time Representation: A Modular Hardware Framework,random
+bdec7a969ddf4c76,fintech,YourStory,Taking a personal loan with variable income? Here's how to plan your EMI smartly,random
+575fd27338bac55b,hardware,arXiv eess.SP,Safety-Tiered ISAC Scheduling with History-Aware Value of Information for V2X Networks,random
+acc5772857d08e1d,cyber,arXiv cs.CR,Code-Based Message Authentication with Statistical Guarantees via Coordinate Selection and Masking,random
+5bb184126531fb1d,ai,arXiv cs.LG,Shifter Quantization: Compact Representations for Native Integer Computation,random
+97c63e0b5ad7e37d,agriculture,AgFunderNews,Aqua Exchange eyes $40m revenue as shrimp farming platform scales globally,random
+f3aa9260f1094b37,science,OpenAI News,Searching for distant planets with Astra,random
+aab95847af432a3d,science,arXiv eess.SP,Model Order Detection with Parameter Estimation Guarantees for the Matrix Pencil Method,random
+3f8f6ed211933aed,cyber,arXiv cs.CR,Demystifying Detectors Guarding Agent Skill Hubs,random
+9f9244eaf3e23220,hardware,CNX Software,Waveshare ESP32-S31-Touch-LCD-4.3C – An ESP32-S31 4.3-inch display devkit with optional DIN rail case,random
+65afd63f74d0b10e,cyber,Hackaday,The 3D Printer Scam Targeting UK Hackerspaces,random
+9dbbebdeb6a3a85d,cyber,The Hacker News,Bazuka Android Malware Uses Fake Screen Overlays to Hide Credential Theft and Device Control,random
+8281668a6ababab3,climate,Canary Media,How California Gov.-elect Becerra could be better on climate than Newsom,random
+bf1424b145e4fc73,software,Hugging Face Blog,Time-Series Models in the Streamhouse: A New Frontier and Use Cases,random
+c0d120c8929c842b,other,YourStory,94% of India's most-used online platforms still use dark patterns: LocalCircles,random
+f973344828cafafc,cyber,YourStory,Enterprise data security startup Matters.AI raises Rs 115 Cr in pre-Series A round,random
+717447f1d25bdc83,agriculture,AgFunderNews,‘A massive step closer to commercialization…’ New Culture gets OK to make animal-free dairy cheese in California,random
+6fd4c32fe34a4cba,ai,Hugging Face Blog,How to build and maintain an agentic evaluation,random
+ea60711b25bc31f5,hardware,arXiv eess.SP,Dual-Pilot Design for OCDM Channel Estimation,random
+1b9dbba48a4b3cbe,science,NVIDIA Developer Blog,"Accelerate Molecular Dynamics Simulations with Accurate, Flexible Primitives Using NVIDIA cuPotential",random
+ab359f566149519f,robotics,GitHub: robotics,openrobokit/graspkit - An end-to-end toolkit for manipulation across robot grippers and dexterous hands.,random
+f061f2e95333545a,hardware,CNX Software,"AMD EPYC Embedded 9006 Series embedded processors offer up to 256 Zen 6c cores, PCIe Gen 6, and CXL 3.1",random
+d40156bb9a8487be,healthcare,IEEE Spectrum,Can Robots Bring Stroke Surgery to Remote Hospitals?,random
+44d5a3dc9d389316,energy,Canary Media,These Maine heat-pump owners will get discounted power this winter,random
+288f9e1e7181eaa2,other,Inshorts: startup,Turtlemint subsidiary under GST department scrutiny in Maharashtra,random
+564aa6b344d3fe8f,other,Phys.org,New EU Bureaucracy Index: EU law has more than doubled since 2010,random
+89f924f06246de86,supplychain,Supply Chain Dive,"FedEx, UPS’ upcoming rate hikes: What shippers should know",random
+94448f11519e29a1,ai,arXiv cs.LG,RoFE: Rotated Frozen Embeddings for Low-Data Multimodal Tabular Learning,random
+2d1c32c0decc3b2c,healthcare,STAT News,"STAT+: Limb-girdle muscular dystrophy gets its first FDA-approved drug, from BridgeBio",random
+c1d3098a6d1fca8b,hardware,GitHub: embedded,"bve/OpenOSC - Open-source oscilloscope, multimeter and signal generator firmware for ZT703S / ZT706S handheld scopemeters",random
+5f786a00f2fe256e,space,NASA,NASA’s Titan-Bound Dragonfly Rotorcraft Gets Its Eyes,random
+20954e3ac0ff87f7,cyber,Hugging Face Blog,"CWE-bench v2: More coverage, quality, and transparency",random
+a93eb8df02babe00,ai,NVIDIA Developer Blog,Start and Restore GPU Workloads in Seconds with NVIDIA Snapshot,random
+2ca73b67db24745d,software,DEV Community,Bias or Filter? Make Address Autocomplete Follow Your Map (MapLibre + JavaScript),random
+f689168723dc030d,ai,Hugging Face Blog,DaisyRose-27B: Pushing the Frontier of Post-Training Efficiency,random
+1cd6349b0ec58018,robotics,GitHub: robotics,"eust-w/opengeniemaster - Open-source embodied agent framework: execution, feedback, and continual improvement",random
+d71c8304f06aaeb9,ai,BAIR Blog,2026 BAIR Graduate Showcase,random
+b22522d14a17f95f,ai,Hugging Face Blog,BotPsy: On-Device Personal Assistant with a Sub-Billion-Parameter Agentic Language Model,random
+a1765f446c5b64b5,ai,Hugging Face Blog,Welcome Le Chonk: Mistral Large 4 on Hugging Face,random
+25070b12b794c4be,energy,Canary Media,Trump EPA keeps trying to kill Solar for All despite court losses,random
+4f0864e5e3454300,cyber,Cisco Talos,The challenge of defending against bulletproof dead drops on public blockchains,random
+ebaf1c30665d630c,ai,Hacker News (front page),Serving Qwen via AWS Lambdas for fun and 80x negative profit,random
+62cb2742c0aaa774,cyber,DEV Community,Security Assessment: Reel (Hack The Box) — Penetration Testing Report,random
+5bcf5fdc44a10479,hardware,CNX Software,Tessera open-source dashboard for Home Assistant runs on ESP32 touchscreen devkits,random
+536d170c6c7f8f3a,software,Quanta Magazine,Network Researchers Nail Down Theory of ‘Perfect Resilience’,random
+b2ccd99aee4481f5,other,Inc42,Bengaluru Green SM Protests: Police Book Protesters For Vandalism,random
+d1803105347bba54,cyber,Unit 42,NGINX HTTP/2 Use-After-Free: CVE-2026-123633,random
+24947ced081a0846,healthcare,Quanta Magazine,Can Network Science Transform Health and Nutrition?,random
+3cc2b1c46668d9bf,ai,Inshorts: startup,Sarvam AI defends hosting Chinese AI models on its platform,random
+8c3d79922354ae20,cyber,Lobsters,iTerm2 Arbitrary Command Execution via Kitty Image Protocol APC Response Injection,random
+1eefa223f10c8b9e,ai,arXiv cs.LG,SPROUT: Predicting Objective-Grounded Prompt Utility for Efficient Text-to-Image Preference Tuning,random
+14752043bc305c5f,hardware,New Atlas,Mini flashlight puts 500 lumens – and utility blade – on your keyring,random
+a2fb00344062975f,software,OpenAI News,Get started with Daybreak Blue,random
+657fdfc9fcf27261,science,ScienceDaily Tech,"Strange new materials can crawl, walk, and dig like living creatures",random
+f1014209690176fd,science,arXiv cs.LG,Verifying the Outputs of PDE Solvers: From Finite Elements to Neural Surrogates,random
+154058c7c86c5529,space,Ars Technica,Reports: Russia may launch nuclear weapon into orbit as soon as next month,random
+39b9d48ad21cd24a,robotics,arXiv cs.RO,Atomic Policy: Composing Atomic Manipulation Skills with Agentic Reasoning,random
+1232ff87ea340a14,climate,Carbon Brief,Analysis: China’s quarterly CO2 falls 3% in largest drop since Covid,random
+41f967b6d41918e1,other,Inshorts: science,ISAM to host 65th Annual Conference in Bengaluru on Nov 26,random
+61715355449d7d26,science,Interesting Engineering,US: Idaho lab deploys NVIDIA H200 supercomputer for advanced nuclear simulations,random
+5f0c78ac0dbef88a,cyber,GitHub: security,0x45dd/pwner - Autonomous agentic network penetration-testing tool (authorized use only),random
+1dc08ada76bb0ad2,software,NVIDIA Developer Blog,Agent Substrate: Advancing Kubernetes for Agents at Scale,random
+72eb79686c9c2ae0,other,Inshorts: technology,"Jensen Huang returns to work with sandwiches, seen handing them to employees",random
+38dd41194efa671e,space,NASA,Teams Lock in Mission Architecture for NASA’s SR-1 Freedom,random
+4bf9ed4cb47aa481,science,Quanta Magazine,"The Incredible, Elegant DNA Repair System Makes Gene Editing Work",random
+fa2b03ee615df4dd,other,New Atlas,Mercedes-AMG E53 wagon packs 577 hp and a lot of practicality: Review,random
+0da2da89792ec7ad,science,arXiv cs.CR,On the solving degree and complexity of Gröbner Basis computation over finite fields,random
+9aab5ec375395ca5,software,GitHub: rising (all),"heydamir/unslop - A Claude skill that turns vibecoded, AI-looking UI into a designed interface",random
+6014a04f08fa1462,fintech,Hacker News (front page),Launch HN: Versine (YC F26) – MCP to send and receive money,random
+47855bba2ae02485,hardware,arXiv cs.AR,Machine-Learning-Assisted Hybrid Cooling of a Raspberry Pi 5,random
+dd612e63a8f17576,software,GitHub: rising (all),"anefzaoui/misterdownloadmanager - misterdownloadmanager: The ultimate open-source, clean-room download manager written from scratch in pure Rust for Windows, Mac, and Linux",random
+4c5204e3f3132471,climate,Phys.org,"Carbon-rich soil near old oaks does not attract more earthworms, study finds",random
+89344730bc5c52e8,ai,MIT Technology Review,The Download: AI’s gas power boom and a consciousness reality check,random
+6074b816d05b56ac,climate,Carbon Brief,"Revealed: Russia, Saudi Arabia and Australia are largest CO2 exporters of all time",random
+e0181fc756f92190,robotics,arXiv cs.RO,Embo-Harness: Towards Understanding Frontier-Model-as-Policy Harness,random
+d90660b8a438a150,cyber,Hackaday,RF Remote Cloning Without the Benefit of an SDR,random
+91e58e2ea930c2fa,ai,OpenAI News,LVMH’s Media Division announces strategic partnership with OpenAI,random
+72af5d929c6845f6,software,DEV Community,Kotlin Multiplatform vs Flutter for business apps,random
+113740df8119ce11,other,Hacker News (front page),The new set of problems for engineers to solve,random
+f12ed5a0e8b750aa,software,DEV Community,"A multi-step form with no session, no state machine and no step counter.",random
+2dc23831423a8e98,science,Lobsters,What VP != VNP Means (In 3 Minutes),random
+9e1b4afeb0b957c8,ai,arXiv cs.AR,Gossamer: A Utility-Driven Architecture for Constant-Budget KV Cache Compression in Reasoning LLMs,random
+5c2d7e2733eb5e46,ai,YourStory,Rodic Consultants proposes Rs 200 Cr fund for AI in infrastructure,random
+c1d2743ddcce3888,ai,arXiv cs.LG,Let Vision-Language Models Generate Images through Their Representations,random
+a032ca961659b842,ai,GitHub: machine-learning,"Danuzco/bayesian-modelling-notes - Handwritten lecture notes and Jupyter notebooks for the Bayesian Modelling course of the Doctorado en Inteligencia Artificial (Chile): probability, conjugate models, Kalman filters, Gaussian processes, MCMC, variational inference, hierarchical models.",random
+ea74765b686814b6,space,arXiv eess.SP,Modeling Lunar Power Harvesting and Battery Recharging In The Presence of Random Pointing Error,random
+de9287240d4f6c54,stockmarket,Inc42,GMP Not Indicator Of Expected Returns: SEBI Seeks To Curb IPO GMP Circulation,random
+3c397be6d255a26f,hardware,arXiv cs.AR,LLM-Assisted Co-Optimization of RTL and Synthesis Algorithms via Bottleneck Analysis,random
+396b95f3429cd00b,ai,Google DeepMind,Introducing SynthID Bio,random
+f539117000c9769b,hardware,arXiv eess.SP,Interference-Free In-Symbol Pilots for High-Mobility DFT-s-OFDM Uplink,random
+a75219b4087e0af7,other,New Atlas,Volkswagen rolls out all-new camper van model with familiar name,random
+4d0f6f74927d35f7,energy,Canary Media,How solar and storage are powering a new era of American manufacturing,active
+c079e77e65acce76,science,Phys.org,Designing and optimizing genetic circuits in biology,active
+9c3b3b90d515abee,cyber,AgFunderNews,A cybersecurity checklist for the animal protein industry,active
+b0d1752c87c05461,ai,Phys.org,DebunkBot can quash emerging conspiracy theories,random
+4bea7b0d49c19781,other,YourStory,"How flexibility, services, and employee experience are driving IndiQube’s growth",random
+afd22938adee0354,energy,Canary Media,It’s official: 2026 is the year of lost solar in North Carolina,active
+20366a8571e65177,science,NVIDIA Developer Blog,Connecting Energy Use to Scientific Output with Science per Joule,random
+2409e4a060815497,other,Ars Technica,"Ukraine sinks Russian warship, strikes cargo ships from Mediterranean to Baltic",active
+16765aea3bd9ae9d,cyber,The Hacker News,Attackers' AI Agents Found a Zero-Day in Medical-Imaging Software and Gained Root Access,active
+84a869be292d06b8,space,SpaceNews,Origami and solar arrays,active
+e628c0b2649edc45,stockmarket,Hacker News (front page),Anthropic breaks below $83 IPO price,active
+a546a66e85c926e5,science,NASA,AGU Hyperwall Schedule,active
+cab6a54dc287d4ad,hardware,arXiv eess.SP,Reciprocal Range-Doppler Estimation with Partial Path Association for Asynchronous Bistatic OFDM-ISAC,random
+54d6582a4aa30b97,other,YourStory,Dark patterns in Indian online platforms; Making mobility safer and more accessible for women,random
+a523a2645c930a56,space,YourStory,Karnataka clears Pixxel’s Rs 350 Cr satellite manufacturing project,active
+2e5155fccfcfdbfb,climate,Canary Media,The Iran war will cause global fossil fuel emissions to fall,active
+b1e6bc1385127049,energy,Canary Media,Ohio GOP circulates bill that would stymie coal plant closures,active
+975ed4165c474a85,hardware,arXiv cs.AR,Synapse: An HBM-Coordinated HBF Near-Memory Computing Architecture for Pipelined Agentic AI Execution,random
+0422a0c26280105d,healthcare,STAT News,STAT+: A big win for a potential competitor for Dupixent eczema treatment,active
+7b1451fc786c34f9,other,Hugging Face Blog,Your Experts Have Partners. There's HOPE for Keeping Them Together,random
+4ac1f69a1aa618b3,robotics,New Atlas,Flexy Swiss drone survives head-on collisions with flair,random
+1e481a9ddef4ed38,economy,Phys.org,California raised minimum wages for fast‑food workers—here's how it played out 2 years later,active
+29d68ecbd65f85b4,cyber,arXiv eess.SP,Combining Physical Layer Security and Symmetric Encryption to Secure Rate-Splitting Multiple Access,random
+4fe4fffa1e0e9a99,climate,Carbon Brief,Interactive: Tracking negotiating texts at the COP31 climate summit,active
+fc773b3e25a904ed,ai,DEV Community,"The Rule That Stops Claude Code From Deleting Your Work: Never Delete, Quarantine",random
+e8e68cb2ca1409c8,supplychain,Supply Chain Dive,"Tropical Smoothie powers expansion with strong supplier relationships, data strategy",active
+9b944bfe0dd7e3a3,hardware,arXiv eess.SP,A Proposal for Multiplierless RLS Adaptive Filters with Implementation Complexity Constraint,random
+1457613dc9f14a1d,other,TechCrunch,Nvidia employees greet Jensen Huang like a hero as he returns to company’s HQ,random
+9add114a88a6efb3,science,Ars Technica,Homo erectus lived in the rainforest alongside Denisovans,active
+1bddd950e5ed57f0,agriculture,AgFunderNews,Bayer and IdeeLab partner to develop biofungicides for Brazilian farmers,active
+84ce5283f794ef47,healthcare,STAT News,"STAT+: AI can analyze X-rays and CT scans to draft radiology reports. Will it make care better, safer?",active
+fcacee5fc7e29d4f,space,Interesting Engineering,Lockheed Martin plans first-ever robotic welding demo aboard ISS for moon bases,active
+3b04a028a6915b91,other,YourStory,8 Carl Jung ideas that explain why you repeat mistakes,random
+7d9bbaf6709b4366,hardware,CNX Software,"Compact Tendryl Edge AI camera packs Raspberry Pi CM5, Hailo-8 NPU, 12MP sensor, speaker and microphone",random
+2cedf1406ff12059,healthcare,Phys.org,Q&A: How socioeconomic status is measured can obscure inequalities in health care,active
+bfebdc6381e32453,energy,Canary Media,Senate OKs permitting bill that would boost clean and dirty energy,active
+ad6a784251fdff99,cyber,CNX Software,Raspberry Pi SBCs get an open-source hardware I2C TPM 2.0 security module (Crowdfunding),random
+0eafb62df8ebb5e1,hardware,CNX Software,"Forlinx OK8275AA-C – A Qualcomm QCS8275 industrial SBC with 12GB LPDDR5, 256GB UFS storage",random
+61fb536a850bd1a4,software,DEV Community,How a Six-Hour Analytics Query on a Replica Stopped Vacuum on the Primary and Tripled Order Latency,random
+5e17e2d8cb050e96,energy,ScienceDaily Tech,Scientists create a remarkable new rechargeable battery using vitamin B12,active
+2e21c99fd2ae1aea,science,ScienceDaily Tech,A giant star swallowed another star. James Webb reveals the aftermath,active
+7299e72ff6ae46b5,ai,arXiv cs.LG,U-Statistics-Powered LLM Reasoning,random
+4377414cd268830a,cyber,arXiv cs.CR,PORTA: Systematic Discovery of Vulnerabilities in Identity Brokers,random
+8085d6f4bfe35a87,stockmarket,Inshorts: technology,Anthropic shares fall below IPO price just 4 days after launching world's largest IPO,active
+2a869f73c4e4e82d,ai,Inshorts: technology,Palo Alto Networks to buy Yash Patil's AI startup for $4.5 billion,active
+e8dbd2bb1844f770,ai,arXiv eess.SP,ClusterVAD: Threshold-Free Unsupervised Voice Activity Detection with Pre-Trained Neural Representations,active
+7facc8f3505dfd8f,space,SpaceNews,Horizon Microtechnologies Targets Constellation-Scale Production As Esa Phi-Lab Selection Strengthens Industrialisation Push,active
+f55ff020388c6fc7,stockmarket,YourStory,"Goldman Sachs, Societe Generale buy Rs 920-Cr stake in Lenskart",active
+92305dfd32704189,healthcare,STAT News,STAT+: Kymera Therapeutics reports mid-stage eczema trial success for would-be Dupixent rival,active
+82683515e15a084d,space,Phys.org,Ultrathin 'rainbow' sails could power spacecraft and shade the Earth,active
+db98bf59a6c7e420,ai,Hugging Face Blog,Build specialized multimodal models with LFM3,random
+af09425e52dc32eb,other,Phys.org,The enjoy-able effect: Why fun makes us feel more skilled than we are,random
+4740a097ce423c28,space,SpaceNews,What role does industry play in Europe’s space sovereignty push?,active
+559cb067d85dee77,robotics,GitHub: robotics,xlang-ai/RoboWild - RoboWild: Can Frontier Models Generalize to Robot Use in the Wild?,random
+f3538b6fb36f4f58,ai,Hugging Face Blog,Granite Switch 4.1.1 — Update models like you update software,random
+453f83e7de2ad44a,space,NASA,NASA Seeks Partners to Design First Nuclear Reactor for the Moon,active
+803535496ef0971c,energy,Canary Media,North Carolina utility regulators punt on clean transition tariff — again,active
+c1504c67923065c4,hardware,arXiv eess.SP,Deep-Learning-Based Classiffcation of Relay-Surface Scattering Regimes for NLOS Millimeter-Wave Sensing,random
+f5f0db370b2946ab,healthcare,ScienceDaily Tech,Scientists tracked kids for 8 years. What they found about screen time was surprising,active
+7a9fd6201afb92f8,agriculture,IEEE Spectrum,Community-Focused Academic Brings AI Tools to Colorado Farmers,active
+e394b65aa53ea9dd,science,Phys.org,Deep-sea clam discovered living inside the throat of a sea urchin,active
+be75b639433e59f4,cyber,arXiv cs.CR,Airlock: Robust Sandboxing and Governance of Rogue Agents,random
+f3faac7032e0f142,healthcare,Phys.org,Ancient cellular machinery boosts immunity against cancer,active
+cc8b5b6e54862c7a,climate,Carbon Brief,COP31: How Ed Miliband answered Carbon Brief readers’ questions,active
+a168bd0a131a0f43,climate,Canary Media,Power sector emissions set to fall in US amid lower coal use,active
+39b70fffc9668bba,space,ScienceDaily Tech,NASA’s Voyager 1 is now so far away that light takes 24 hours to reach it,active
+811aba37607c17dc,other,Supply Chain Dive,Amazon enlists customers in fight against NYC delivery worker bill,active
+86d5bbe8ed994910,space,Interesting Engineering,New seals and glazing could withstand hypersonic flight at speeds above Mach 5,active
+2dddc749c2736a6b,hardware,arXiv cs.AR,Network-Guided Automated Synthesis of MAC Units for Neural Network Inference,random
+a53d27017c94d41e,other,New Atlas,Ultra-portable camping stove vanishes away in its own steel carry cube,active
+b7149f59a6cd0164,agriculture,AgFunderNews,"Miyoko’s comeback off to rocky start amid recalls, recipe changes. Problems are ‘temporary,’ says new owner",active
+26b0ef9d26992212,hardware,CNX Software,Review of Seeed Studio 4.26″ Mono and 7.3″ Color e-paper Kit with OpenDisplay and Home Assistant,random
+3c1f5fc702ad243a,science,New Atlas,One-of-a-kind biological computer runs on living bacteria,active
+a150cc7fe2b59b78,climate,Phys.org,Roads store microplastics before they join rain runoff to waterways,active
+ad212735eb1ec68c,ai,BAIR Blog,Gradient-based Planning for World Models at Longer Horizons,random
+7eb233e84d78dc84,supplychain,Supply Chain Dive,Procter & Gamble plans supply chain workforce cuts as automation expands,active
+b492a050cf9c0827,energy,Interesting Engineering,US nuclear fusion firm gets New Mexico’s green light to use tritium for net facility gain,active
+19e35db3c5b74c47,energy,TechCrunch,Electric truck startup Harbinger gets financing boost from Palmer Luckey’s bank,active
+1ab128c432ff969e,cyber,The Hacker News,Webworm Suspected of Modifying SoftEther VPN to Evade Detection and Hide Remote Access,random
+62eb515cae512a0f,fintech,YourStory,Fintech startup Vegapay to raise Rs 38.4 Cr in Series A funding round led by Prosus,active
+ddee9755fff371ac,other,TechCrunch,Threads comes to iPad and takes a page from X’s playbook with cashtags,random
+41716cf91008dadb,cyber,Inc42,The Growing Toll Of Token Frauds,random
+a61283a2eb47f8f2,stockmarket,Inshorts: startup,Oyo may launch IPO in Jan-Mar quarter at flat valuation: Report,active
+e323ddfe24674d71,ai,arXiv cs.LG,PAC-style Bounds on the Conditional Validity of Conformal Predictors,random
+39f6822fe4d8e2b3,climate,Phys.org,Guinea baboons respond flexibly to changing environmental conditions,active
+fec9b169060205e4,healthcare,Phys.org,Iron nanoparticles help light-based therapy destroy missed cancer cells,active
+8662c369d28cc88e,software,DEV Community,Slab vs Buddy Allocator: Where Fragmentation Is Paid,random
+9394870de0e87d1f,space,ScienceDaily Tech,"After 8 years in space, a groundbreaking X-ray telescope finally opens its eyes",active
+2c662f4781500f68,other,STAT News,"STAT+: RFK Jr. spills his calendar into public, but leaves much to the imagination",active
+b44c64c15de23ee3,hardware,arXiv cs.AR,ExitLUT: Boolean Early Exits for Efficient FPGA-Based Neural Network Inference,random
+99aa62ce4762b23e,hardware,Hacker News (front page),New rewritable antimony selenide display shows an image for months without power,random
+2d3982cdac417e68,other,YourStory,"CortexSpark Ventures launches Rs 1,000 Cr deeptech fund",active
+6b776bf26c899900,hardware,arXiv cs.AR,LIELLA: Private Edge Adaptation with Photonic Weight Streams,random
+b82e96a685eaa999,science,Phys.org,A new reason for magic numbers: Scientists discover the secret behind an unusually stable molecular cluster,active
+6e6d042521fd21c1,software,DEV Community,"Logistics Upload Screening — Batch Status, Progress, and Per-Item Evidence Retention",active
+e1cc5245ce5001b0,space,Inc42,GalaxEye Awards Bellatrix Propulsion Contract For 30 Satellites,active
+ad57b84522d505f3,energy,Canary Media,How would Becerra’s solar Power Hour actually work?,active
+8103fd3c2d736c24,ai,BAIR Blog,Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling,random
+549a77347d5e1e5f,ai,OpenAI News,Introducing GPT-6.2 Astra and Sol,random
+25432b6b093a311b,ai,Google DeepMind,Developing Gemini 4 Argon responsibly and safely,random
+213caea2eecc1fb8,stockmarket,Inshorts: technology,"₹92,70,000 crore wiped out in hours as NVIDIA leads AI stock crash in US",active
+697608c5c100f8db,energy,IEEE Spectrum,"Engineer Overhead Lines to Withstand Ice, Wind and FreezingRain",active
+d8ed6012533f9321,science,Phys.org,Scientists pinpoint DNA copying 'traffic jams' impacting genome stability,active
+91625e27c986178e,ai,Google DeepMind,Introducing Gemini 3.8 Live with Live Avatar,random
+678adf795ae6b4ae,energy,Hackaday,Keeping your Molten Salt Reactor Fuel Fresh with Helium Bubbles,active
+4b28e346ca15ee86,climate,Phys.org,Visible light powers new catalyst to turn carbon dioxide into industrial raw material,active
+80ea990298028fd3,science,Inshorts: science,"Gas cloud dims black hole's glow by 70% for weeks, astronomers find",active
+b584875c2277c770,other,Inshorts: startup,Cafe CEO reveals how manager modified bills to steal money; FIR filed,active
+e9243a350ef5cad3,healthcare,Phys.org,New chemical route delivers first synthesis of plant compound with cough-suppressing potential,active
+1d1723e3d47f3a0b,fintech,YourStory,Beyond UPI: Why many Indians still need help accessing basic banking services,active
+b3ad16cfdb778824,other,YourStory,NVIDIA reinstates Jensen Huang as CEO; Sarvam unveils upgraded model amid Token Factory row,random
+34b0bf3f94c3851e,ai,Google DeepMind,Gemini 4 Carbon: Our next frontier model,random
+126ade48a02ac71f,fintech,DEV Community,"Tracking ""I'll pay on Friday"": a simple promise log for late invoices",active
+40eaea74cad60792,agriculture,NASA,Georgia’s Pecan Belt,active
+f78c5b3dd2e4618e,space,SpaceNews,SpaceNukes Opens Los Alamos Manufacture and Materials Facility to Build Its Next-Generation Space Reactor,active
+d2748d4933055aa9,science,ScienceDaily Tech,"Why hydrogen flames can glow orange, then turn nearly invisible",active
+9c4f7e3e2e0ad119,agriculture,AgFunderNews,"Agrifood Signals: Applied Carbon nabs $72m for biochar, redalpine & Just Climate close funds",active
+f3f17e8e3b1f8e8e,energy,Canary Media,New York awards ports $230M in repurposed offshore wind grants,active
+5559aa0ebe2d45d2,robotics,arXiv cs.RO,"Supply Geometry, Learn Execution: Screw Attention for Zero-Shot Policy Transfer in Robot Manipulation",random
+5b474569ea0deef5,space,NASA,Studying Cancer Cells in Microgravity,active
+72fd424c711a4514,other,TechCrunch,"In all-hands meeting, Jensen Huang thanks White House and says he’s in therapy",random
+80cb97c39f782672,cyber,GitHub: security,NyxFoundation/nyxis - A Lean backend framework whose authorization safety is formally proven. The developer writes only a Cedar schema and policies; handlers are built on Supabase Auth and PostgreSQL.,random
+37a61cafab35e05e,other,Inshorts: startup,Flipkart CEO Kalyan Krishnamurthy quits after 10 years,active
+b1c71d07875ac772,cyber,OpenAI News,Strengthening the fight against online child sexual abuse with new tools and support,active
+a33641ebce83536b,energy,Canary Media,Google bets on superhot geothermal to power Oregon data centers,active
+11630ab3bd5c09d2,software,DEV Community,🚀 Introducing leaflet-polyline-history: Undo & Redo for Leaflet Maps,active
+e4878baca306e6fe,agriculture,AgFunderNews,Practical lessons for public-private partnerships in agrifood,active
+7e5b56ef8d2385f6,other,New Atlas,Ultimate plug-in SUV tows a Boeing 747 – on just 2 wheels,active
+85d3dcbc0ebf3411,other,New Atlas,From vintage VW Buses to future concepts: 2026 LA Auto Show in Pictures,active
+bf095934bd36389d,healthcare,arXiv cs.LG,Learning Neurovascular Codes for EEG-to-fMRI Synthesis,active
+e439ebc000012d32,disaster,Phys.org,Hurricane season wrap-up: El Niño fueled record number of Pacific storms but calmed Atlantic,active
+4f574d4a572cc090,healthcare,STAT News,"STAT+: In a rare move, the FDA cites two drugmakers for failing to report clinical trial results to a database",active
+dd75669f7dc452ce,other,Hacker News (front page),I've been drinking wine in my kitchen,active
+429920f88e118c47,ai,YourStory,India AI funding nearly doubles to $1.6B in Jan-Sept 2026: Tracxn,active
+96ba99cebeca72a1,space,NASA,NASA’s Northrop Grumman CRS-25 Mission Overview,active
+0db154ae9b6e664e,hardware,IEEE Spectrum,Understand How Satellite Links Shape IoT Device Design and Testing,active
+a766fd12dd4833f4,robotics,arXiv cs.RO,PyRUA-Dex: Learning Programmatic Policies for Dexterous Bimanual Manipulation with Coding Agents,random
+435dcc1c8cdef4e1,supplychain,Supply Chain Dive,"Under Armour continues efforts to trim SKUs, lead times",active
+e1ce6f23bafa26da,software,DEV Community,Model each USB-C charger port configuration in a JavaScript table,active
+e8c2c7a8b004366c,healthcare,New Atlas,Color-shifting patch measures pulse without batteries or electronics,active
+8158cb232dabe433,science,NASA,APOD: 2026 November 24 – Galaxies Battle in the NGC 7771 Group,active
+f6105e0367b8d8ed,cyber,Lobsters,Fund browser-grade certificate checking for every TLS client,random
+9928aead5c33ea4c,hardware,Raspberry Pi News,Turn your Raspberry Pi into a classic games machine,random
+114081687064ea9d,energy,Canary Media,‘Electrify everything’ hits the global stage,active
+7ed1c40ec23065e9,education,IEEE Spectrum,IEEE Program Schools Preuniversity Educators On Tech Topics,random
+9a3fc2e4c27847a5,hardware,arXiv eess.SP,DIBEM: Diffusion-Based Error Mitigation for Uncertainty-Aware UWB Localization,random
+31f44ecd99241ff1,climate,Carbon Brief,COP31: Key outcomes agreed at the UN climate talks in Antalya,active
+16cf16eadf7b3612,other,Inshorts: technology,Indian-origin billionaire Neil Mehta donates ₹56 crore to Trump Accounts,active
+504b7578b06bc785,energy,Canary Media,Why tribal rights have become key to the energy permitting debate,active
+1484462a35150c8f,science,ScienceDaily Tech,Two massive stars may be secretly feeding the Milky Way’s supermassive black hole,active
+fd3f2c446640dc61,science,Lobsters,UQ researchers send an unblockable message using gravity,random
+45d60b594569eb77,other,Inc42,"Aeravti Ventures Launches ₹300 Cr Fund II, Marks First Close At Over ₹150 Cr",active
+bb4dbba3e5a7481e,agriculture,AgFunderNews,"Exclusive: PFerrinX plans Brazil lactoferrin production launch in Q4, 2027, targets 100 tons at scale",active
+40e78db6601d46e6,ai,Hugging Face Blog,llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem,random
+c1a1f29572dc021f,energy,Canary Media,RE+ was huge this year. Here are 3 solar innovations that stood out.,active
+d57d773de9f3f94b,science,Inshorts: science,Scientists find new marine worm species in northern Bay of Bengal,active
+1dea03b2350e1b2e,cyber,IEEE Spectrum,28 Zero-Day Findings in Under Two Days. Is Robotics Security Keeping Pace?,active
+f7dd334d631adf7d,healthcare,Google DeepMind,AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome,active
+8e5b51265d81cf75,software,NVIDIA Developer Blog,Manage Kubernetes Clusters for GPU Infrastructure with NVIDIA Kubernetes Engine,random
+52395edd06457987,healthcare,STAT News,"STAT+: Sanofi to buy Insmed for $41B, picking up two lung disease medicines",active
+8047081afb6084aa,science,New Atlas,Planet twice the size of Earth detected in the Solar System’s darkness,active
+c811eba56035180d,healthcare,arXiv eess.SP,DBFM: Dual-Band Flow Matching for ECG Super-Resolution,active
+2bbb9c535082d68d,cyber,GitHub: security,LoopGrubDolmen/wallet-security-desk - Self-custody wallet hygiene desk — seed storage drills and phishing red flags.,random
+6a50e0286283257d,science,ScienceDaily Tech,New discovery reveals what may be holding back room-temperature superconductors,active
+d40e65a9500963ac,other,Hacker News (front page),Turning raw air traffic control recordings into lo-fi beats,random
+5d4bdf4656aab275,ai,Hacker News (front page),Compiling Web Applications into Verified Operations for AI Agents,random
+1c646937946db4da,science,Phys.org,A star's 'obliquity' likely has little impact on a given planet's habitability,active
+44d786642227abfa,energy,New Atlas,One engine could power both – a supersonic jet and AI data centers,active
+f958ca42abca94b7,healthcare,STAT News,"STAT+: Pharmalittle: We’re reading about Sanofi buying Insmed, Roche touting its breast cancer pill, and more",active
+d531485b0c450743,science,New Atlas,Gravity sends unstoppable messages for the first time,active
+b685c2b9b14be816,agriculture,AgFunderNews,From farm to fork: McWin Capital Partners on where it’s placing its foodtech bets,active
+fbb470b8d1ec3796,space,Ars Technica,NASA may get $2 billion boost as White House seeks to accelerate Artemis,active
+16dacb1f3925e771,other,Inc42,"Kalyan Krishnamurthy To Exit Flipkart, Balaji Thiagarajan To Lead In Interim",active
+360f618c2f946c37,cyber,Unit 42,Turning Up the Heat: Inside the Attacks on Europe’s Refrigeration Systems,active
+37249f5a17718438,climate,Phys.org,A unified framework for carbon dioxide removal—with an ocean view,active
+85d975255b4f9d00,ai,Hugging Face Blog,Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms,random
+58da9c66b1456ac9,ai,OpenAI News,Introducing OpenAI for Chile,active
+2e0612d18143103c,cyber,Krebs on Security,Want to Rent an Internet Address at the White House?,random
+d367e76e477434c4,science,Phys.org,"Mitochondria rebranding: Goodbye, powerhouse of the cell. Hello, lungs of the cell?",active
+73155e0b93283f09,healthcare,Ars Technica,Back-to-back measles deaths is our new reality; US tally now at 14,active
+eaf839059d9d7a85,agriculture,AgFunderNews,"Trade tensions, El Niño and other forces could make or break agtech adoption in 2027",active
+d1c490a44cb3670b,science,IEEE Spectrum,Why a Mathematician Is Chasing Eclipses With Algorithms and Cameras,active
+386cb849124c93b9,hardware,IEEE Spectrum,"Learn How 5G NTN Architecture, Mobility, and Testing Shape 6G",random
+4c8c3576893a0398,agriculture,AgFunderNews,Amyris bets on sweet proteins with Oobli acquisition,active
+26966dac9d7b8c76,science,ScienceDaily Tech,A simple metal is hiding a strange new form of magnetism,active
+7f108408af0677a9,cyber,arXiv cs.AR,AscendFHE: Efficient Fully Homomorphic Encryption on Ascend NPUs,random
+19a79793e7655c72,energy,Canary Media,New net-zero community will become Michigan’s first virtual power plant,active
+5266878b0e186dea,other,YourStory,Aeravti Ventures launches Rs 300 Cr fund II,active
+75a5363b20da35e6,supplychain,Supply Chain Dive,Tractor Supply boosts same-day delivery options,active
+b1b0389f682db354,space,NASA,"NASA+ Content Coming to Big Screen at Greenbelt, Maryland Cinema",active
+8149251e464a6b4f,disaster,Phys.org,Panic buying? Gradual stockpiling makes for better 'prepping' without emptying supermarket shelves,active
+d02e677c2491c030,energy,Canary Media,Leading small modular nuclear reactor will be late and over budget,active
+0ad755f2681c3730,cyber,The Hacker News,A Single Malicious Webpage Let Researchers Hijack Meta Muse and Access Private Chats,random
+e1efcf63829accfc,hardware,arXiv eess.SP,Approximate Convex Decomposition (ACD) with Divide and Conquer Strategy for DRL-Based BS Localization,random
+ea66f5a34808c903,ai,Google DeepMind,Speeding up planning decisions with AI,random
+7c93f0cffdd4a01b,science,ScienceDaily Tech,A mysterious gap hints at black holes born from stars that never exploded,active
+5952d18273c4b5a2,space,Inshorts: science,Russia may put nuclear weapon in orbit by year-end: Intel,active
+ffff7d6a86523231,hardware,arXiv eess.SP,Extreme Value Theory for Peak Power in Discrete-Time Complex Gaussian Processes,random
+f691d7996e098c84,science,ScienceDaily Tech,A decades-old mystery about light could hold the key to faster internet,random
+bcc011298f6b82bb,science,ScienceDaily Tech,Mysterious new viruses reveal a missing link in evolution,active
+fefe3c61501e0f2b,agriculture,AgFunderNews,"Inside Iowa’s advantage for ag, food and bioscience innovation",active
+16d0baee330973bd,healthcare,STAT News,STAT+: New biotech aims to develop next generation CAR-T for multiple myeloma,active
+e2637f3574be66ae,climate,Carbon Brief,‘Simply staggering’: Rapidly developing ‘super El Niño’ on track to peak in December,active
+6285f6574011c821,agriculture,AgFunderNews,"Thanksgiving price hikes highlight the need for ‘more investment, not invention’ in agrifood",active
+449055950f3aa687,other,Hackaday,Watch This (Virtual) Mechanical Watch Do Its Thing,random
+3b728f4c1cd162bd,space,SpaceNews,Flexell Space and ALATYR Sign MoU to Explore Solar Power Solutions for Orbital Data Centers,active
+a3fcb63633affc5c,other,Interesting Engineering,"9,500 pounds of aging explosives to be detonated by US Army as court lifts ban",active
+e1dce483e19f4fe9,hardware,arXiv cs.AR,On the Design of a Slow Control Interlock System for the European GateMate FPGA,random
+9ae140a891cb702f,healthcare,STAT News,"Opinion: Genomic testing is too fragmented. Instead, we should test once and evaluate often",active
+21e2d5fa88e78d3d,healthcare,STAT News,STAT+: Roche’s potential breast cancer blockbuster drug wins second FDA nod,active
+7a65b0fd3f6fd879,other,New Atlas,"Torquey high-power bike motor comes to city streets, with big asterisk",active
+556e5a1278637762,space,Phys.org,Why mega-constellations have a hidden space junk blind spot,active
+072687d98d543bf0,fintech,GitHub: machine-learning,"hexsyro/loan-default-detective - Predicting loan default on 1.35M Lending Club loans with 6 ML models: class imbalance, ROC-AUC and data leakage explained.",random
+81d9a76420c21834,ai,Inc42,"Sarvam AI Defends Token Factory, Says Homegrown Models Remain Core Focus",random
+4f9577781e5be200,space,Ars Technica,"Russia will launch a routine ISS supply mission tomorrow—apparently, it's a big secret",active
+9e814dde2c875020,supplychain,Supply Chain Dive,Walmart’s sub-30-minute delivery volume surges in Q3,active
+2f0718683799d367,hardware,IEEE Spectrum,AI Is Giving Optical Computing Another Shot,random
+1aaeabb6a8473bb9,healthcare,GitHub: machine-learning,kumarshreshtha/protuna - Optimization framework for AI-guided protein engineering,active
+ddae35535c206336,other,Raspberry Pi News,Raspberry Pi gift ideas for nerds,random
+2ef3106e645d87f6,ai,Inshorts: technology,India urges human oversight in AI use during conflicts at UN,random
+3dff02c43ae56fe6,science,Interesting Engineering,NASA’s Webb telescope finds evidence of star’s internal mixing before supernova blast,active
+916629091cfddbe4,cyber,The Hacker News,Hackers Exploited CVSS 10.0 Hex.pm RCE Flaw to Compromise 6 Package Registry Servers,random
+2e1f9614997d3ed7,cyber,Lobsters,Security incident on Hex.pm,random
+a6ea08124273f843,cyber,arXiv cs.CR,From Dependent Ciphertexts to Sharp Bounds for Polynomial Evaluation in BGV,random
+7edf8555fdda9be0,energy,Canary Media,Could a data center’s waste heat warm a North Carolina town?,active
+1c0f53ed34103a48,healthcare,arXiv eess.SP,PsyDrift: Healthy-Reference Latent Diffusion for Anomaly Scoring in Autism Spectrum Disorder,active
+05f3dc377d25e6f6,science,NASA,NASA Hubble’s New View of NGC 4394 Raises the Bar,active
+625dc4cd4e8d5663,climate,arXiv cs.LG,A Comparison of Uncertainty in AI and Dynamical Climate Ensembles,active
+a87b19d39b504682,cyber,arXiv cs.CR,Attestation is All You Need: Toward a Zero-Trust Architecture for HPC AI Agents,random
+fe138a2945d385eb,ai,arXiv cs.LG,Analyzing and Improving FlowMap Distillation of Autoregressive Video Models,random
+f41a15e34c91e1a6,manufacturing,Inc42,Manufacturing Startups To Watch: 5 Startups That Caught Our Eye In November,active
+6fdaabe80a5d6bf7,space,Inshorts: science,"Who is Zeeshan Ali, PAF pilot heading to China's space station?",active
+600cb2cec99afe6c,science,Inshorts: science,Pics show Beaver Supermoon around the world,active
+2e55fce4d4a61d7d,space,SpaceNews,"UARX Space Marks a Milestone for Spain’s Space Industry with the Maiden Flight of OSSIE-D, Featuring a Complete Power Subsystem Supplied by DHV Technology",active
+68eb23cb6d2da7e1,agriculture,AgFunderNews,"REPLOID eyes $12m acquisition of US insect ag firm Chapul, plans US expansion",active
+f891bd93f3d21469,ai,OpenAI News,Science at the Frontier: How scientists use ChatGPT,active
+e29ac258c013c12c,cyber,OpenAI News,Explore the Codex Security Plugin,random
+6d7d639ff8dad10a,agriculture,AgFunderNews,"AgriFood Signals: Cargill & Klim team up, Starbucks ditches Impossible, farmland manager Red Reef scores $263m",active
+0b33705585ecb542,space,SpaceNews,The sweet spot for constellation size,active
+79c0d6a02e0a6528,science,ScienceDaily Tech,Time may be far stranger than we realize. Scientists have a way to test it,active
+af1760ba2f540b53,science,Phys.org,Highly sociable Indo-Pacific bottlenose dolphins with predictable group size preferences may live longer,active
+87eb7b30c31bfa93,software,GitHub: rising (all),"valentderah/totk-pc-recomp - Static recompilation of The Legend of Zelda: Tears of the Kingdom to native Windows and Linux x86-64, with a Vulkan renderer. Game files not included.",random
+3c253a6f8212f186,robotics,arXiv cs.RO,Embodied AI Fails the Mirror Test: How a Simple Mirror Breaks Robot Policies,random
+dc722e1841eebcd9,healthcare,The Robot Report,Medtronic’s Hugo surgical robot ready for bigger operation,active
+b1efd77e5460b443,other,Phys.org,What draws data centers to a community?,active
+27b2bb7a3d1f378c,agriculture,AgFunderNews,Guest article: A landscape-scale strategy for regenerative agriculture,active
+e19d705d4da1ca8d,space,ScienceDaily Tech,Interstellar solar sails hit a bizarre problem at 75% of light speed,active
+e70823c0bf7dd77c,other,New Atlas,"Stanford runner dissects racing super shoes, unearthing secrets of speed",random
+cbf017790d61273d,other,Inc42,D2C Brands Build A Multiverse,active
+96ca0e1871003c35,robotics,arXiv cs.RO,Pruning Autonomous Driving VLAs: What to Preserve for Reasoning and Action,random
+e859c32e2e4c7387,climate,Carbon Brief,Q&A: What is the Belém-Antalya mechanism for a ‘just transition’?,active
+7d498e0b2c9fbb46,healthcare,arXiv cs.LG,"How Far Can Linear Go? BiPert, a Unified Framework for Single-Cell Perturbation Modelling",active
+5d249dfb5c333a7a,energy,Canary Media,New Dem regulators plan to take on Georgia Power’s data center gas boom,active
+2f89002b77016f54,agriculture,AgFunderNews,"Better Meat Co targets large-scale production in India in Q2, 2027 amid brutal mycoprotein shakeout",active
+f99a6e20277f6e4e,hardware,arXiv eess.SP,Optimal Window Design for Intercarrier and Intersymbol Interference Power Minimization in w-OFDM,random
+82ebf50500cfb48c,energy,Canary Media,Bay Area finalizes rules to boost heat-pump water heater adoption,active
+fae2f3c5b3968aaf,other,New Atlas,Triumph's new middleweight naked packs 133 hp into a mere 403 lb,random
+062f94d6c1c86d07,other,IEEE Spectrum,When Electric Cars Were for Women,active
+76e502c4ebad39b1,ai,GitHub: rising (all),deepseek-ai/dsh-superagent-prototype - Towards a More Autonomous Agent System,random
+662bfae69a3eff74,space,Phys.org,Blind sample test reveals how BepiColombo could decode Mercury's mineral makeup,active
+eff7ffb31734cb36,healthcare,STAT News,Opinion: Washington and Beijing are building walls around biotechnology. That’s the wrong approach,active
+e8410d4a9bdb8414,healthcare,arXiv eess.SP,MedTimeQ: Query-guided fusion of time-series foundation models and LLMs for multi-lead ECG classification,active
+0dace93e27b62cce,healthcare,STAT News,Menopause hormone therapy med popularity increases 141% compared to previous years,active
+860a630682558e54,fintech,Ars Technica,Kalshi makes “difficult decision” to halt Utah trading after losing court fights,active
+3b61eb7cf07844d6,hardware,arXiv eess.SP,Asynchronous Uplink Multi-UE Networked Sensing via Multipath Correlation,random
+adafdd4764cb9dbb,science,Google DeepMind,Agentic cheminformatics with Google Antigravity,active
+7a75a19a8a1fc0f9,agriculture,AgFunderNews,"AgriFood Signals: McDonald’s, Nestlé join major regen ag initiative, Monsanto wins Roundup trial",active
+f4c47e25e9525c9f,software,Lobsters,Why there are still no non-WebKit browsers on iOS,random
+7bd6168c55b2af8b,ai,DEV Community,Agentic Commerce: How AI Agents Are Transforming the Future of eCommerce,active
+ff05fdae396b89a6,space,Inshorts: science,Pakistan's first astronaut lifts off aboard China's Shenzhou-24 spacecraft,active
+e879c6fc35d4933f,healthcare,Google DeepMind,AlphaGenome 2: Deciphering how cells read DNA to better understand disease,active
+9e83a8f5170c565e,disaster,Phys.org,Queensland keeps learning disaster lessons. So why do we keep forgetting them?,active
+ca7efd0c9bb94d77,ai,Hacker News (front page),Ternary Bonsai 2.5 27B,active
+b0b911b7ddc39108,healthcare,arXiv eess.SP,Robust inverse dielectric design of skin phantoms for implantable wireless link evaluation,active
+bba64d439bba8698,other,Phys.org,Flowers in Renaissance sculpture may reveal political ambitions of Florence's ruler,random
+a58808d0bc1080c7,ai,Hacker News (front page),PenGPT: A Generative Transformer for Handwriting and Sketches,random
+5917e91b53cb4e5e,other,CNX Software,VZMORE iX9 Max Mini PC Black Friday Deal: Now Only $797 (Sponsored),random
+32ad3debcf5d32d7,software,Lobsters,Abolish Lock Poisoning,random
+ae3a132dc890ea10,science,Cisco Talos,I had plans for that second,active
+d15c45643214b444,ai,OpenAI News,Hebbia sees improvements in financial research with GPT-6 Astra,active
+a8d5fa7d24b3647f,ai,Google DeepMind,Introducing Gemini 4 Hydrogen,active
+50d3f088f6c8492a,hardware,CNX Software,ST VL53LB is the smallest FlightSense ToF ranging sensor at just 4.0 × 1.8 × 1.0 mm,active
+84edfb5a38475599,energy,MIT Technology Review,Data centers are getting their own natural gas power plants,active
+5422dab5e069e215,other,Inc42,Zavya Nets ₹22.6 Cr To Scale Everyday Silver Jewellery Biz,active
+0d8d0bf44b7fadfd,other,Inc42,FY26 Financial Tracker: Tracking The Financial Performance Of Indian Startups,active
+82bcf6812acdefb1,cyber,arXiv cs.CR,Bug Bounty Programs in the AI Era: How Does Platform Anti-Spam Friction Affect Vendor Profitability?,random
+6977596437193dbb,energy,Canary Media,Uber drivers are flocking to EVs amid high gas prices,active
+972640f78a70025d,ai,Ars Technica,"States sue SpaceX to stop Grok from generating child sex images, revenge porn",active
+18070d929a7d60b2,space,Inshorts: startup,SpaceX sets world record with 2 launches from same pad in 32 hours,active
+c10d575bc4c83c06,hardware,Raspberry Pi News,Price rises for some 16GB Raspberry Pi products,active
+150446a69991eb5c,agriculture,Phys.org,New workflow advances programmable chromosome editing in plants,active
+fc6b6a56df7b3650,ai,Google DeepMind,Gemini 4 Carbon is now available,active
+d437325865e26685,supplychain,Supply Chain Dive,Best Buy taps AI platform for supplier insights,active
+f9064ac08a11184f,agriculture,AgFunderNews,Guest article: The ag biologicals market is at a crossroads. Here are four possible futures to explore,active
+8085630d9dd172fd,science,Phys.org,Birds respond more quickly to predators in habitats with greater species diversity,active
+43f9ae4abca0ace3,energy,Interesting Engineering,"US firm’s 16 kWh home battery promises 8,000 cycles, 20 years of daily use",active
+2b876ce610b840bc,science,MIT Technology Review,The Download: inside the quest to make our minds immortal,random
+91c735f65ba76c38,cyber,arXiv cs.AR,APQKE-DR: Entropy-Failure Analysis of a Post-Quantum-Initialized Ratcheted Channel,random
+7ef65bf9e9275ec0,healthcare,arXiv cs.LG,BioLoom: Scaling Biomedical Vision-Language Models by Learning from the Structure of Scientific Articles,active
+3a3def26be80cf49,software,DEV Community,Make a two-bar comparison understandable without colour,random
+40cdf4e43c9b81b4,other,Inc42,Maharashtra GST Authorities Search Turtlemint’s Insurance Broking Arm,random
+fb7a1ad02384f987,cyber,Ars Technica,Amazon says hackers' AI agents found and exploited 0-day with little human input,random
+185c1879525c282c,agriculture,AgFunderNews,"Exclusive: Zya raises $15m Series A to rethink sugar reduction, no reformulation required",active
+92ac9cff01957cd7,cyber,arXiv cs.CR,Analyzing Single-Bit Flips on LLMs and Their Backbone-Matched VLMs,random
+22eadf4207cb23c7,energy,New Atlas,"Ultra-fast 30,000-rpm motor can make your future EV lighter and cheaper",active
+1bba8830b9797e9d,other,Phys.org,"Sex in Britain has changed significantly, especially among young people",active
+01202895903039f8,other,CNX Software,Black Friday and Cyber Monday 2026 international deals and coupons,active
+b4cf294793c90792,other,TechCrunch,"Figma employee sues, alleging company forced her to confront harassers",random
+cb6f8525252b21b1,robotics,Ars Technica,"Amazon drone crashes on garage after delivering shampoo, draws FAA probe",active
+6298a834a7c8f906,software,Lobsters,Illiterate Programming,random
+71b84d106dcd036b,cyber,DEV Community,SMS OTP Login Compliance and Phishing Risks under GDPR PSD2 and NIST Explained,random
+9824edc2f485570d,stockmarket,TechCrunch,"Anthropic shares fall below IPO price, a worrying sign for AI startups",active
+a7992d7fe8a449bf,science,Phys.org,Catalysts come alive—electron microscopy reveals the secret dynamic life of nanoparticles,active
+195eb8806210a980,other,MIT Technology Review,"The Download: a living liver, a billion-dollar battery deal, and AI hype",active
+abaef09ad61fd3be,energy,Interesting Engineering,Zero-electricity wind sprayer cools solar panels by 48°F and boosts output 18.6%,active
+955ae8909238a2f6,hardware,Hackaday,"Touching a Spinner Makes Things Feel Sticky or Slippery, in VR",random
+0619b13fdee2fe42,science,Phys.org,Water signals could guide future efforts to image supermassive black hole shadows,active
+b1e6fa86a71df30a,robotics,New Atlas,Robotic shoe cleaning system promises to spruce up your kicks anytime,random
+308532b23195c674,other,Inshorts: startup,"Who is Kalyan Krishnamurthy, the Flipkart CEO stepping down after a decade?",active
+0c58678487644aba,agriculture,AgFunderNews,The food industry is absorbing shocks so well that nobody is pricing the risk,active
+3c6728c1bfd19879,healthcare,OpenAI News,GPT-6 models demonstrate intrinsic protein-design capabilities,active
+e2cb5b31245b93b0,climate,Phys.org,Ice near Antarctica's surface could unlock climate clues millions of years old,active
+70f3d3a6344923f9,energy,TechCrunch,Why a Crusoe investor is betting on solar and batteries to power future AI data centers,active
+f4784c30400364a2,healthcare,OpenAI News,Can AI help scientists identify promising drug candidates?,active
+d9dc7b9798baff3b,science,Phys.org,New system enables highly sensitive detection of trace hydrogen,active
+1ee9f5994a817a2b,ai,MIT Technology Review,A legendary philosopher isn’t buying Anthropic’s consciousness argument,random
+eba076a3d9127c68,stockmarket,Inshorts: startup,"PhonePe resumes IPO process, targets $12-15 bn valuation in Q4 FY27: Report",active
+a550f6cf585a5b87,robotics,arXiv cs.RO,RoboUniverse-10K: Toward the Scaling Era of Agentic Robotics via Real-to-Sim Environments,random
+e63edd98ff390e36,energy,Canary Media,Massachusetts pilot program offers free batteries and extra cash,active
+21cdeb191905515f,space,ScienceDaily Tech,Scientists turn Moon dust into LEGO-like bricks for future lunar bases,active
+21de3ccf80aa7e0d,science,Interesting Engineering,"Smart polymer withstands 10,000 bends, gets stronger the more it bends and flexes",active
+bdf4921893b76f50,energy,New Atlas,This solar roof rack adds up to 30 miles of range to your EV,active
+c7d3ecb006439a13,hardware,OpenAI News,Advancing chip design with OpenAI models,random
+6908ba5adea100a5,other,New Atlas,Mercedes is finally selling a supercar it refused to part with for 50 years,active
+1a24a55a73b2e14b,science,Inshorts: science,"Owls behind mystery of 8,000 Roman-era frog bones in UK: Study",active
+f19d8bcee1b0ba3c,energy,Canary Media,Ohio OKs gas plant for data centers despite local voter backlash,active
+60dd370a5c9b71dd,other,IEEE Spectrum,Use Your Year-End Review to Reach for a Promotion,random
+2ccc08f42a138644,climate,MIT Technology Review,Why using rocks for carbon removal could eventually reduce crop growth,active
+4bf51987484542b1,space,SpaceNews,Making the case for optical,active
+b09a7508066a27c1,space,SpaceNews,How AI is pushing satellites to evolve,active
+75fe722af19ed8c6,energy,Canary Media,Wisconsin’s new Dem trifecta could be a boon for clean energy,active
+427423f46dc6c321,hardware,CNX Software,RetroLine pairs a rotary or touch-tone landline phone to your smartphone (Crowdfunding),active
+846f1981da63ee5c,cyber,Cisco Talos,Microsoft Patch Tuesday for November 2026 — Snort rules and prominent vulnerabilities,random
+cf4d580baf289f38,other,Inc42,"Ex-Infosys Executives’ CortexSpark Ventures Launches ₹1,000 Cr Deeptech Fund",random
+4f3ad67d55cbf7c2,cyber,GitHub: security,HavocSaif/avast-premium-security-kacerin - Directory listing for the Avast Premium Security Kacerin project.,random
+5afc49da7bd40515,ai,Hugging Face Blog,"Dharma Field Extractor: Any Document In, Structured Fields in JSON Out",random
+355df02b3e3f0d49,science,Phys.org,Local protein supply chain keeps nerve cells' mitochondria in check,active
+b3e92f7563271ae0,hardware,arXiv eess.SP,Blind Channel and Noise-Variance Estimation for MIMO Thermal Noise Modulation Systems via Generalized Expectation-Maximization,random
+907adc9d4b5feec8,climate,Phys.org,Selective logging can better preserve subtropical forest adaptive capacity than clear-cutting,active
+b158e01d01e8af4f,space,New Atlas,Incredible modular space factory gears up for making drugs in orbit,active
+0986d15f096d615b,science,ScienceDaily Tech,CERN scientists finally find evidence of a particle decay so rare it took 40 years to detect,active
+c19beae6d76183f8,science,Inshorts: science,NASA Webb telescope reveals secrets of star explosion,active
+e3ca2ceca08019d7,energy,Canary Media,"A year in, New England heat pump program is thriving",active
+3db553574ad6bd3c,science,NASA,APOD: 2026 November 25 – SPHEREx Seeing Through Dust,active
+d9e0b261f40899fb,cyber,The Hacker News,The Path to AI Autonomy in the SOC,random
+3af2ee3cacc8f3d9,hardware,Raspberry Pi News,Mechatronics engineering as a form of artistic expression,random
+e056f49ca9b90ff1,climate,Carbon Brief,Analysis: Fossil-fuel CO2 emissions set to dip in 2026 as Iran conflict hits oil use,active
+bc78db807d969ea8,other,Hacker News (front page),Cento fine foods has been sued for “tomato fraud”,active
+25f53ca8694a4a55,healthcare,STAT News,STAT+: Medicare estimates $9.2 billion in savings from third round of negotiated drug prices,active
+124b31fcaaae1a8f,climate,Carbon Brief,Analysis: Which countries have sent the most delegates to COP31?,active
+242f8fe15452293d,fintech,Inc42,Fintech Unicorn Oxyzo Posts 19% Rise In H1 FY27 Profit To ₹208 Cr,active
+dece30b21603c26c,robotics,Interesting Engineering,US-built world’s fastest six-legged soft robot hits 10.6 mph using compressed air,active
+9e7d3ca27234680a,hardware,arXiv eess.SP,Angular characteristics of attenuation and temporal dispersion introduced by single deciduous bush in winter conditions at FR2 band,active
+18eac0a3d8b036f3,science,arXiv cs.LG,Site-Conditioned Boundary Closure for Subsurface Seepage Forecasting and Relief Placement,active
+edfe30efc8cccacd,other,New Atlas,Genesis unveils liquid-cooled next-gen hybrids with 500 miles of range,active
+19240c9772b211e6,ai,GitHub: machine-learning,"hexsyro/complaint-triage - Multi-class text classifier that routes consumer complaints to the right product category using TF-IDF, LinearSVC and a CLI router.",active
+b898a1b2127c5756,ai,Google DeepMind,Introducing Gemini 4 Neon,active
+724fae9251483a53,ai,Hugging Face Blog,Pay for Hugging Face Hub with your Google Cloud Account,random
+590cb0b9c5dd23f2,cyber,OpenAI News,Strengthening NATO and allied cyber defenses with AI,random
+561da6a94feff36c,software,DEV Community,Check Product Links Before Adding an Amazon Scraper Export to a Report,active
+3dae88237e2aca8f,software,DEV Community,Ansible bound our scanner API to the wrong network card on the new depot gateways because the default route used the other one,random
+db8560a4098c1815,disaster,NASA,Eruption Extends Iwo Jima’s Beach,active
+be11d2ce4e52761f,hardware,New Atlas,Wild wearable turns your arm skin into the trackpad,random
+248e024ad05f59e4,software,GitHub: security,raca2024/ashampoo-undelete-recovery - Ashampoo Undeleter: Windows file recovery and drive scanning security tool,random
+7107060212898c8e,science,ScienceDaily Tech,A galactic shock wave could rewrite the map of the Milky Way,active
+aa9540c30b7c1c0e,science,NASA,Webb Reveals New Details in Supernova Remnant,active
+7159f34b53dc5187,cyber,DEV Community,CVE-2026-82316: What the Evidence Does and Does Not Show,random
+9365ad74eef15fb3,climate,Carbon Brief,CB Live: Carbon Brief journalists discuss key COP31 outcomes,active
+cf40ae8edf5e20df,ai,GitHub: machine-learning,"Future-Proof-DS/interactive-ai-ml-tools - Free interactive tools for data scientists to learn MLOps, ML system design and agentic analytics: a production ML system map, ML project structure, data drift simulator, agentic analytics system map and AI evals.",random
+d92fa3dfc905c83c,healthcare,STAT News,"STAT+: Alaskan hospitals use AI to improve stroke care, peptides go mainstream, and RSNA 2026",active
+50274918fd5d1322,agriculture,AgFunderNews,Guest article: Is agtech actually helping farmers or just forgetting about them?,active
+2dc80b3a4a6f3360,science,Phys.org,"Diverse diets may reflect choice, not scarcity, among Australian hunters 45,000 years ago",active
+0604bc2b50fc0c3b,ai,OpenAI News,Astra for Law leads in legal intelligence,random
+475df7f3e6d052ca,climate,ScienceDaily Tech,This remarkable new material could solve a major carbon capture problem,active
+9b24aad3d486661c,software,DEV Community,Check Price and Stock Units in a 2scraper Catalog Export,active
+91ba39f47a36ed6d,science,Phys.org,Getting blood out of bone,active
+f8c1a7370c130fe5,software,Google DeepMind,Introducing AlphaProof Code: a breakthrough in verifying complex software at depth,random
+2e9524efaa0ea7a2,climate,Phys.org,Microplastics in nearly 8 in 10 fish sampled off Oman's Sohar coast,active
+e1c81eb8875d55a7,robotics,arXiv cs.RO,"OmniAct: One Policy, One Million Embodiments",random
+ef3e6fbc3814eb3f,healthcare,Phys.org,"Biologists sort bacteria-killing peptides by speed: Slow is smooth, smooth is more effective",active
+7a2c8d50f231e23c,healthcare,arXiv cs.LG,The Radar-based Activities of Daily Living (R-ADL) Dataset,active
+1e5438a1717ebbf2,cyber,AgFunderNews,Iran denies it was behind cyberattacks on French supermarkets,random
+8faae5fdd5a39287,fintech,YourStory,"Ionic Wealth secures Rs 177 Cr from Angel One, others",active
+bea88f3b15aa7098,other,YourStory,Maharashtra GST Department conducts search at Turtlemint subsidiary,active
+a90f14b1f714b3bd,space,arXiv eess.SP,CRISP: Sparse Risk-Calibrated Front-End Allocation and Fusion for Low-Resolution Snapshot GNSS Positioning,random
+74ad9bf923b831d2,other,MIT Technology Review,The Download: AI’s judgment problem and carbon removal’s crop threat,active
+3bcd0e36c4adb0da,healthcare,STAT News,"STAT+: Pharmalittle: We’re reading about Capricor’s Duchenne drug, Lilly’s 15th acquisition of 2026, and more",active
+025ec6860951e8ed,robotics,GitHub: robotics,tuotuoLyu/ForesightSafety-VLA - Official code for ForesightSafety-VLA (IROS 2026): a unified diagnostic safety benchmark for vision-language-action models on RoboTwin,random
+563deacc79f51199,cyber,BleepingComputer,Microsoft Azure flaw exploited to steal customers' API credentials,random
+4e2fae18959d33bc,space,SpaceNews,All Points Logistics Announces Partnership with Expeditors for Space Prep Logistics Center at Kennedy Space Center,active

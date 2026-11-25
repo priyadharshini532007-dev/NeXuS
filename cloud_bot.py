@@ -93,6 +93,7 @@ HELP = ("<b>NEXUS commands</b>\n"
         "/opportunities - best matches between news and ideas\n"
         "/projects - ideas you've explored\n"
         "/knowledge &lt;words&gt; - search stored news\n"
+        "/news &lt;domain&gt; - latest news the ML model files under a domain (e.g. <code>/news healthcare</code>)\n"
         "/validate &lt;id&gt; - novelty checklist and prior-art searches\n"
         "/architecture &lt;id&gt; | /implement &lt;id&gt; | /github &lt;id&gt; - blueprint (PDF + MD)\n"
         "/compare &lt;id1&gt; &lt;id2&gt; - side by side\n"
@@ -103,7 +104,7 @@ HELP = ("<b>NEXUS commands</b>\n"
 
 QUEUED_CMDS = {"idea", "cyber", "briefing", "trend", "problems", "opportunities", "projects", "knowledge", "validate",
                "architecture", "implement", "github", "compare", "research", "deepdive", "explore", "result", "explain",
-               "ideas", "domains", "top", "project", "shortlist", "archive", "shortlisted", "export"}
+               "ideas", "domains", "top", "project", "shortlist", "archive", "shortlisted", "export", "news"}
 ALIASES = {"security": "cyber", "cybersecurity": "cyber", "daily": "briefing", "catalog": "ideas", "catalogue": "ideas"}
 
 
@@ -181,6 +182,22 @@ def run_command(cmd, args):
                 f"{'See /shortlisted.' if cmd == 'shortlist' else 'Hidden from lists; add --archived to /ideas to see archived ones.'}"], files
     if cmd == "cyber":
         m = N.build_msgs("security", min(num or 15, 30)); remember(m); return m, files
+    if cmd == "news":
+        q = N.CT.parse(args)
+        doms = sorted({d for g in q.doms for d in g})
+        if not doms:
+            return ["Which domain? e.g. <code>/news healthcare</code> or <code>/news energy</code> (see /domains)."], files
+        if not N.DM.available():
+            return ["\U0001F6AB " + N.esc(N.DM.status())], files
+        N.DM.classify_pending(N.db())
+        its = sorted((i for i in N.load_items(7) if set(i["ml"]) & set(doms)), key=lambda i: -i["score"])[:min(num or 12, 25)]
+        label = " + ".join(N.CT.DOMAINS[d][0] for d in doms)
+        if not its:
+            return [f"No news from the last 7 days was classified as {N.esc(label)}."], files
+        body = "\n".join(f"{N.ICON.get(i['type'], '')} <a href=\"{N.html.escape(i['url'])}\">{N.esc(i['title'][:95])}</a> - "
+                         f"{N.esc(i['source'])} <i>({'/'.join(i['ml'])}, {i['ml_p']:.0%})</i>" for i in its)
+        return [f"<b>Latest {N.esc(label)} news</b> (domain chosen by the ML model, confidence in brackets)\n\n{body}\n\n"
+                "<i>The model is right about 6-7 times in 10 on its first guess; check before relying on a label.</i>"], files
     if cmd == "briefing":
         m = N.build_msgs(None, 5); remember(m); return m, files
     if cmd == "trend":
@@ -280,6 +297,7 @@ def status_text():
         fails = c.execute("SELECT id,cmd,error FROM tasks WHERE status='FAILED' ORDER BY id DESC LIMIT 3").fetchall()
     rows.append(f"\U0001F7E2 Queue: queued {q.get('QUEUED', 0)}, running {q.get('RUNNING', 0)}, completed {q.get('COMPLETED', 0)}, failed {q.get('FAILED', 0)}")
     rows.append(f"Workers: {sum(t.is_alive() for t in THREADS)}/{WORKERS} alive; uptime {int((time.time() - STARTED) / 60)} min")
+    rows.append(("\U0001F7E2 " if N.DM.available() else "\U0001F7E1 ") + N.esc(N.DM.status()))
     rows.append("AI provider: " + ("configured (key present, not test-called)" if os.environ.get("ANTHROPIC_API_KEY") else "⚪ not configured"))
     rows.append(f"Scheduler: fetch every {FETCH_H:g} h, digest daily at {DIGEST_H:02d}:00; " + ("PAUSED" if kv_get("paused") == "1" else "active"))
     if lastok:
@@ -439,6 +457,11 @@ def main():
     if not (CHAT and os.environ.get("TELEGRAM_BOT_TOKEN")):
         sys.exit("Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID.")
     init()
+    try:
+        k = N.DM.classify_pending(N.db())
+        log(f"ML domain model: {N.DM.status()}; classified {k} stored items")
+    except Exception as e:  # noqa
+        log("ML domain model failed:", e)
     try:
         N.tg("setMyCommands", commands=json.dumps([{"command": c, "description": d} for c, d in [
             ("idea", "Project ideas"), ("cyber", "Cybersecurity ideas"), ("briefing", "Short briefing"), ("status", "System health"),

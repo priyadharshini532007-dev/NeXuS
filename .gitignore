@@ -8,3 +8,6 @@ bot.log
 __pycache__/
 
 YOUR_PROMPTS.md
+ml/cache/
+.fastembed/
+ml/data/gold.jsonl

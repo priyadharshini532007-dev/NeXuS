@@ -1,0 +1,129 @@
+#!/usr/bin/env python3
+"""NEXUS ML experiment 4: 800-item gold set, nested hyper-parameter tuning, feature combinations, ensemble.
+
+Changes from experiment 3
+- Gold set doubled to 800 items (second batch chosen by active sampling towards rare domains, then random).
+- Regularisation strength C is chosen by an inner 3-fold CV on the training fold only (LogisticRegressionCV),
+  so test folds never influence tuning.
+- Feature sets: BGE-small, BGE-base, their concatenation, and an ensemble averaging the probabilities of
+  logistic regressions on BGE-small, BGE-base and TF-IDF.
+Protocols as before: A = repeated stratified 5-fold (x3), B = whole feeds held out (GroupKFold, 5).
+"""
+import sys
+import time
+from collections import Counter
+from pathlib import Path
+
+import numpy as np
+from scipy.sparse import hstack
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegressionCV
+from sklearn.metrics import accuracy_score, f1_score
+from sklearn.model_selection import GroupKFold, RepeatedStratifiedKFold, StratifiedKFold
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import experiment2 as E  # noqa: E402
+
+E.EMB_MODELS.update({"BGE-base": "BAAI/bge-base-en-v1.5"})
+SEED = 42
+CS = [0.3, 1, 3, 10, 30, 100]
+
+
+def lr():
+    return LogisticRegressionCV(Cs=CS, cv=StratifiedKFold(3, shuffle=True, random_state=SEED), max_iter=4000,
+                                class_weight="balanced", scoring="accuracy", n_jobs=-1)
+
+
+class Ensemble:
+    def __init__(self, feats):
+        self.feats = feats
+
+    def fit(self, idx, y):
+        self.ms = [lr().fit(F[idx], y) for F in self.feats]
+        self.classes_ = self.ms[0].classes_
+        return self
+
+    def proba(self, idx):
+        return np.mean([m.predict_proba(F[idx]) for m, F in zip(self.ms, self.feats)], axis=0)
+
+
+class Single:
+    def __init__(self, F):
+        self.F = F
+
+    def fit(self, idx, y):
+        self.m = lr().fit(self.F[idx], y)
+        self.classes_ = self.m.classes_
+        return self
+
+    def proba(self, idx):
+        return self.m.predict_proba(self.F[idx])
+
+
+def evaluate(make, y, grp, Gn, splits, weak, ev):
+    acc, top2, f1, cs = [], [], [], []
+    for tr, te in splits:
+        idx = tr
+        if weak:
+            held = set(grp[te])
+            idx = np.concatenate([tr, np.arange(Gn, len(y))[[g not in held for g in grp[Gn:]]]])
+        m = make().fit(idx, y[idx])
+        P = m.proba(te)
+        order = np.argsort(-P, 1)
+        pred = m.classes_[order[:, 0]]
+        acc.append(accuracy_score(y[te], pred))
+        top2.append(np.mean([y[te][i] in m.classes_[order[i, :2]] for i in range(len(te))]))
+        f1.append(f1_score(y[te], pred, labels=ev, average="macro", zero_division=0))
+        if hasattr(m, "m"):
+            cs.append(float(m.m.C_[0]))
+    return dict(acc=np.mean(acc), acc_sd=np.std(acc), top2=np.mean(top2), top2_sd=np.std(top2),
+                f1=np.mean(f1), f1_sd=np.std(f1), C=(Counter(cs).most_common(1)[0][0] if cs else None))
+
+
+def main():
+    G, W, desc, N = E.load_all()
+    yG = G["y"]; Gn = len(yG); c = Counter(yG)
+    ev = sorted(d for d, n in c.items() if n >= E.MIN_EVAL)
+    print(f"gold {Gn}, weak {len(W['y'])}, eval classes {len(ev)}: {ev}", flush=True)
+    y = np.concatenate([yG, W["y"]]); grp = np.concatenate([G["src"], W["src"]])
+    strat = np.array([x if c[x] >= 5 else "_rare" for x in yG])
+    A = list(RepeatedStratifiedKFold(n_splits=5, n_repeats=3, random_state=SEED).split(np.zeros(Gn), strat))
+    B = list(GroupKFold(n_splits=5).split(np.zeros(Gn), yG, G["src"]))
+    texts = G["X"] + W["X"]
+    t0 = time.time()
+    Fs = E.embed("BGE-small", texts, "items800")
+    Fb = E.embed("BGE-base", texts, "items800")
+    print(f"embeddings ready ({time.time() - t0:.0f}s)", flush=True)
+    Ft = TfidfVectorizer(ngram_range=(1, 2), min_df=2, max_df=0.9, sublinear_tf=True,
+                         strip_accents="unicode").fit_transform(texts).tocsr()
+    Fsb = np.hstack([Fs, Fb])
+    configs = {
+        "BGE-small": lambda: Single(Fs),
+        "BGE-base": lambda: Single(Fb),
+        "BGE-small+base (concat)": lambda: Single(Fsb),
+        "TF-IDF": lambda: Single(Ft),
+        "Ensemble (small + base + TF-IDF)": lambda: Ensemble([Fs, Fb, Ft]),
+    }
+    rows = []
+    for name, mk in configs.items():
+        for proto, sp in (("A", A), ("B", B)):
+            for weak in (False, True):
+                r = evaluate(mk, y, grp, Gn, sp, weak, ev)
+                tag = "G+W" if weak else "G"
+                line = (f"| {name} | {proto} | {tag} | {r['acc']:.3f} ± {r['acc_sd']:.3f} | {r['top2']:.3f} ± {r['top2_sd']:.3f} | "
+                        f"{r['f1']:.3f} ± {r['f1_sd']:.3f} | {r['C']} |")
+                print(line, flush=True)
+                rows.append((name, proto, tag, r, line))
+    rep = ["# Experiment 4 - 800-item gold set, nested tuning, ensemble", "",
+           f"Generated by `ml/experiment4.py` on {time.strftime('%Y-%m-%d %H:%M')}. Gold: {Gn} items, class counts "
+           f"{dict(c.most_common())}. Macro-F1 over {len(ev)} classes with >= {E.MIN_EVAL} examples.", "",
+           "Model: logistic regression, C chosen by inner 3-fold CV on each training fold (column C = most frequent choice).", "",
+           "| Features | Protocol | Training | Accuracy | Top-2 accuracy | Macro-F1 | C |", "|---|---|---|---|---|---|---|"]
+    rep += [r[4] for r in sorted(rows, key=lambda r: (r[1], -r[3]["acc"]))]
+    (E.ML / "reports" / "experiment4.md").write_text("\n".join(rep) + "\n", encoding="utf-8")
+    bestB = max((r for r in rows if r[1] == "B"), key=lambda r: r[3]["acc"])
+    print(f"\nbest on unseen feeds: {bestB[0]} ({bestB[2]}) acc {bestB[3]['acc']:.3f} top2 {bestB[3]['top2']:.3f}")
+
+
+if __name__ == "__main__":
+    main()

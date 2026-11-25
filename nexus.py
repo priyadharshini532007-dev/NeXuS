@@ -24,6 +24,7 @@ sys.path.insert(0, str(ROOT))
 from blueprint import blueprint_md, md_to_pdf  # noqa: E402
 import fresh as F  # noqa: E402
 import catalog as CT  # noqa: E402
+import domain_model as DM  # noqa: E402
 DATA = Path(os.environ.get("NEXUS_DATA", ROOT))  # writable state dir (a mounted volume in the cloud)
 DATA.mkdir(parents=True, exist_ok=True)
 DB = DATA / "nexus.db"
@@ -79,6 +80,7 @@ def db():
     CREATE TABLE IF NOT EXISTS health(source TEXT PRIMARY KEY, last_ok TEXT, last_try TEXT, n INTEGER, error TEXT);
     """)
     F.init(c)
+    DM.init(c)
     return c
 
 
@@ -272,6 +274,11 @@ def fetch_all():
             log(f"  {'OK ' if not err else 'ERR'} {s['name']:<28} +{n:<3} {err or ''}")
     c.commit()
     log(f"stored {new} new items")
+    try:
+        k = DM.classify_pending(c)
+        log(f"ML domain model: classified {k} items" if k else "ML domain model: " + DM.status())
+    except Exception as e:  # noqa - classification must never break fetching
+        log(f"ML domain model failed: {e}")
 
 
 def show_health():
@@ -282,8 +289,9 @@ def show_health():
 # ---------------------------------------------------------------- matching
 def load_items(days=10):
     cut = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
-    rows = db().execute("SELECT id,url,title,summary,source,cat,type,rel,published,tags,extra FROM items "
-                        "WHERE dup_of IS NULL AND (published IS NULL OR published > ?)", (cut,)).fetchall()
+    rows = db().execute("SELECT i.id,i.url,i.title,i.summary,i.source,i.cat,i.type,i.rel,i.published,i.tags,i.extra,"
+                        "d.d1,d.p1,d.d2,d.p2 FROM items i LEFT JOIN item_domain d ON d.id = i.id "
+                        "WHERE i.dup_of IS NULL AND (i.published IS NULL OR i.published > ?)", (cut,)).fetchall()
     now = datetime.now(timezone.utc)
     items = []
     for r in rows:
@@ -293,8 +301,11 @@ def load_items(days=10):
         ex = json.loads(r[10] or "{}")
         if ex.get("hn_points"):
             score *= 1 + min(ex["hn_points"] / 500, 0.5)
+        ml = DM.domains(*r[11:15]) if r[11] else []
+        tags = sorted(set(json.loads(r[9])) | {DM.DOMAIN_TAG[d] for d in ml if d in DM.DOMAIN_TAG})
         items.append(dict(id=r[0], url=r[1], title=r[2], summary=r[3], source=r[4], cat=r[5], type=r[6], rel=r[7],
-                          published=r[8], tags=json.loads(r[9]), extra=ex, score=round(score, 4)))
+                          published=r[8], tags=tags, extra=ex, score=round(score, 4), ml=ml,
+                          ml_p=r[12] if r[11] else None))
     return items
 
 

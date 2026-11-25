@@ -29,6 +29,7 @@ jobs:
       GITHUB_TOKEN_FOR_STATE: ${{ secrets.GITHUB_TOKEN }}
       STATE_KEY: ${{ secrets.STATE_KEY }}
       NEXUS_DATA: ${{ github.workspace }}/state
+      FASTEMBED_CACHE_PATH: ${{ github.workspace }}/.fastembed
       NEXUS_RUN_MINUTES: "50"
       NEXUS_DRAIN_MINUTES: "8"
       TZ: Asia/Kolkata
@@ -48,6 +49,13 @@ jobs:
           cache: pip
 
       - run: pip install -r requirements.txt
+
+      - name: Cache the ML embedding model (downloaded once, reused by later runs)
+        uses: actions/cache@v4
+        with:
+          path: .fastembed
+          key: fastembed-${{ hashFiles('ml/models/domain_model.json') }}
+          restore-keys: fastembed-
 
       - name: Check required secrets
         run: |
