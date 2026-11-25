@@ -1,8 +1,9 @@
 # Free hosting on GitHub Actions (no VPS, no laptop)
 
-The workflow `.github/workflows/nexus.yml` starts every 15 minutes, listens to Telegram for ~13 minutes (so replies are
-near-instant while a run is active), runs queued tasks, then saves its state - encrypted with your STATE_KEY - to a
-`state` branch. A new run picks that state up. Use a PUBLIC repository (free minutes are not metered there).
+The workflow `.github/workflows/nexus.yml` listens to Telegram for ~50 minutes per run (replies are near-instant while
+a run is active), runs queued tasks, saves its state - encrypted with your STATE_KEY - to a `state` branch, and then
+starts the next run itself. Between runs there is a gap of a few minutes; messages sent then are answered by the next
+run. An hourly schedule restarts the chain if it ever stops. Use a PUBLIC repository (free minutes are not metered there).
 
 ## One-time setup
 1. github.com -> New repository -> public, no README (e.g. `nexus-agent`).
@@ -27,7 +28,9 @@ near-instant while a run is active), runs queued tasks, then saves its state - e
 6. Turn the laptop off and send `/start`, `/status`, `/idea`, `/cyber` from the phone.
 
 ## Honest limits
-- Not 24/7 instant: gaps of a few minutes happen between runs, and GitHub can delay scheduled runs (sometimes much longer).
+- Not 24/7 instant: gaps of a few minutes happen between runs. If a run fails, the chain stops until the hourly
+  schedule restarts it, and GitHub can delay scheduled runs by hours (observed on this repo). Start it by hand from the
+  Actions tab (nexus -> Run workflow) if the bot is silent for long.
 - GitHub may disable scheduled workflows after 60 days without repository activity; re-enable them in the Actions tab.
 - GitHub's terms restrict using Actions for things unrelated to the repository's software project. A bot host may be
   treated as misuse; read GitHub's current Actions terms and accept that risk, or move to a VPS later (Docker files are ready).

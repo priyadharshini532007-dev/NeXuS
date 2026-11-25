@@ -1,10 +1,13 @@
 name: nexus
 
-# Each run listens to Telegram for ~13 minutes, answers commands, then saves its (encrypted) state to the
-# "state" branch. Runs are chained every 15 minutes; `concurrency` keeps exactly one active at a time.
+# Each run listens to Telegram for ~50 minutes, answers commands, saves its (encrypted) state to the "state"
+# branch, then starts the next run itself (self-chaining), so the bot is offline only for the ~2-3 minutes of
+# setup between runs. GitHub's cron is unreliable for new/low-activity repos, so it is only a backup that
+# restarts the chain if it ever breaks. `concurrency` keeps exactly one run active at a time.
+# To stop the bot: Actions tab -> nexus -> "..." -> Disable workflow.
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
 
 concurrency:
@@ -13,11 +16,12 @@ concurrency:
 
 permissions:
   contents: write
+  actions: write   # lets a run start the next one
 
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 75
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -25,7 +29,7 @@ jobs:
       GITHUB_TOKEN_FOR_STATE: ${{ secrets.GITHUB_TOKEN }}
       STATE_KEY: ${{ secrets.STATE_KEY }}
       NEXUS_DATA: ${{ github.workspace }}/state
-      NEXUS_RUN_MINUTES: "13"
+      NEXUS_RUN_MINUTES: "50"
       NEXUS_DRAIN_MINUTES: "8"
       TZ: Asia/Kolkata
     steps:
@@ -79,3 +83,10 @@ jobs:
           git config user.name "nexus-bot" && git config user.email "nexus-bot@users.noreply.github.com"
           git add state.enc && git commit -q -m "state $(date -u +%FT%TZ)"
           git push -q -f "https://x-access-token:${GITHUB_TOKEN_FOR_STATE}@github.com/${GITHUB_REPOSITORY}.git" state
+
+      - name: Start the next run
+        # only after a clean run, so a broken setup cannot loop; the hourly cron restarts the chain otherwise
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run nexus.yml --ref "${GITHUB_REF_NAME}"
