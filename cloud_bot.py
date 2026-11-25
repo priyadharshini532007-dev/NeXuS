@@ -109,6 +109,8 @@ ALIASES = {"security": "cyber", "cybersecurity": "cyber", "daily": "briefing", "
 
 def domain_mission(args, num):
     """Fresh, domain-specific mission: unseen library ideas of that domain + new sparks from recent matching items."""
+    again = bool(re.search(r"--again\b", args))
+    args = re.sub(r"--again\b", "", args).strip()
     q = N.CT.parse(args)
     rows = N.catalog_rows()
     doms = sorted({d for g in q.doms for d in g})
@@ -118,11 +120,11 @@ def domain_mission(args, num):
         tags = set().union(*(N.CT.DOMAIN_TAGS.get(d, set()) for d in doms))
         topic = "security" if doms == ["cyber"] else None
         label = " + ".join(N.CT.DOMAINS[d][0] for d in doms)
-        m = N.build_msgs(topic, n, only_ids=ids, tags=tags, words=q.words or None, label=label)  # extra words narrow the fresh sparks
+        m = N.build_msgs(topic, n, only_ids=ids, tags=tags, words=q.words or None, label=label, again=again)  # extra words narrow the fresh sparks
     else:  # a topic that is not in the taxonomy: search stored news and the catalogue for those words only
         words = q.words or args.lower().split()
         ids = {r["id"] for r in rows if any(w in (r["p"]["name"] + " " + r["p"]["problem"] + " " + r["sub"]).lower() for w in words)}
-        m = N.build_msgs(None, n, only_ids=ids, words=words, label=args[:40])
+        m = N.build_msgs(None, n, only_ids=ids, words=words, label=args[:40], again=again)
         m.insert(1, f"<i>'{N.esc(args[:40])}' is not one of my listed domains, so I searched stored news and the catalogue for those words. "
                     "I invent nothing for it; with an API key, /research can go deeper.</i>")
     remember(m)

@@ -513,10 +513,11 @@ def catalog_rows():
     return CT.enrich(load_plans(), meta)
 
 
-def build_msgs(topic=None, n=12, mark=True, only_ids=None, tags=None, words=None, label=None):
+def build_msgs(topic=None, n=12, mark=True, only_ids=None, tags=None, words=None, label=None, again=False):
     """Return Telegram HTML messages. topic='security' -> cyber desk.
-    Never repeats: library ideas already shown (last 45 days) are used only after unseen ones run out, and about a third
-    of the list is NEW 'sparks' built from today's items (each item becomes a spark once, ever)."""
+    Never repeats: library ideas that were already shown are NOT used to fill a list. If fewer than n unseen ideas exist
+    the list is shorter and says so (again=True deliberately allows repeats). About a third of the list is NEW 'sparks'
+    built from today's items (each item becomes a spark once, ever)."""
     cyber = topic == "security"
     items = load_items(3)
     c = db()
@@ -531,19 +532,21 @@ def build_msgs(topic=None, n=12, mark=True, only_ids=None, tags=None, words=None
         if p.get("source_item"):  # a spark always cites the item it came from
             p["strong"] = [dict(p["source_item"], why=["origin"], th=9)] + [x for x in p["strong"] if x["url"] != p["source_item"]["url"]][:1]
     day = f"{datetime.now():%Y-%m-%d}"
-    seen = F.seen(c)
+    seen = F.seen(c, 3650)  # remembered effectively forever
     sparks_new = [p for p in pool if p["id"] in new_ids][:nspark]
     regular = [p for p in pool if not p.get("spark")]
     unseen = [p for p in regular if p["id"] not in seen]
-    again = [p for p in regular if p["id"] in seen]
+    seen_list = [p for p in regular if p["id"] in seen]
     rot = lambda ps: sorted(ps, key=lambda p: hashlib.md5((day + p["id"]).encode()).hexdigest())
-    ordered = [p for p in unseen if p["strong"]] + rot([p for p in unseen if not p["strong"]]) + \
-              [p for p in again if p["strong"]] + rot([p for p in again if not p["strong"]])
+    ordered = [p for p in unseen if p["strong"]] + rot([p for p in unseen if not p["strong"]])
+    if again:  # only when explicitly asked: re-show old ideas after the unseen ones
+        ordered += [p for p in seen_list if p["strong"]] + rot([p for p in seen_list if not p["strong"]])
     chosen = sparks_new + ordered[: max(n - len(sparks_new), 0)]
     if mark:
         F.mark(c, [p["id"] for p in chosen if not p.get("spark")])
     k = sum(1 for p in chosen if p["strong"])
     n_new = len(sparks_new) + sum(1 for p in chosen if not p.get("spark") and p["id"] not in seen)
+    short = len(chosen) < n  # fewer unseen ideas exist than were asked for
 
     title = "\U0001F6E1 <b>NEXUS Cyber Desk" if cyber else (f"\U0001F9ED <b>NEXUS mission: {esc(label)}" if label else "\U0001F9E0 <b>NEXUS daily")
     msgs = [f"{title} - {datetime.now():%d %b %Y}</b>\n"
@@ -581,6 +584,12 @@ def build_msgs(topic=None, n=12, mark=True, only_ids=None, tags=None, words=None
         return {"t": t + f"\n\n▶ Start: <code>python nexus.py scaffold {p['id']}</code>", "id": p["id"]}
 
     msgs += [card(p, f"{i}.") for i, p in enumerate(chosen, 1)]
+    if short and not again:
+        what = esc(label) if label else ("cybersecurity" if cyber else "this list")
+        msgs.append(f"\u26a0 <b>That is everything new I have for {what}</b>: you asked for {n}, I found {len(chosen)}. "
+                    f"I will not pad the list with ideas you have already seen ({len(seen_list)} earlier ones are hidden). "
+                    "Add <code>--again</code> to re-show them, try a neighbouring domain (<code>/domains</code>), "
+                    "or check back after the next news fetch for new directions.")
     msgs.append("To choose: copy the <code>id</code> of an idea into the start command, or open <b>out/menu.html</b> for full details.\n"
                 "Ask for more: <code>/cyber 20</code> or <code>/ideas 15</code>.")
     return msgs

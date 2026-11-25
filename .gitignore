@@ -6,3 +6,5 @@ state/
 statebranch/
 bot.log
 __pycache__/
+
+YOUR_PROMPTS.md
