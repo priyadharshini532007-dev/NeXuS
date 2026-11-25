@@ -125,13 +125,13 @@ def run_command(cmd, args):
     if cmd == "briefing":
         m = N.build_msgs(None, 5); remember(m); return m, files
     if cmd == "trend":
-        items = N.load_items(3); cnt = {}
-        for it in items:
-            for t in it["tags"]:
-                cnt[t] = cnt.get(t, 0) + 1
-        top = sorted(cnt.items(), key=lambda x: -x[1])[:10]
-        return ["<b>Topics in the last 3 days</b> (item counts across %d items)\n" % len(items) +
-                "\n".join(f"{t}: {n}" for t, n in top) + "\n<i>Counts show coverage, not importance.</i>"], files
+        rising = N.F.rising_terms(N.db())
+        items = N.load_items(3)
+        if rising:
+            body = "\n".join(f"<code>{N.esc(r['term'])}</code> - {r['recent']} items, {r['sources']} sources (x{r['ratio']} vs the prior weeks)" for r in rising)
+            return ["<b>Rising topics</b> (learned from your feeds, last 3 days vs earlier)\n" + body +
+                    "\n<i>Rising in headlines is not the same as important. Check the sources.</i>"], files
+        return [f"Not enough history yet to detect rising topics ({len(items)} recent items). Check back after a few days of fetching."], files
     if cmd in ("problems", "opportunities"):
         ps = sorted(plans_by_id().values(), key=lambda p: -p["heat"])[:8]
         if cmd == "problems":

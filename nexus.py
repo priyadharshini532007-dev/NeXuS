@@ -22,6 +22,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 from blueprint import blueprint_md, md_to_pdf  # noqa: E402
+import fresh as F  # noqa: E402
 DATA = Path(os.environ.get("NEXUS_DATA", ROOT))  # writable state dir (a mounted volume in the cloud)
 DATA.mkdir(parents=True, exist_ok=True)
 DB = DATA / "nexus.db"
@@ -69,6 +70,7 @@ def db():
       cat TEXT, type TEXT, rel REAL, published TEXT, fetched TEXT, tags TEXT, dup_of TEXT, extra TEXT);
     CREATE TABLE IF NOT EXISTS health(source TEXT PRIMARY KEY, last_ok TEXT, last_try TEXT, n INTEGER, error TEXT);
     """)
+    F.init(c)
     return c
 
 
@@ -293,6 +295,8 @@ def load_plans():
     g = DATA / "plans_generated.json"
     if g.exists():
         plans += json.load(open(g, encoding="utf-8"))
+    ids = {p["id"] for p in plans}
+    plans += [p for p in F.load_sparks(db()) if p["id"] not in ids]  # new directions derived from recent items
     return plans
 
 
@@ -496,25 +500,40 @@ def esc(t):
 ICON = {"primary": "\U0001F3DB", "research": "\U0001F52C", "report": "\U0001F4F0", "lead": "\U0001F4AC"}
 
 
-def build_msgs(topic=None, n=12):
-    """Return a list of Telegram HTML messages. topic='security' -> cyber desk."""
+def build_msgs(topic=None, n=12, mark=True):
+    """Return Telegram HTML messages. topic='security' -> cyber desk.
+    Never repeats: library ideas already shown (last 45 days) are used only after unseen ones run out, and about a third
+    of the list is NEW 'sparks' built from today's items (each item becomes a spark once, ever)."""
     cyber = topic == "security"
     items = load_items(3)
+    c = db()
+    nspark = max(2, n // 3)
+    new_ids = {p["id"] for p in F.make_sparks(c, items, nspark, cyber)}
     plans = sorted(match(load_plans(), items), key=lambda p: -p["heat"])
     pool = [p for p in plans if "security" in p["tags"]] if cyber else plans
     for p in pool:  # convincing matches only: 2+ keywords, or 2+ shared topic tags
         p["strong"] = [x for x in p["news"] if len(x["why"]) >= 2 or x["th"] >= 2][:2]
+        if p.get("source_item"):  # a spark always cites the item it came from
+            p["strong"] = [dict(p["source_item"], why=["origin"], th=9)] + [x for x in p["strong"] if x["url"] != p["source_item"]["url"]][:1]
     day = f"{datetime.now():%Y-%m-%d}"
-    with_news = [p for p in pool if p["strong"]]
-    rest = sorted((p for p in pool if not p["strong"]),
-                  key=lambda p: hashlib.md5((day + p["id"]).encode()).hexdigest())  # rotates daily
-    chosen = (with_news + rest)[:n]
+    seen = F.seen(c)
+    sparks_new = [p for p in pool if p["id"] in new_ids][:nspark]
+    regular = [p for p in pool if not p.get("spark")]
+    unseen = [p for p in regular if p["id"] not in seen]
+    again = [p for p in regular if p["id"] in seen]
+    rot = lambda ps: sorted(ps, key=lambda p: hashlib.md5((day + p["id"]).encode()).hexdigest())
+    ordered = [p for p in unseen if p["strong"]] + rot([p for p in unseen if not p["strong"]]) + \
+              [p for p in again if p["strong"]] + rot([p for p in again if not p["strong"]])
+    chosen = sparks_new + ordered[: max(n - len(sparks_new), 0)]
+    if mark:
+        F.mark(c, [p["id"] for p in chosen if not p.get("spark")])
     k = sum(1 for p in chosen if p["strong"])
+    n_new = len(sparks_new) + sum(1 for p in chosen if not p.get("spark") and p["id"] not in seen)
 
     title = "\U0001F6E1 <b>NEXUS Cyber Desk" if cyber else "\U0001F9E0 <b>NEXUS daily"
     msgs = [f"{title} - {datetime.now():%d %b %Y}</b>\n"
             f"{len(chosen)} {'cybersecurity ' if cyber else ''}project ideas ({k} with fresh related news, "
-            f"{len(chosen) - k} timeless).\n\n"
+            f"{len(chosen) - k} timeless). <b>{n_new} are new to you</b>, never shown before.\n\n"
             "How to read: \U0001F3DB official source  \U0001F52C research paper  \U0001F4F0 news report  \U0001F4AC community lead.\n"
             "News are <i>leads to check</i>, not verified facts."
             + ("\nSecurity ideas: test only systems you own or have written permission to test." if cyber else "")]
@@ -532,8 +551,12 @@ def build_msgs(topic=None, n=12):
 
     def card(p, tag):
         first = p["problem"].split(". ")[0].rstrip(".") + "."
+        if p.get("spark"):
+            tag = "✨ New direction:"
         t = (f"{tag} <b>{esc(p['name'])}</b>\n<code>{p['id']}</code>\n"
              f"Level {p['level']}/5 | {p['fit']} | {esc(p['cost'])}\n\n<b>Problem:</b> {esc(first)}\n")
+        if p.get("spark"):
+            t += f"<b>Idea:</b> {esc(p['idea'])}\n<i>Built from today's item; verify the problem and novelty before committing.</i>\n"
         if p["strong"]:
             t += "\n<b>Why now:</b>\n" + "\n".join(
                 f"{ICON.get(x['type'], '')} <a href=\"{html.escape(x['url'])}\">{esc(x['title'][:85])}</a> - {esc(x['source'])}"
@@ -566,7 +589,7 @@ def tg_send(chat, msgs):
 
 
 def digest(topic=None, n=12, send=True):
-    msgs = build_msgs(topic, n)
+    msgs = build_msgs(topic, n, mark=bool(send and os.environ.get("TELEGRAM_CHAT_ID") and os.environ.get("TELEGRAM_BOT_TOKEN")))
     chat = os.environ.get("TELEGRAM_CHAT_ID")
     if send and chat and os.environ.get("TELEGRAM_BOT_TOKEN"):
         tg_send(chat, msgs)
@@ -657,7 +680,7 @@ def bot():
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", choices=["run", "fetch", "build", "health", "ideate", "scaffold", "deep", "digest", "bot", "explore"])
+    ap.add_argument("cmd", choices=["run", "fetch", "build", "health", "ideate", "scaffold", "deep", "digest", "bot", "explore", "import-opml", "rising"])
     ap.add_argument("ids", nargs="*")
     ap.add_argument("--from", dest="src")
     ap.add_argument("--topic")
@@ -675,6 +698,11 @@ def main():
     if a.cmd == "explore":
         for i in a.ids:
             explore(i, deep=not a.offline)
+    if a.cmd == "import-opml":
+        print(f"added {F.import_opml(a.ids[0], ROOT / 'sources.json')} feeds from {a.ids[0]}")
+    if a.cmd == "rising":
+        for r in F.rising_terms(db()):
+            print(f"{r['term']:<32} recent {r['recent']:<3} sources {r['sources']:<2} older {r['older']:<3} x{r['ratio']}")
     if a.cmd == "bot":
         bot()
     if a.cmd == "health":
